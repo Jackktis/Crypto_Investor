@@ -9,13 +9,21 @@
         android:id="@+id/navigation_portfolio"
         android:name="com.example.cryptoinvestor.ui.portfolio.PortfolioFragment"
         android:label="@string/title_Portfolio"
-        tools:layout="@layout/fragment_portfolio" />
+        tools:layout="@layout/fragment_portfolio" >
+        <action
+            android:id="@+id/action_navigation_portfolio_to_navigation_Crypto"
+            app:destination="@id/navigation_Crypto" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_Crypto"
         android:name="com.example.cryptoinvestor.ui.crypto.CryptoFragment"
         android:label="@string/title_Crypto"
-        tools:layout="@layout/fragment_crypto" />
+        tools:layout="@layout/fragment_crypto" >
+        <action
+            android:id="@+id/action_navigation_Crypto_to_navigation_Profile"
+            app:destination="@id/navigation_Profile" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_Profile"
