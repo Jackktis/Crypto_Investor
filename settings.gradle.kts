@@ -7,4 +7,4 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "Crypto Investor"
-include ':app'
+include(":app")
