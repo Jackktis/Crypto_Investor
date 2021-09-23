@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/navigation_portfolio"
         android:name="com.example.cryptoinvestor.ui.portfolio.PortfolioFragment"
-        android:label="@string/title_home"
+        android:label="@string/title_Portfolio"
         tools:layout="@layout/fragment_portfolio" />
 
     <fragment
