@@ -3,23 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/navigation_portfolio">
 
     <fragment
-        android:id="@+id/navigation_home"
+        android:id="@+id/navigation_portfolio"
         android:name="com.example.cryptoinvestor.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_portfolio" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_Crypto"
         android:name="com.example.cryptoinvestor.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:label="@string/title_Crypto"
+        tools:layout="@layout/fragment_Crypto" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/navigation_Profile"
         android:name="com.example.cryptoinvestor.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:label="@string/title_Profile"
+        tools:layout="@layout/fragment_profile" />
 </navigation>
