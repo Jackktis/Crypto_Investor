@@ -15,7 +15,7 @@
         android:id="@+id/navigation_Crypto"
         android:name="com.example.cryptoinvestor.ui.crypto.CryptoFragment"
         android:label="@string/title_Crypto"
-        tools:layout="@layout/fragment_Crypto" />
+        tools:layout="@layout/fragment_crypto" />
 
     <fragment
         android:id="@+id/navigation_Profile"
