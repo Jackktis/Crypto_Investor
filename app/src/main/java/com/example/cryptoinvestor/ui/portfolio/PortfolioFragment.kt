@@ -1,4 +1,4 @@
-package com.example.cryptoinvestor.ui.dashboard
+package com.example.cryptoinvestor.ui.portfolio
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,13 +8,12 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.example.cryptoinvestor.R
-import com.example.cryptoinvestor.databinding.FragmentDashboardBinding
+import com.example.cryptoinvestor.databinding.FragmentPortfolioBinding
 
-class DashboardFragment : Fragment() {
+class PortfolioFragment : Fragment() {
 
-    private lateinit var dashboardViewModel: DashboardViewModel
-    private var _binding: FragmentDashboardBinding? = null
+    private lateinit var portfolioViewModel: PortfolioViewModel
+    private var _binding: FragmentPortfolioBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -25,14 +24,14 @@ class DashboardFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        dashboardViewModel =
-            ViewModelProvider(this).get(DashboardViewModel::class.java)
+        portfolioViewModel =
+            ViewModelProvider(this).get(PortfolioViewModel::class.java)
 
-        _binding = FragmentDashboardBinding.inflate(inflater, container, false)
+        _binding = FragmentPortfolioBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textDashboard
-        dashboardViewModel.text.observe(viewLifecycleOwner, Observer {
+        val textView: TextView = binding.textHome
+        portfolioViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })
         return root
