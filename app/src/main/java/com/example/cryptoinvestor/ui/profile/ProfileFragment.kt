@@ -35,6 +35,7 @@ class ProfileFragment : Fragment() {
         profileViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })
+        print("Profile Frag")
         return root
     }
 

@@ -34,6 +34,7 @@ class PortfolioFragment : Fragment() {
         portfolioViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })
+        print("Portfolio Frag")
         return root
     }
 

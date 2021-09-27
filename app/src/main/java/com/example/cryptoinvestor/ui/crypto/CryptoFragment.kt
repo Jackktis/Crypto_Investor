@@ -34,6 +34,7 @@ class CryptoFragment : Fragment() {
         cryptoViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })
+        print("Crypto Frag")
         return root
     }
 
