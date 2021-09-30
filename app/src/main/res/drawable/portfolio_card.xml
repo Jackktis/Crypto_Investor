@@ -4,13 +4,11 @@
     >
 
 <gradient
-android:angle="360"
-android:centerX="0."
-android:centerY="-1.0"
-android:centerColor="#F79413"
-android:endColor="@color/bannerGold"
-android:startColor="#F79413"
+android:angle="45"
+android:centerX="1"
+android:centerY="1"
+android:centerColor="#FFC107"
+android:endColor="#FF9800"
+android:startColor="#F66B00"
 />
-
-
     </shape>
