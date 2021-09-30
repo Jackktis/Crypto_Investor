@@ -23,16 +23,17 @@
 
     <TextView
         android:id="@+id/SplashScreenTV"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="-50dp"
-        android:text="crypto investing in a safe environment"
+        android:text="@string/crypto_investing_in_a_safe_environment"
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/vector"
-        app:layout_constraintTop_toBottomOf="@id/crypto_logo"
-        tools:layout_editor_absoluteX="0dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/crypto_logo" />
 
     <View
         android:id="@+id/vector"
@@ -50,42 +51,54 @@
         android:id="@+id/editTextTextPersonName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="55dp"
         android:ems="10"
         android:hint="Username"
+        android:hintTextColor="#757575"
         android:inputType="textPersonName"
-        tools:layout_editor_absoluteX="108dp"
-        tools:layout_editor_absoluteY="331dp" />
+        android:minHeight="48dp"
+        app:layout_constraintBottom_toTopOf="@+id/vector"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/SplashScreenTV" />
 
     <EditText
         android:id="@+id/editTextTextPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
-        tools:layout_editor_absoluteX="108dp"
-        tools:layout_editor_absoluteY="373dp" />
+        android:minHeight="48dp"
+        app:layout_constraintBottom_toTopOf="@+id/vector"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
 
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="17dp"
+        android:layout_marginTop="5dp"
         android:backgroundTint="@color/white"
         android:text="Sign up"
         android:textColor="@color/PrimaryColor"
         app:layout_constraintEnd_toStartOf="@+id/button2"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword"
         app:strokeColor="@color/PrimaryColor"
-        app:strokeWidth="2dp"
-        tools:layout_editor_absoluteY="426dp" />
+        app:strokeWidth="2dp" />
 
     <Button
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:text="Log in"
-        tools:layout_editor_absoluteX="259dp"
-        tools:layout_editor_absoluteY="426dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/button"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
