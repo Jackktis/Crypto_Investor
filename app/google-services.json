@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "979526932960",
+    "project_id": "cryptocurrency-bf7a5",
+    "storage_bucket": "cryptocurrency-bf7a5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:979526932960:android:8c8f4560eefc147cd97385",
+        "android_client_info": {
+          "package_name": "com.example.cryptoinvestor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "979526932960-eagciuetitsouemm77td1udf19j556f2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSPvMrjKKBp2xcSWKKniGCZQFRPawA9Yc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "979526932960-eagciuetitsouemm77td1udf19j556f2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
