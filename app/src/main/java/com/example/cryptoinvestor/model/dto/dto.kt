@@ -6,8 +6,9 @@ class dto {
 
     data class User(var firstname: String,
                     var password: String,
-                    var balance: Int = 10000,
-                    var transactions: List<Transaction>)
+                    var balance: Int,
+                    var transactions: List<Transaction>,
+                    var portfolio: Portfolio)
 
     data class Currency(var currencyName: String, var pricePer: Float)
 
@@ -16,5 +17,5 @@ class dto {
         var totalPrice: Float,
         var time: LocalDateTime)
 
-    data class UserPortfolio(val user: User, var listOfOwned: List<Currency>)
+    data class Portfolio(var listOfOwned: List<Currency>)
 }
