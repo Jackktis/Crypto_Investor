@@ -1,4 +1,4 @@
-package com.example.cryptoinvestor.ui.profile
+package com.example.cryptoinvestor.view.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 
 import com.example.cryptoinvestor.databinding.FragmentProfileBinding
+import com.example.cryptoinvestor.viewmodel.ProfileViewModel
 
 class ProfileFragment : Fragment() {
 
