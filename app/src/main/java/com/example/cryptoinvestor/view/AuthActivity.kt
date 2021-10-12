@@ -18,8 +18,8 @@ class AuthActivity : AppCompatActivity(){
             signup.setTextColor(this.getColor(R.color.bannerGold))
             signup.setBackgroundResource(R.drawable.border_shape)
             circleImageView.setImageResource(R.drawable.ic_face_foreground)
-            signin_signup_txt.text = "Sign In"
-            signin_signup_btn.text = "Sign In"
+            signin_signup_txt.text = "Log in"
+            signin_signup_btn.text = "Login"
             forgot_password.visibility = View.VISIBLE
         }
         signup.setOnClickListener {
