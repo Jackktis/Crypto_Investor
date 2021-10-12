@@ -1,6 +1,8 @@
 package com.example.cryptoinvestor.model
 
-class UserRepository {
+import com.example.cryptoinvestor.CryptoInvestApplication
+
+class UserRepository (val application: CryptoInvestApplication) {
 
     // Create a new user with a first and last name
     //TODO: skal password skiftes ud med noget indbygget, så det er krypteret?
