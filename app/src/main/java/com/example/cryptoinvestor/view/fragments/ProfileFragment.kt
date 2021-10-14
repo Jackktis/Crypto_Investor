@@ -1,4 +1,4 @@
-package com.example.cryptoinvestor.ui.portfolio
+package com.example.cryptoinvestor.view.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,12 +8,14 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.example.cryptoinvestor.databinding.FragmentPortfolioBinding
 
-class PortfolioFragment : Fragment() {
+import com.example.cryptoinvestor.databinding.FragmentProfileBinding
+import com.example.cryptoinvestor.viewmodel.ProfileViewModel
 
-    private lateinit var portfolioViewModel: PortfolioViewModel
-    private var _binding: FragmentPortfolioBinding? = null
+class ProfileFragment : Fragment() {
+
+    private lateinit var profileViewModel: ProfileViewModel
+    private var _binding: FragmentProfileBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -24,17 +26,17 @@ class PortfolioFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        portfolioViewModel =
-            ViewModelProvider(this).get(PortfolioViewModel::class.java)
+        profileViewModel =
+            ViewModelProvider(this).get(ProfileViewModel::class.java)
 
-        _binding = FragmentPortfolioBinding.inflate(inflater, container, false)
+        _binding = FragmentProfileBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textHome
-        portfolioViewModel.text.observe(viewLifecycleOwner, Observer {
+        /*val textView: TextView = binding.textNotifications
+        profileViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
-        })
-        print("Portfolio Frag")
+        })*/
+        print("Profile Frag")
         return root
     }
 

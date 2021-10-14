@@ -1,4 +1,4 @@
-package com.example.cryptoinvestor.ui.portfolio
+package com.example.cryptoinvestor.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

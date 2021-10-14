@@ -1,4 +1,4 @@
-package com.example.cryptoinvestor.ui.crypto
+package com.example.cryptoinvestor.view.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,12 +8,13 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.example.cryptoinvestor.databinding.FragmentCryptoBinding
+import com.example.cryptoinvestor.databinding.FragmentPortfolioBinding
+import com.example.cryptoinvestor.viewmodel.PortfolioViewModel
 
-class CryptoFragment : Fragment() {
+class PortfolioFragment : Fragment() {
 
-    private lateinit var cryptoViewModel: CryptoViewModel
-    private var _binding: FragmentCryptoBinding? = null
+    private lateinit var portfolioViewModel: PortfolioViewModel
+    private var _binding: FragmentPortfolioBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -24,17 +25,17 @@ class CryptoFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        cryptoViewModel =
-            ViewModelProvider(this).get(CryptoViewModel::class.java)
+        portfolioViewModel =
+            ViewModelProvider(this).get(PortfolioViewModel::class.java)
 
-        _binding = FragmentCryptoBinding.inflate(inflater, container, false)
+        _binding = FragmentPortfolioBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textDashboard
-        cryptoViewModel.text.observe(viewLifecycleOwner, Observer {
+        val textView: TextView = binding.textHome
+        portfolioViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })
-        print("Crypto Frag")
+        print("Portfolio Frag")
         return root
     }
 
