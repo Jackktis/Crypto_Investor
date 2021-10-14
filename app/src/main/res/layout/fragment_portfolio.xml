@@ -109,6 +109,4 @@
         android:text="@string/title_Portfolio"
         android:textAlignment="center"
         android:textSize="20sp" />
-
-
 </LinearLayout>
