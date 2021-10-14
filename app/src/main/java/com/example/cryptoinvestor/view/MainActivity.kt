@@ -1,11 +1,10 @@
-package com.example.cryptoinvestor
+package com.example.cryptoinvestor.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.cryptoinvestor.R
 import com.example.cryptoinvestor.databinding.ActivityNavigationBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 

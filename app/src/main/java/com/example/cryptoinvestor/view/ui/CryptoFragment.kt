@@ -1,4 +1,4 @@
-package com.example.cryptoinvestor.ui.crypto
+package com.example.cryptoinvestor.view.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.cryptoinvestor.databinding.FragmentCryptoBinding
+import com.example.cryptoinvestor.viewmodel.CryptoViewModel
 
 class CryptoFragment : Fragment() {
 
