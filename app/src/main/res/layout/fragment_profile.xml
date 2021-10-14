@@ -83,12 +83,14 @@
                     android:layout_marginEnd="20dp"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="4dp"
-                    android:layout_gravity="center">
+                    android:orientation="horizontal"
+                    android:gravity="center">
                     <Button
                         android:layout_width="105dp"
                         android:layout_height="match_parent"
                         android:theme="@style/Button.Black"
-                        android:layout_marginEnd="7dp"
+                        android:layout_marginEnd="50dp"
+                        android:gravity="center"
                         android:text="Deposit"
                         android:textSize="9sp"
                         android:clickable="true"/>
@@ -97,17 +99,11 @@
                         android:layout_height="match_parent"
                         android:theme="@style/Button.Black"
                         android:layout_marginEnd="7dp"
+                        android:gravity="center"
                         android:text="Withdraw"
                         android:textSize="9sp"
                         android:clickable="true"/>
 
-                    <Button
-                        android:layout_width="106dp"
-                        android:layout_height="match_parent"
-                        android:theme="@style/Button.Black"
-                        android:text="Transaction"
-                        android:textSize="9sp"
-                        android:clickable="true"/>
                 </LinearLayout>
 
             </LinearLayout>
