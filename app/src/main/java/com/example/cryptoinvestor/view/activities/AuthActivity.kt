@@ -26,11 +26,11 @@ class AuthActivity : AppCompatActivity(){
         setContentView(R.layout.activity_auth)
 
         signin.setOnClickListener {
-            signin.setTextColor(Color.parseColor("#FFFFFF"))
-            signin.setBackgroundColor(this.getColor(R.color.bannerGold))
-            signup.setTextColor(this.getColor(R.color.bannerGold))
-            signup.setBackgroundResource(R.drawable.border_shape)
-            circleImageView.setImageResource(R.drawable.ic_face_foreground)
+            signup.setTextColor(Color.parseColor("#FFFFFF"))
+            signup.setBackgroundColor(this.getColor(R.color.bannerGold))
+            signin.setTextColor(this.getColor(R.color.bannerGold))
+            signin.setBackgroundResource(R.drawable.border_shape)
+            circleImageView.setImageResource(R.mipmap.ic_login)
             signin_signup_txt.text = "Log in"
             signin_signup_btn.text = "Login"
             forgot_password.visibility = View.VISIBLE
@@ -39,11 +39,11 @@ class AuthActivity : AppCompatActivity(){
             }
         }
         signup.setOnClickListener {
-            signup.setTextColor(Color.parseColor("#FFFFFF"))
-            signup.setBackgroundColor(this.getColor(R.color.bannerGold))
-            signin.setTextColor(this.getColor(R.color.bannerGold))
-            signin.setBackgroundResource(R.drawable.border_shape)
-            circleImageView.setImageResource(R.drawable.ic_face_foreground)
+            signin.setTextColor(Color.parseColor("#FFFFFF"))
+            signin.setBackgroundColor(this.getColor(R.color.bannerGold))
+            signup.setTextColor(this.getColor(R.color.bannerGold))
+            signup.setBackgroundResource(R.drawable.border_shape)
+            circleImageView.setImageResource(R.mipmap.ic_signup)
             signin_signup_txt.text = "Sign Up"
             signin_signup_btn.text = "CREATE"
             forgot_password.visibility = View.INVISIBLE
