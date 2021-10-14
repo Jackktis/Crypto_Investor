@@ -5,6 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <View
+        android:id="@+id/vector"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="-45dp"
+        android:layout_marginBottom="-1dp"
+        android:background="@mipmap/splashscreen_graph" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,7 +30,7 @@
                 android:layout_height="120dp"
                 android:layout_centerHorizontal="true"
                 android:elevation="9dp"
-                android:src="@mipmap/ic_face"
+                android:src="@mipmap/ic_face_round"
                 app:civ_border_color="@color/bannerGold"
                 app:civ_border_width="3dp" />
 
@@ -89,30 +98,30 @@
                             android:id="@+id/signin_signup_txt"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
                             android:text="Log in"
                             android:textAlignment="center"
                             android:textColor="#000000"
                             android:textSize="24dp"
                             android:textStyle="bold"
-                            android:gravity="center_horizontal" />
+                            />
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp">
+                            android:layout_marginTop="18dp">
 
                             <EditText
                                 android:id="@+id/emailAddressEditText"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:drawablePadding="16dp"
                                 android:drawableStart="@drawable/ic_baseline_email_24"
+                                android:drawablePadding="16dp"
                                 android:hint="Email"
                                 android:inputType="textEmailAddress"
                                 android:maxLines="1"
                                 android:textColor="@android:color/black"
-                                android:textSize="16sp"
-                                android:drawableLeft="@drawable/ic_baseline_email_24" />
+                                android:textSize="16sp" />
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <com.google.android.material.textfield.TextInputLayout
@@ -125,14 +134,13 @@
                                 android:id="@+id/password"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:drawablePadding="16dp"
                                 android:drawableStart="@drawable/ic_baseline_lock_24"
+                                android:drawablePadding="16dp"
                                 android:hint="Password"
                                 android:inputType="textPassword"
                                 android:maxLines="1"
                                 android:textColor="@android:color/black"
-                                android:textSize="16sp"
-                                android:drawableLeft="@drawable/ic_baseline_lock_24" />
+                                android:textSize="16sp" />
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <Button
@@ -158,12 +166,12 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="32dp"
+                            android:gravity="center_horizontal"
                             android:text="Forgot your password?"
                             android:textAlignment="center"
                             android:textColor="#4f4f4f"
                             android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:gravity="center_horizontal" />
+                            android:textStyle="bold" />
 
                     </LinearLayout>
 

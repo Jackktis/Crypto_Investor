@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_portfolio"
-        android:name="com.example.cryptoinvestor.view.ui.PortfolioFragment"
+        android:name="com.example.cryptoinvestor.view.fragments.PortfolioFragment"
         android:label="@string/title_Portfolio"
         tools:layout="@layout/fragment_portfolio" >
         <action
@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/navigation_Crypto"
-        android:name="com.example.cryptoinvestor.view.ui.CryptoFragment"
+        android:name="com.example.cryptoinvestor.view.fragments.CryptoFragment"
         android:label="@string/title_Crypto"
         tools:layout="@layout/fragment_crypto" >
         <action
@@ -27,7 +27,7 @@
 
     <fragment
         android:id="@+id/navigation_Profile"
-        android:name="com.example.cryptoinvestor.view.ui.ProfileFragment"
+        android:name="com.example.cryptoinvestor.view.fragments.ProfileFragment"
         android:label="@string/title_Profile"
         tools:layout="@layout/fragment_profile" />
 </navigation>

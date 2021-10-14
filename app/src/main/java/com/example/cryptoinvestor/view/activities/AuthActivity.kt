@@ -1,4 +1,4 @@
-package com.example.cryptoinvestor.view
+package com.example.cryptoinvestor.view.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import com.example.cryptoinvestor.R

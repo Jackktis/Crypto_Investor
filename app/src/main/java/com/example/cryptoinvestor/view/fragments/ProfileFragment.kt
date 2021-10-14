@@ -1,4 +1,4 @@
-package com.example.cryptoinvestor.view.ui
+package com.example.cryptoinvestor.view.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
