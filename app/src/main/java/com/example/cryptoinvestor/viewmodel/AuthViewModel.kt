@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.cryptoinvestor.CryptoInvestApplication
 import com.example.cryptoinvestor.model.AuthRepository
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -26,8 +27,12 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel(), F
       authRepository.signOut()
    }
 
-   fun signIn(email: String, password: String){
-      authRepository.signInWithEmailAndPassword()
+   fun signIn(email: String, password: String): Task<AuthResult>{
+      return authRepository.signIn(email,password)
+   }
+
+   fun signUp(email: String, password: String): Task<AuthResult> {
+      return authRepository.createUser(email, password)
    }
 
    override fun onIdTokenChanged(auth: FirebaseAuth) {

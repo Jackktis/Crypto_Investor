@@ -102,6 +102,7 @@
                             android:layout_marginTop="16dp">
 
                             <EditText
+                                android:id="@+id/emailAddressEditText"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:drawablePadding="16dp"

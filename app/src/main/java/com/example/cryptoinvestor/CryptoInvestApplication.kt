@@ -12,6 +12,8 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
 
+/* ---------SERVICE LOCATOR CLASS--------- */
+
 class CryptoInvestApplication : Application() {
     lateinit var auth: FirebaseAuth
     lateinit var firestore: FirebaseFirestore
