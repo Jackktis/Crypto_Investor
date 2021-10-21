@@ -5,6 +5,12 @@
       <map>
         <entry key="..\:/Users/KGBau/AndroidStudioProjects/CryptoInvestor/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2703125" />
         <entry key="..\:/Users/KGBau/AndroidStudioProjects/CryptoInvestor/app/src/main/res/drawable/balance_banner.xml" value="0.2703125" />
+        <entry key="..\:/Users/KGBau/AndroidStudioProjects/CryptoInvestor/app/src/main/res/drawable/border_shape.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/KGBau/AndroidStudioProjects/CryptoInvestor/app/src/main/res/drawable/button_shape.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/KGBau/AndroidStudioProjects/CryptoInvestor/app/src/main/res/drawable/ic_baseline_email_24.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/KGBau/AndroidStudioProjects/CryptoInvestor/app/src/main/res/drawable/ic_baseline_favorite_24.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/KGBau/AndroidStudioProjects/CryptoInvestor/app/src/main/res/drawable/ic_baseline_favorite_border_24.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/KGBau/AndroidStudioProjects/CryptoInvestor/app/src/main/res/drawable/ic_baseline_touch_app_24.xml" value="0.37864583333333335" />
         <entry key="..\:/Users/KGBau/AndroidStudioProjects/CryptoInvestor/app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.2703125" />
         <entry key="..\:/Users/KGBau/AndroidStudioProjects/CryptoInvestor/app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.2703125" />
         <entry key="..\:/Users/KGBau/AndroidStudioProjects/CryptoInvestor/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2703125" />
@@ -14,7 +20,9 @@
         <entry key="..\:/Users/KGBau/AndroidStudioProjects/CryptoInvestor/app/src/main/res/layout/activity_splash_screen.xml" value="0.4" />
         <entry key="..\:/Users/KGBau/AndroidStudioProjects/CryptoInvestor/app/src/main/res/layout/bought_list.xml" value="0.4" />
         <entry key="..\:/Users/KGBau/AndroidStudioProjects/CryptoInvestor/app/src/main/res/layout/currency_list.xml" value="0.4" />
+        <entry key="..\:/Users/KGBau/AndroidStudioProjects/CryptoInvestor/app/src/main/res/layout/fragment_buy_and_sell_crypto.xml" value="0.3625" />
         <entry key="..\:/Users/KGBau/AndroidStudioProjects/CryptoInvestor/app/src/main/res/layout/fragment_buy_crypto.xml" value="0.5" />
+        <entry key="..\:/Users/KGBau/AndroidStudioProjects/CryptoInvestor/app/src/main/res/layout/fragment_buy_crypto2.xml" value="0.3625" />
         <entry key="..\:/Users/KGBau/AndroidStudioProjects/CryptoInvestor/app/src/main/res/layout/fragment_crypto.xml" value="0.19791666666666666" />
         <entry key="..\:/Users/KGBau/AndroidStudioProjects/CryptoInvestor/app/src/main/res/layout/fragment_dashboard.xml" value="0.24094202898550723" />
         <entry key="..\:/Users/KGBau/AndroidStudioProjects/CryptoInvestor/app/src/main/res/layout/fragment_home.xml" value="0.19791666666666666" />
