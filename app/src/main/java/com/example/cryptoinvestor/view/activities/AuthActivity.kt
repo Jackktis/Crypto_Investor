@@ -8,8 +8,10 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.example.cryptoinvestor.databinding.ActivityAuthBinding
+import com.example.cryptoinvestor.model.AuthRepository
 import com.example.cryptoinvestor.viewmodel.AuthViewModel
 import com.example.cryptoinvestor.viewmodel.AuthViewModelFactory
+import com.google.firebase.firestore.DocumentReference
 import kotlinx.android.synthetic.main.activity_auth.*
 
 
@@ -60,6 +62,9 @@ class AuthActivity : AppCompatActivity(){
 
         viewModel.signUp(email, password).addOnCompleteListener{ task ->
             if(task.isSuccessful){
+                Toast.makeText(applicationContext,"User Created.", Toast.LENGTH_SHORT).show()
+                val userID = viewModel.getUserId()
+                //TODO: Make user document in firestore database, not sure if its relevant here?
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
                 finish()

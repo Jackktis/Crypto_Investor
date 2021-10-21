@@ -35,6 +35,10 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel(), F
       return authRepository.createUser(email, password)
    }
 
+   fun getUserId() : String? {
+      return authRepository.getCurrentUserID()
+   }
+
    override fun onIdTokenChanged(auth: FirebaseAuth) {
       this.user.value = auth.currentUser
    }
