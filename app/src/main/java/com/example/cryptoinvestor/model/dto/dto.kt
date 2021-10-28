@@ -5,12 +5,13 @@ import java.time.LocalDateTime
 class dto {
 
     data class User(
-        var username: String,
-        var firstname: String,
-        var password: String,
+        val email: String = "",
+        val username: String = "",
+        val fullname: String = "",
         var balance: Int,
-        var transactions: List<Transaction>,
-        var portfolio: Portfolio)
+        //var transactions: List<Transaction>,
+        //var portfolio: Portfolio
+    )
 
     data class Currency(val currencyID: String, val symbol: String, val currencyName: String, var pricePer: Float, var favorite: Boolean)
 
