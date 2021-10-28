@@ -1,6 +1,6 @@
 package com.example.cryptoinvestor.view.fragments
 // fået inspiration fra https://medium.com/@yilmazvolkan/kotlinlinecharts-c2a730226ff1 til hvordan,
-// Man sætter en chart op i kotlin
+// Man sætter en chart op i kotlin.
 
 import android.graphics.Color.red
 import android.os.Bundle
