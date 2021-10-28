@@ -30,8 +30,8 @@
                 android:layout_height="120dp"
                 android:layout_centerHorizontal="true"
                 android:elevation="9dp"
-                android:src="@mipmap/ic_face_round"
-                app:civ_border_color="@color/bannerGold"
+                android:src="@mipmap/ic_login"
+                app:civ_border_color="@color/white"
                 app:civ_border_width="3dp" />
 
             <androidx.cardview.widget.CardView
@@ -60,12 +60,12 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
                             android:layout_weight="50"
-                            android:background="@color/bannerGold"
+                            android:background="@drawable/border_shape"
                             android:paddingTop="12dp"
                             android:paddingBottom="12dp"
                             android:text="LogIn"
                             android:textAlignment="center"
-                            android:textColor="#FFFFFF"
+                            android:textColor="@color/bannerGold"
                             android:textSize="16dp"
                             android:textStyle="bold" />
 
@@ -74,12 +74,12 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="50"
-                            android:background="@drawable/border_shape"
+                            android:background="@color/bannerGold"
                             android:paddingBottom="12dp"
                             android:paddingTop="12dp"
                             android:text="SignUp"
                             android:textAlignment="center"
-                            android:textColor="@color/bannerGold"
+                            android:textColor="@color/white"
                             android:textSize="16dp"
                             android:textStyle="bold"
                             android:gravity="center_horizontal" />
@@ -103,8 +103,7 @@
                             android:textAlignment="center"
                             android:textColor="#000000"
                             android:textSize="24dp"
-                            android:textStyle="bold"
-                            />
+                            android:textStyle="bold" />
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
