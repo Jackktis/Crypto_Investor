@@ -16,11 +16,13 @@ import javax.inject.Inject
 class AuthRepository @Inject constructor(private val firebaseSource: FirebaseSource) {
     fun signOut() = firebaseSource.signOut()
 
-    fun signIn(email: String, password: String) = firebaseSource.signIn(email,password)
+    fun signIn(email: String, password: String) = firebaseSource.signIn(email, password)
 
 
-    fun signUp(email: String, password: String, fullName: String, userName: String) = firebaseSource.createUser(email, password, fullName, userName)
+    fun signUp(email: String, password: String, fullName: String, userName: String) =
+        firebaseSource.createUser(email, password, fullName, userName)
 
+    fun saveUser(email: String, fullName: String, userName: String, balance: Int?) = firebaseSource.saveUser(email, fullName, userName, balance)
 
     fun getUserId() = firebaseSource.getCurrentUserID()
 

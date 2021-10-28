@@ -6,9 +6,10 @@ class dto {
 
     data class User(
         val email: String = "",
-        val username: String = "",
-        val fullname: String = "",
-        var balance: Int,
+        val fullName: String = "",
+        val userName: String = "",
+        var balance: Int? = null,
+        val userId: String = ""
         //var transactions: List<Transaction>,
         //var portfolio: Portfolio
     )

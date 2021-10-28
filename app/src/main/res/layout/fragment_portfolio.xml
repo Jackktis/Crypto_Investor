@@ -18,8 +18,8 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:background="@drawable/portfolio_banner"
-            android:elevation="5dp"
-            android:contentDescription="Current balance" />
+            android:contentDescription="Current balance"
+            android:elevation="5dp" />
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/portfolio_card"
                 android:layout_width="372dp"
