@@ -18,8 +18,8 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:background="@drawable/portfolio_banner"
-            android:elevation="5dp"
-            android:contentDescription="Current balance" />
+            android:contentDescription="Current balance"
+            android:elevation="5dp" />
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/portfolio_card"
                 android:layout_width="372dp"
@@ -100,7 +100,10 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/currency_RV"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        tools:listitem="@layout/currency_list"
+
+        />
 
     <TextView
         android:id="@+id/text_home"

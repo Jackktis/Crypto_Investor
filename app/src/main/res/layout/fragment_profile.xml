@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.fragments.ProfileFragment">
-    android:orientation="vertical" >
-
+    tools:context=".view.fragments.ProfileFragment"
+    android:orientation="vertical">
     <RelativeLayout
         android:id="@+id/relativeProfile"
         android:layout_width="wrap_content"
@@ -114,6 +113,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/transaction_RV"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        tools:listitem="@layout/transactions_list"/>
 
 </LinearLayout>

@@ -16,6 +16,7 @@
         <entry key="..\:/Users/KGBau/AndroidStudioProjects/CryptoInvestor/app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.2703125" />
         <entry key="..\:/Users/KGBau/AndroidStudioProjects/CryptoInvestor/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2703125" />
         <entry key="..\:/Users/KGBau/AndroidStudioProjects/CryptoInvestor/app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.2703125" />
+        <entry key="..\:/Users/KGBau/AndroidStudioProjects/CryptoInvestor/app/src/main/res/layout/activity_auth.xml" value="0.25" />
         <entry key="..\:/Users/KGBau/AndroidStudioProjects/CryptoInvestor/app/src/main/res/layout/activity_main.xml" value="0.1793478260869565" />
         <entry key="..\:/Users/KGBau/AndroidStudioProjects/CryptoInvestor/app/src/main/res/layout/activity_navigation.xml" value="0.264" />
         <entry key="..\:/Users/KGBau/AndroidStudioProjects/CryptoInvestor/app/src/main/res/layout/activity_splash_screen.xml" value="0.4" />
@@ -26,6 +27,7 @@
         <entry key="..\:/Users/KGBau/AndroidStudioProjects/CryptoInvestor/app/src/main/res/layout/fragment_buy_and_sell_pop_up.xml" value="0.3625" />
         <entry key="..\:/Users/KGBau/AndroidStudioProjects/CryptoInvestor/app/src/main/res/layout/fragment_buy_crypto.xml" value="0.33" />
         <entry key="..\:/Users/KGBau/AndroidStudioProjects/CryptoInvestor/app/src/main/res/layout/fragment_buy_crypto2.xml" value="0.3625" />
+        <entry key="..\:/Users/KGBau/AndroidStudioProjects/CryptoInvestor/app/src/main/res/layout/fragment_buy_or_sell_pop_up.xml" value="0.25" />
         <entry key="..\:/Users/KGBau/AndroidStudioProjects/CryptoInvestor/app/src/main/res/layout/fragment_crypto.xml" value="0.19791666666666666" />
         <entry key="..\:/Users/KGBau/AndroidStudioProjects/CryptoInvestor/app/src/main/res/layout/fragment_dashboard.xml" value="0.24094202898550723" />
         <entry key="..\:/Users/KGBau/AndroidStudioProjects/CryptoInvestor/app/src/main/res/layout/fragment_home.xml" value="0.19791666666666666" />
