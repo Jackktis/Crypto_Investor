@@ -155,13 +155,13 @@
             android:paddingVertical="40dp">
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/buyCryptoBT"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="buy" />
 
             <ImageView
-                android:id="@+id/favorite"
+                android:id="@+id/favoriteBT"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -169,7 +169,7 @@
                 android:src="@drawable/ic_baseline_favorite_border_24" />
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/sellCryptoBT"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/white"
@@ -180,12 +180,14 @@
         </LinearLayout>
 
         <com.github.mikephil.charting.charts.LineChart
-            android:id="@+id/LineChart"
+            android:id="@+id/lineChart"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:padding="9dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-
-        </com.github.mikephil.charting.charts.LineChart>
+            android:layout_height="match_parent" />
     </LinearLayout>
 
 </RelativeLayout>
