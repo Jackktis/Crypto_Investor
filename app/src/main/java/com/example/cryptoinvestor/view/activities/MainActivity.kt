@@ -7,6 +7,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.cryptoinvestor.R
 import com.example.cryptoinvestor.databinding.ActivityNavigationBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.android.synthetic.main.fragment_buy_crypto.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityNavigationBinding
@@ -22,5 +23,7 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_activity_navigation)
 
         navView.setupWithNavController(navController)
+
+
     }
 }
