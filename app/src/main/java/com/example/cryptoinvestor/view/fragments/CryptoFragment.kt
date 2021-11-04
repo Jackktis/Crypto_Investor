@@ -11,11 +11,12 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.cryptoinvestor.databinding.FragmentCryptoBinding
 import com.example.cryptoinvestor.view.adapter.AssetAdapter
 import com.example.cryptoinvestor.viewmodel.CryptoViewModel
+import com.example.cryptoinvestor.di.ServiceLocator.cryptoViewModel
 
 class CryptoFragment : Fragment() {
     private val adapter by lazy { AssetAdapter() }
 
-    private lateinit var cryptoViewModel: CryptoViewModel
+    private val viewModel by lazy { cryptoViewModel }
     private var _binding: FragmentCryptoBinding? = null
 
     // This property is only valid between onCreateView and
@@ -27,13 +28,9 @@ class CryptoFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        cryptoViewModel =
-            ViewModelProvider(this).get(CryptoViewModel::class.java)
-
         _binding = FragmentCryptoBinding.inflate(inflater, container, false)
-        val root: View = binding.root
 
-        return root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

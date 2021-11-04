@@ -33,10 +33,6 @@ class AssetsRepository(
         _states.value = State(isInProgress = true)
         try {
             val asset = coinCapApi.getAsset(id).toModel()
-//            println(asset.price)
-//            println(asset.name)
-//            println(asset.id)
-//            println(asset.change24Hr)
             val dbAsset = asset.toEntity()
             database.assetDao().insert(dbAsset)
             _states.value = State(isInProgress = false)

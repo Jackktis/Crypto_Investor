@@ -39,7 +39,7 @@ object ServiceLocator {
                 return when (modelClass) {
                     //MainViewModel::class.java -> MainViewModel(gameRepository)
                     //AssetDetailsViewModel::class.java -> AssetDetailsViewModel(assetsRepository)
-                    //RatesViewModel::class.java -> RatesViewModel(coinCapApi)
+                    CryptoViewModel::class.java -> CryptoViewModel(coinCapApi)
                     else -> throw IllegalArgumentException("Unsupported ViewModel $modelClass")
                 } as T
             }
@@ -54,6 +54,6 @@ object ServiceLocator {
 //    val ViewModelStoreOwner.assetDetailsViewModel: AssetDetailsViewModel
 //        get() = ViewModelProvider(this, viewModelFactory).get()
 
-//    val ViewModelStoreOwner.ratesViewModel: RatesViewModel
-//        get() = ViewModelProvider(this, viewModelFactory).get()
+    val ViewModelStoreOwner.cryptoViewModel: CryptoViewModel
+        get() = ViewModelProvider(this, viewModelFactory).get()
 }
