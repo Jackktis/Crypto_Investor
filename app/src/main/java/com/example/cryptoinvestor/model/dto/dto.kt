@@ -24,4 +24,12 @@ class dto {
         var time: LocalDateTime)
 
     data class Portfolio(var listOfOwned: List<Currency>)
+
+    data class Asset(
+        val id: String,
+        val name: String,
+        val price: Float,
+        val volume24Hr: Float,
+        val change24Hr: Float,
+    )
 }
