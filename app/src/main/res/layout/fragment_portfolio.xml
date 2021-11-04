@@ -7,6 +7,17 @@
     android:orientation="vertical"
     tools:context=".view.fragments.PortfolioFragment">
 
+    <TextView
+        android:id="@+id/fragment_profile_TV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Portfolio"
+        android:textStyle="bold"
+        android:textSize="38sp"
+        android:layout_margin="20dp"
+        android:textColor="@color/black"
+        />
+
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
@@ -17,7 +28,7 @@
             android:layout_height="154dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:background="@drawable/portfolio_banner"
+            android:background="@color/transparent"
             android:contentDescription="Current balance"
             android:elevation="5dp" />
             <com.google.android.material.card.MaterialCardView

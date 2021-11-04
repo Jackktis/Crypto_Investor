@@ -6,6 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".view.fragments.ProfileFragment"
     android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/fragment_profile_TV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Profile"
+        android:textStyle="bold"
+        android:textSize="38sp"
+        android:layout_margin="20dp"
+        android:textColor="@color/black"
+        />
+
     <RelativeLayout
         android:id="@+id/relativeProfile"
         android:layout_width="wrap_content"
@@ -19,7 +31,7 @@
             android:layout_height="154dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:background="@drawable/portfolio_banner"
+            android:background="@color/transparent"
             android:elevation="5dp" />
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/portfolio_card"
@@ -37,7 +49,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/portfolio_card"
+                android:background="@drawable/profile_card"
                 android:orientation="vertical">
 
                 <TextView
@@ -95,7 +107,8 @@
                         android:gravity="center"
                         android:text="Deposit"
                         android:textSize="9sp"
-                        android:theme="@style/Button.Black" />
+                        android:theme="@style/Button.Black"
+                        android:backgroundTint="@color/greytrans"/>
 
                     <Button
                         android:layout_width="105dp"
@@ -105,7 +118,8 @@
                         android:gravity="center"
                         android:text="Withdraw"
                         android:textSize="9sp"
-                        android:theme="@style/Button.Black" />
+                        android:theme="@style/Button.Black"
+                        android:backgroundTint="@color/greytrans"/>
 
                 </LinearLayout>
 
@@ -113,6 +127,16 @@
 
         </com.google.android.material.card.MaterialCardView>
     </RelativeLayout>
+
+    <TextView
+        android:id="@+id/profile_transactions_TV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Transactions"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginStart="5dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/transaction_RV"

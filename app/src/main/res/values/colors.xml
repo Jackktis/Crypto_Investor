@@ -8,5 +8,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="bannerGold">#FBDCA6</color>
     <color name="transparent">#00000000 </color>
+    <color name="greytrans">#4B8C9592</color>
 
 </resources>
