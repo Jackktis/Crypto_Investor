@@ -1,4 +1,4 @@
-package com.example.cryptoinvestor.view.pop_up
+package com.example.cryptoinvestor.view.dialogs
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

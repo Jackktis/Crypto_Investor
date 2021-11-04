@@ -1,6 +1,8 @@
 package com.example.cryptoinvestor.viewmodel
 
+import android.content.ContentValues.TAG
 import android.text.TextUtils
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -87,9 +89,18 @@ class AuthViewModel @Inject constructor(
     }
 
     fun saveUser(email: String, fullName: String, userName: String, balance: Int?) {
-        authRepository.saveUser(email, fullName, userName, balance).addOnCompleteListener(){
-            if (it.isSuccessful){
-                _saveUserLiveData.postValue(Resource.success(dto.User(email, fullName, userName, balance)))
+        authRepository.saveUser(email, fullName, userName, balance).addOnCompleteListener() {
+            if (it.isSuccessful) {
+                _saveUserLiveData.postValue(
+                    Resource.success(
+                        dto.User(
+                            email,
+                            fullName,
+                            userName,
+                            balance
+                        )
+                    )
+                )
             }
         }
     }
@@ -98,13 +109,77 @@ class AuthViewModel @Inject constructor(
         authRepository.signOut()
     }
 
-    fun signIn(email: String, password: String): Task<AuthResult> {
-        return authRepository.signIn(email, password)
+    fun signIn(email: String, password: String): LiveData<Resource<dto.User>> {
+        when {
+            TextUtils.isEmpty(email) && TextUtils.isEmpty(password) -> {
+                userLiveData.postValue(Resource.error("Enter email and password", null))
+            }
+            networkCheck.isConnected() -> {
+                userLiveData.postValue(Resource.loading(null))
+                firebaseAuth.fetchSignInMethodsForEmail(email).addOnCompleteListener {
+                    if (it.result?.signInMethods?.size == 0) {
+                        userLiveData.postValue(Resource.error("Email does not exist", null))
+                    } else {
+                        authRepository.signIn(email, password).addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                firebaseAuth.currentUser?.isEmailVerified?.let { verified ->
+                                    if (verified) {
+                                        authRepository.fetchUser()
+                                            .addOnCompleteListener { userTask ->
+                                                if (userTask.isSuccessful) {
+                                                    userTask.result?.documents?.forEach {
+                                                        if (it.data!!["email"] == email) {
+                                                            val name = it.data?.getValue("fullName")
+                                                            userLiveData.postValue(
+                                                                Resource.success(
+                                                                    dto.User(
+                                                                        firebaseAuth.currentUser?.email!!,
+                                                                        name?.toString()!!
+                                                                    )
+                                                                )
+                                                            )
+                                                        }
+                                                    }
+                                                } else {
+                                                    userLiveData.postValue(
+                                                        Resource.error(
+                                                            userTask.exception?.message.toString(),
+                                                            null
+                                                        )
+                                                    )
+                                                }
+                                            }
+                                    } else {
+                                        userLiveData.postValue(
+                                            Resource.error(
+                                                "Email is not verified, check your mailinbox",
+                                                null
+                                            )
+                                        )
+                                    }
+                                }
+                            } else {
+                                userLiveData.postValue(
+                                    Resource.error(
+                                        task.exception?.message.toString(),
+                                        null
+                                    )
+                                )
+                                Log.d(TAG, task.exception.toString())
+                            }
+                        }
+                    }
+                }
+            }
+            else -> {
+                userLiveData.postValue(Resource.error("No internet connection", null))
+            }
+        }
+        return userLiveData
     }
-
-    fun getUserId(): String? {
-        return authRepository.getUserId()
-    }
+        fun getUserId(): String? {
+            return authRepository.getUserId()
+        }
 
 //   override fun onIdTokenChanged(auth: FirebaseAuth) {
 //      this.user.value = auth.currentUser
@@ -115,7 +190,7 @@ class AuthViewModel @Inject constructor(
 //      super.onCleared()
 //   }
 
-}
+    }
 
 //class AuthViewModelFactory(private val application: Application) : ViewModelProvider.Factory{
 //   override fun <T : ViewModel?> create(modelClass: Class<T>): T {

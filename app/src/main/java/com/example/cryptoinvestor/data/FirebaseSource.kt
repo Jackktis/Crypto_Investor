@@ -27,6 +27,8 @@ class FirebaseSource @Inject constructor(private val firebaseAuth: FirebaseAuth,
         return firebaseAuth.currentUser?.uid
     }
 
+    fun fetchUser() = firestore.collection("users").get()
+
     fun saveUser(email: String, fullName: String, userName: String, balance: Int?) = firestore.collection("users").document()
         .set(dto.User(email = email, fullName = fullName, userName = userName, balance = balance))
         .addOnSuccessListener { Log.d(TAG,"Success!!!!!!") }

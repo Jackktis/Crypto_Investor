@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.navigation.findNavController
 import com.android.example.github.vo.Status
 import com.example.cryptoinvestor.databinding.ActivityAuthBinding
 import com.example.cryptoinvestor.model.AuthRepository
@@ -38,7 +39,12 @@ class AuthActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAuthBinding.inflate(layoutInflater)
+        binding.signin.performClick()
         setContentView(binding.root)
+
+        signin_signup_btn.setOnClickListener {
+                logIn(it)
+            }
 
         binding.signin.setOnClickListener {
             signup.setTextColor(Color.parseColor("#FFFFFF"))
@@ -104,17 +110,24 @@ class AuthActivity : AppCompatActivity() {
     }
 
     fun logIn(view: View) {
-        val email = emailAddressEditText.text.toString()
-        val password = password.text.toString()
+        val email = emailAddressEditText.text.toString().trim()
+        val password = password.text.toString().trim()
 
-        viewModel.signIn(email, password).addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
-                finish()
+        viewModel.signIn(email, password).observe(this) {
+            when (it.status) {
+                Status.LOADING -> {
+                    view.showsnackBar("...")
+                }
+                Status.SUCCESS -> {
+                    view.showsnackBar("Login successfull")
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+                Status.ERROR -> {
+                    view.showsnackBar(it.message!!)
+                }
             }
-        }.addOnFailureListener { exception ->
-            Toast.makeText(applicationContext, exception.localizedMessage, Toast.LENGTH_LONG).show()
         }
     }
 }

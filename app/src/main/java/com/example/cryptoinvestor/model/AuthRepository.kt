@@ -26,4 +26,5 @@ class AuthRepository @Inject constructor(private val firebaseSource: FirebaseSou
 
     fun getUserId() = firebaseSource.getCurrentUserID()
 
+    fun fetchUser() = firebaseSource.fetchUser()
 }
