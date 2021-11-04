@@ -31,10 +31,7 @@ class CryptoFragment : Fragment() {
         _binding = FragmentCryptoBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textDashboard
-        cryptoViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
+
         print("Crypto Frag")
         return root
     }

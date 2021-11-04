@@ -11,15 +11,17 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
+import dagger.hilt.android.HiltAndroidApp
 
 /* ---------SERVICE LOCATOR CLASS--------- */
 
+@HiltAndroidApp
 class CryptoInvestApplication : Application() {
     lateinit var auth: FirebaseAuth
     lateinit var firestore: FirebaseFirestore
     lateinit var storage: FirebaseStorage
 
-    lateinit var authRepository : AuthRepository
+    //lateinit var authRepository : AuthRepository
     lateinit var userRepository: UserRepository
     lateinit var transactionRepository: TransactionRepository
 
@@ -30,7 +32,7 @@ class CryptoInvestApplication : Application() {
         firestore = Firebase.firestore
         storage = Firebase.storage
 
-        authRepository = AuthRepository(this)
+        //authRepository = AuthRepository(this)
         userRepository = UserRepository(this)
         transactionRepository = TransactionRepository(this)
 
