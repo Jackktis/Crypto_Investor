@@ -55,7 +55,7 @@
                 android:text="@{symbol, default=`Currency symbol`}" />
 
             <TextView
-                android:id="@+id/procent"
+                android:id="@+id/Currency_percent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

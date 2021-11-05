@@ -4,7 +4,7 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class RateDto(
-    val id: String? ,
+    val name: String? ,
     val symbol: String?,
     val currencySymbol: String?,
     val type: String?,

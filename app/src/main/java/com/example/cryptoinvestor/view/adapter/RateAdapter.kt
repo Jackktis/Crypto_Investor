@@ -6,24 +6,24 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cryptoinvestor.databinding.CurrencyListBinding
 
-class AssetAdapter : RecyclerView.Adapter<AssetAdapter.AssetViewHolder>() {
-    var assets: List<CharSequence> = emptyList()
+class RateAdapter : RecyclerView.Adapter<RateAdapter.RateViewHolder>() {
+    var rates: List<CharSequence> = emptyList()
         set(value) {
             field = value
             notifyDataSetChanged()
         }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AssetAdapter.AssetViewHolder {
-        return AssetViewHolder(parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RateAdapter.RateViewHolder {
+        return RateViewHolder(parent)
     }
 
-    override fun onBindViewHolder(holder: AssetAdapter.AssetViewHolder, position: Int) {
-        holder.bind(assets[position])
+    override fun onBindViewHolder(holder: RateAdapter.RateViewHolder, position: Int) {
+        holder.bind(rates[position])
     }
 
-    override fun getItemCount() = assets.size
+    override fun getItemCount() = rates.size
 
-    class AssetViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
+    class RateViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
         CurrencyListBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,

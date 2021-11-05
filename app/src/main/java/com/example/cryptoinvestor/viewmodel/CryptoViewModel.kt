@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cryptoinvestor.model.api.CoinCapApi
+import com.example.cryptoinvestor.model.api.dto.AssetDto
 import com.example.cryptoinvestor.model.api.dto.RateDto
 import kotlinx.coroutines.launch
 import retrofit2.Call
@@ -20,26 +21,26 @@ class CryptoViewModel(coinCapApi: CoinCapApi) : ViewModel() {
     // det skal omskrives til vores
 
     init {
-        coinCapApi.getRateAsString("bitcoin").enqueue(object : Callback<String> {
-            override fun onResponse(
-                call: Call<String>,
-                response: Response<String>
-            ) {
-                _assets.value = listOf()
-            }
-
-            override fun onFailure(call: Call<String>, t: Throwable) {
-                _assets.value = listOf()
-            }
-        })
-
-        viewModelScope.launch {
-            try {
-                val response = coinCapApi.getRate("bitcoin")
-            } catch (e: Exception) {
-
-            }
-        }
+//        coinCapApi.getRateAsString("bitcoin").enqueue(object : Callback<String> {
+//            override fun onResponse(
+//                call: Call<String>,
+//                response: Response<String>
+//            ) {
+//                _assets.value = listOf()
+//            }
+//
+//            override fun onFailure(call: Call<String>, t: Throwable) {
+//                _assets.value = listOf()
+//            }
+//        })
+//
+//        viewModelScope.launch {
+//            try {
+//                val response = coinCapApi.getRate("bitcoin")
+//            } catch (e: Exception) {
+//
+//            }
+//        }
 
         coinCapApi.getRates().enqueue(object : Callback<List<RateDto>> {
             override fun onResponse(
