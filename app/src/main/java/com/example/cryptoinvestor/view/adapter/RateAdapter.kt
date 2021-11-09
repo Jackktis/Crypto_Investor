@@ -15,14 +15,20 @@ import kotlinx.android.synthetic.main.fragment_buy_crypto.view.*
 class RateAdapter : RecyclerView.Adapter<RateAdapter.RateViewHolder>() {
     var rates = emptyList<AssetDto>()
 
-    inner class RateViewHolder(itemView: View): RecyclerView.ViewHolder(itemView)
+    //Laver en inner class her istedet for den nederste chunk kode
+    inner class RateViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RateViewHolder {
 
         //return RateViewHolder(parent)
-        return RateViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.currency_list,parent,false))
+        return RateViewHolder(
+            LayoutInflater.from(parent.context).inflate(R.layout.currency_list, parent, false)
+        )
     }
 
+    /*
+        Her tager vi fat i recyclerViewets data variabler og tildelere dem rates attribut-værdier
+     */
     override fun onBindViewHolder(holder: RateViewHolder, position: Int) {
         holder.itemView.CurrencyName.text = rates[position].name
         holder.itemView.currency_current_price.text = rates[position].price.toString()

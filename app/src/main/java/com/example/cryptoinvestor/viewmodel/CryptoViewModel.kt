@@ -13,12 +13,17 @@ import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+/*
+       Overvej om denne klasse ikke bare skal indholde forskellige metoder til at hente coins fra Api'ens metoder
+       Eksempelvis en masse metoder som getTenAssets() med et viewModelScope.launch i.
+       Hvad gør init?- Sikkert skide smart, men kunne ikke få det til at virke
 
+ */
 class CryptoViewModel(private val coinCapApi: CoinCapApi, assetsRepo: AssetsRepository ) : ViewModel() {
+    var assetsList: MutableLiveData<Response<List<AssetDto>>> = MutableLiveData()
+    val _assets:  MutableLiveData<Response<AssetDto>> = MutableLiveData()
 //    val assets: MutableLiveData<AssetDto>
 //        get() = _assets
-    val _assets:  MutableLiveData<Response<AssetDto>> = MutableLiveData()
-    var assetsList: MutableLiveData<Response<List<AssetDto>>> = MutableLiveData()
 
     // TODO: 04-11-2021 : Alt nedenfor er kopieret fra shortcuts repo -
     // det skal omskrives til vores

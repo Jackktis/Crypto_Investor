@@ -26,12 +26,16 @@ interface CoinCapApi {
     @GET("assets/{id}")
     suspend fun getAsset(@Path("id") id: String): Response<AssetDto>
 
+    /*
+        "v2" er tilføjet her da baseUrlen ikke gav den videre, mærkeligt problem?
+    */
     @GET("v2/assets/?limit=10")
     suspend fun getTenAssets(): Response<List<AssetDto>>
 
     companion object {
         fun build(): CoinCapApi =
             Retrofit.Builder()
+                //tilføjelse af v2 virker ikke her?
                 .baseUrl("https://api.coincap.io/")
                 .client(OkHttpClient.Builder()
                     .addInterceptor { chain ->

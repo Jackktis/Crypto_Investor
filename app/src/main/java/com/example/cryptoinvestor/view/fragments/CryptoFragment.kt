@@ -40,7 +40,9 @@ class CryptoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setupRecyclerView()
 
+        //Her henter vi 10 coins
         viewModel.getTenAssets()
+        //Her er forbindelsen med at hente vores liste af coins og sætter dataen til adapteren
         viewModel.assetsList.observe(viewLifecycleOwner, { assets ->
             if (assets.isSuccessful){
                 assets.body()?.let {
