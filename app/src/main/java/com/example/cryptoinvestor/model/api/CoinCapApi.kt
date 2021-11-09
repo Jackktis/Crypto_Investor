@@ -5,6 +5,7 @@ import com.example.cryptoinvestor.model.api.dto.RateDto
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.create
@@ -14,7 +15,7 @@ import timber.log.Timber
 
 interface CoinCapApi {
     @GET("rates")
-    fun getRates(): Call<List<RateDto>>
+    fun getRates(): Call<List<AssetDto>>
 
     @GET("rates/{id}")
     suspend fun getRate(@Path("id") id: String): RateDto
@@ -23,12 +24,15 @@ interface CoinCapApi {
     fun getRateAsString(@Path("id") id: String): Call<String>
 
     @GET("assets/{id}")
-    suspend fun getAsset(@Path("id") id: String): AssetDto
+    suspend fun getAsset(@Path("id") id: String): Response<AssetDto>
+
+    @GET("v2/assets/?limit=10")
+    suspend fun getTenAssets(): Response<List<AssetDto>>
 
     companion object {
         fun build(): CoinCapApi =
             Retrofit.Builder()
-                .baseUrl("https://api.coincap.io/v2/")
+                .baseUrl("https://api.coincap.io/")
                 .client(OkHttpClient.Builder()
                     .addInterceptor { chain ->
                         chain.request().newBuilder()

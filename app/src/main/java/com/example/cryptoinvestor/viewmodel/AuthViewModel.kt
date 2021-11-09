@@ -8,7 +8,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cryptoinvestor.model.AuthRepository
-import com.example.cryptoinvestor.model.dto.dto
+import com.example.cryptoinvestor.model.api.dto.User
+//import com.example.cryptoinvestor.model.dto.dto
 import com.example.cryptoinvestor.utils.NetworkCheck
 import com.example.cryptoinvestor.vo.Resource
 import com.google.android.gms.tasks.Task
@@ -25,8 +26,8 @@ class AuthViewModel @Inject constructor(
     private val networkCheck: NetworkCheck
 ) : ViewModel() {
 
-    private val userLiveData = MutableLiveData<Resource<dto.User>>()
-    private val _saveUserLiveData = MutableLiveData<Resource<dto.User>>()
+    private val userLiveData = MutableLiveData<Resource<User>>()
+    private val _saveUserLiveData = MutableLiveData<Resource<User>>()
     val saveUserData = _saveUserLiveData
     private val pwMaxLength = 8
 
@@ -35,7 +36,7 @@ class AuthViewModel @Inject constructor(
         password: String,
         fullName: String,
         userName: String
-    ): LiveData<Resource<dto.User>> {
+    ): LiveData<Resource<User>> {
         when {
             TextUtils.isEmpty(email) && TextUtils.isEmpty(password) && TextUtils.isEmpty(fullName) && TextUtils.isEmpty(
                 userName
@@ -60,7 +61,7 @@ class AuthViewModel @Inject constructor(
                                     firebaseAuth.currentUser?.sendEmailVerification()
                                     userLiveData.postValue(
                                         Resource.success(
-                                            dto.User(
+                                            User(
                                                 email = email, fullName = fullName,
                                                 userName = userName, balance = 0
                                             )
@@ -93,7 +94,7 @@ class AuthViewModel @Inject constructor(
             if (it.isSuccessful) {
                 _saveUserLiveData.postValue(
                     Resource.success(
-                        dto.User(
+                        User(
                             email,
                             fullName,
                             userName,
@@ -109,7 +110,7 @@ class AuthViewModel @Inject constructor(
         authRepository.signOut()
     }
 
-    fun signIn(email: String, password: String): LiveData<Resource<dto.User>> {
+    fun signIn(email: String, password: String): LiveData<Resource<User>> {
         when {
             TextUtils.isEmpty(email) && TextUtils.isEmpty(password) -> {
                 userLiveData.postValue(Resource.error("Enter email and password", null))
@@ -132,7 +133,7 @@ class AuthViewModel @Inject constructor(
                                                             val name = it.data?.getValue("fullName")
                                                             userLiveData.postValue(
                                                                 Resource.success(
-                                                                    dto.User(
+                                                                    User(
                                                                         firebaseAuth.currentUser?.email!!,
                                                                         name?.toString()!!
                                                                     )

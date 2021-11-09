@@ -2,7 +2,6 @@ package com.example.cryptoinvestor.model.api.dto
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
-import com.example.cryptoinvestor.model.dto.dto.Asset
 
 @JsonClass(generateAdapter = true)
 data class AssetDto(
@@ -16,6 +15,6 @@ data class AssetDto(
     val change24Hr: Float,
 )
 
-fun AssetDto.toModel(): Asset =
-    Asset(id, name, price, volume24Hr, change24Hr)
+fun AssetDto.toModel(): AssetDto =
+    AssetDto(id, name, price, volume24Hr, change24Hr)
 

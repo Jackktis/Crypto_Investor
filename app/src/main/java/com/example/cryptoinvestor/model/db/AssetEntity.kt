@@ -3,7 +3,8 @@ package com.example.cryptoinvestor.model.db
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.cryptoinvestor.model.dto.dto.Asset
+import com.example.cryptoinvestor.model.api.dto.AssetDto
+
 
 @Entity(tableName = "asset")
 data class AssetEntity(
@@ -14,8 +15,8 @@ data class AssetEntity(
     @ColumnInfo(name = "volume_24", defaultValue = "0") val volume24Hr: Float,
 )
 
-fun AssetEntity.toModel(): Asset =
-    Asset(id, name, price, volume24Hr, change24Hr)
+fun AssetEntity.toModel(): AssetDto =
+    AssetDto(id, name, price, volume24Hr, change24Hr)
 
-fun Asset.toEntity(): AssetEntity =
+fun AssetDto.toEntity(): AssetEntity =
     AssetEntity(id, name, price, change24Hr, volume24Hr)

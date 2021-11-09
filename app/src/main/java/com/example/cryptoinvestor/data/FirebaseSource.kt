@@ -2,7 +2,8 @@ package com.example.cryptoinvestor.data
 
 import android.content.ContentValues.TAG
 import android.util.Log
-import com.example.cryptoinvestor.model.dto.dto
+import com.example.cryptoinvestor.model.api.dto.User
+//import com.example.cryptoinvestor.model.dto.dto
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
@@ -30,7 +31,7 @@ class FirebaseSource @Inject constructor(private val firebaseAuth: FirebaseAuth,
     fun fetchUser() = firestore.collection("users").get()
 
     fun saveUser(email: String, fullName: String, userName: String, balance: Int?) = firestore.collection("users").document()
-        .set(dto.User(email = email, fullName = fullName, userName = userName, balance = balance))
+        .set(User(email = email, fullName = fullName, userName = userName, balance = balance))
         .addOnSuccessListener { Log.d(TAG,"Success!!!!!!") }
         .addOnFailureListener{e -> Log.w(TAG, "ERORRR!!!!!", e)}
 

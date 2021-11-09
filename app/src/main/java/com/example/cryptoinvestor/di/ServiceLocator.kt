@@ -39,7 +39,7 @@ object ServiceLocator {
                 return when (modelClass) {
                     //MainViewModel::class.java -> MainViewModel(gameRepository)
                     //AssetDetailsViewModel::class.java -> AssetDetailsViewModel(assetsRepository)
-                    CryptoViewModel::class.java -> CryptoViewModel(coinCapApi)
+                    CryptoViewModel::class.java -> CryptoViewModel(coinCapApi, assetsRepository)
                     else -> throw IllegalArgumentException("Unsupported ViewModel $modelClass")
                 } as T
             }
