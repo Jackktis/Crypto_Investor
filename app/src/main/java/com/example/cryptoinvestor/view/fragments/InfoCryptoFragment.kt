@@ -11,38 +11,33 @@ import androidx.databinding.DataBindingUtil.setContentView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cryptoinvestor.R
+import com.example.cryptoinvestor.databinding.FragmentInfoCryptoBinding
+import com.example.cryptoinvestor.databinding.FragmentCryptoBinding
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.Chart
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
-import kotlinx.android.synthetic.main.fragment_buy_crypto.*
-import kotlinx.android.synthetic.main.fragment_buy_crypto.view.*
+import kotlinx.android.synthetic.main.fragment_info_crypto.*
+import kotlinx.android.synthetic.main.fragment_info_crypto.view.*
 
-class BuyCryptoFragment : Fragment() {
+class InfoCryptoFragment : Fragment() {
 
-    override fun onCreateView(inflater: LayoutInflater,
-                              container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    private lateinit var binding: FragmentInfoCryptoBinding
 
-        var rootview: View = inflater.inflate(R.layout.fragment_buy_crypto, container, false)
+    companion object{
+        fun newInstance() = InfoCryptoFragment()
+    }
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
 
+        binding = FragmentInfoCryptoBinding.inflate(inflater, container, false)
 
-        rootview.buyCryptoBT.setOnClickListener {
-
-        }
-        rootview.favoriteBT.setOnClickListener {
-
-        }
-
-        rootview.sellCryptoBT.setOnClickListener {
-
-        }
-
-        setLineChartData(lineChart)
-
-        return rootview
+        return binding.root
     }
 
     }
