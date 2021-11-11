@@ -1,17 +1,23 @@
 package com.example.cryptoinvestor.view.fragments
 
+import android.graphics.Insets.add
 import android.os.Bundle
+import android.text.Layout
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.OneShotPreDrawListener.add
 import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.cryptoinvestor.R
 import com.example.cryptoinvestor.databinding.FragmentCryptoBinding
+import com.example.cryptoinvestor.databinding.FragmentInfoCryptoBinding
 import com.example.cryptoinvestor.di.ServiceLocator.cryptoViewModel
 import com.example.cryptoinvestor.view.adapter.RateAdapter
+import kotlinx.android.synthetic.main.activity_navigation.*
 import kotlinx.android.synthetic.main.fragment_crypto.*
 import timber.log.Timber
 
@@ -56,10 +62,7 @@ class CryptoFragment : Fragment() {
                 }
             }else{
                 Log.d("Response", assets.errorBody().toString())
-
             }
-
-
         })
     }
 
@@ -67,8 +70,15 @@ class CryptoFragment : Fragment() {
         currency_RV.adapter = adapter
         currency_RV.layoutManager = LinearLayoutManager(context)
 
-    }
+        adapter.onItemClick = { assets ->
 
+            activity?.supportFragmentManager?.beginTransaction()
+                ?.replace(R.id.container,InfoCryptoFragment.newInstance())?.addToBackStack(null)?.commit()
+            //parentFragmentManager.beginTransaction().add(R.id.container, InfoCryptoFragment.newInstance())
+                //.commitNow()
+        }
+
+    }
 //    override fun onDestroyView() {
 //        super.onDestroyView()
 //        _binding = null
