@@ -30,7 +30,7 @@ class AssetsRepository(
     fun loadAsset(id: String): Flow<AssetDto> =
         database.assetDao()
             .loadById(id)
-            .map { it?.toModel() ?: AssetDto(id, "", 0f, 0f, 0f) }
+            .map { it?.toModel() ?: AssetDto(id, "", "",0f, 0f, 0f) }
 
     suspend fun refreshAsset(id: String) {
         _states.value = State(isInProgress = true)

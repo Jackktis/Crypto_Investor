@@ -1,6 +1,5 @@
 package com.example.cryptoinvestor.view.adapter
 
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,11 +7,9 @@ import android.widget.AdapterView
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cryptoinvestor.R
-import com.example.cryptoinvestor.databinding.CurrencyListBinding
 import com.example.cryptoinvestor.model.api.dto.AssetDto
-import com.example.cryptoinvestor.model.api.dto.RateDto
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.currency_list.view.*
-import kotlinx.android.synthetic.main.fragment_buy_crypto.view.*
 
 class RateAdapter : RecyclerView.Adapter<RateAdapter.RateViewHolder>() {
     var onItemClick: ((AssetDto) -> Unit)? = null
@@ -40,13 +37,11 @@ class RateAdapter : RecyclerView.Adapter<RateAdapter.RateViewHolder>() {
         Her tager vi fat i recyclerViewets data variabler og tildelere dem rates attribut-værdier
      */
     override fun onBindViewHolder(holder: RateViewHolder, position: Int) {
+        var imageUrl = "https://static.coincap.io/assets/icons/"
         holder.itemView.CurrencyName.text = rates[position].name
         holder.itemView.currency_current_price.text = rates[position].price.toString()
         holder.itemView.Currency_percent.text = rates[position].change24Hr.toString()
-        val rate = rates.get(position)
-//        holder.bind(rates.get(position),itemClickListener)
-//      bad practice way to start a fragment
-//            holder.itemView.setOnClickListener{}
+        Picasso.get().load(imageUrl+rates[position].symbol.lowercase()+"@2x.png").into(holder.itemView.CurrencyIcon)
     }
 
     override fun getItemCount(): Int = rates.size

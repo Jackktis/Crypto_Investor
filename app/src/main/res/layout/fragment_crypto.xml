@@ -99,9 +99,10 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/currency_RV"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         tools:listitem="@layout/currency_list"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:layout_marginBottom="60dp"
         />
 
 </LinearLayout>
