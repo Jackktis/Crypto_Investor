@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,11 +13,9 @@ import com.example.cryptoinvestor.databinding.FragmentCryptoBinding
 import com.example.cryptoinvestor.di.ServiceLocator.cryptoViewModel
 import com.example.cryptoinvestor.view.adapter.RateAdapter
 import kotlinx.android.synthetic.main.fragment_crypto.*
+import timber.log.Timber
 
 class CryptoFragment : Fragment() {
-    companion object {
-        fun newInstance() = CryptoFragment()
-    }
 
     private val viewModel by lazy { cryptoViewModel }
     private val adapter by lazy { RateAdapter() }
@@ -67,6 +66,7 @@ class CryptoFragment : Fragment() {
     private fun setupRecyclerView(){
         currency_RV.adapter = adapter
         currency_RV.layoutManager = LinearLayoutManager(context)
+
     }
 
 //    override fun onDestroyView() {

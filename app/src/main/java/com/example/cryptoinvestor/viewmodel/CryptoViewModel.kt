@@ -25,9 +25,6 @@ class CryptoViewModel(private val coinCapApi: CoinCapApi, assetsRepo: AssetsRepo
 //    val assets: MutableLiveData<AssetDto>
 //        get() = _assets
 
-    // TODO: 04-11-2021 : Alt nedenfor er kopieret fra shortcuts repo -
-    // det skal omskrives til vores
-
     init {
         coinCapApi.getRateAsString("bitcoin").enqueue(object : Callback<String> {
             override fun onResponse(
@@ -88,5 +85,9 @@ class CryptoViewModel(private val coinCapApi: CoinCapApi, assetsRepo: AssetsRepo
                 e.printStackTrace()
             }
         }
+    }
+
+    fun onItemClick(position: Int) {
+
     }
 }
