@@ -12,6 +12,8 @@ import com.squareup.moshi.JsonClass
 data class AssetDto(
     val id: String,
     val name: String,
+    @Json(name = "symbol")
+    val symbol: String,
     @Json(name = "priceUsd")
     val price: Float,
     @Json(name = "volumeUsd24Hr")
@@ -21,5 +23,5 @@ data class AssetDto(
 )
 
 fun AssetDto.toModel(): AssetDto =
-    AssetDto(id, name, price, volume24Hr, change24Hr)
+    AssetDto(id, name, symbol, price, volume24Hr, change24Hr)
 

@@ -33,16 +33,20 @@
             android:layout_alignParentEnd="true"
             android:background="@color/transparent"
             android:elevation="5dp" />
+
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/portfolio_card"
             android:layout_width="372dp"
             android:layout_height="120dp"
-            android:layout_gravity="center"
-            android:layout_margin="20dp"
-            android:layout_alignParentEnd="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="center"
 
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
             app:cardCornerRadius="20dp"
             app:cardElevation="18dp">
 
@@ -67,8 +71,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginStart="20dp">
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -100,26 +104,24 @@
                     android:orientation="horizontal">
 
                     <Button
-                        android:layout_width="105dp"
-                        android:layout_height="match_parent"
+                        android:layout_width="100dp"
+                        android:layout_height="40dp"
                         android:layout_marginEnd="50dp"
+                        android:backgroundTint="@color/transparent"
                         android:clickable="true"
                         android:gravity="center"
                         android:text="Deposit"
-                        android:textSize="9sp"
-                        android:theme="@style/Button.Black"
-                        android:backgroundTint="@color/greytrans"/>
+                        android:textSize="10dp" />
 
                     <Button
                         android:layout_width="105dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="40dp"
                         android:layout_marginEnd="7dp"
+                        android:backgroundTint="@color/transparent"
                         android:clickable="true"
                         android:gravity="center"
                         android:text="Withdraw"
-                        android:textSize="9sp"
-                        android:theme="@style/Button.Black"
-                        android:backgroundTint="@color/greytrans"/>
+                        android:textSize="10dp" />
 
                 </LinearLayout>
 
