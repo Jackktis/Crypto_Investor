@@ -13,7 +13,6 @@
         <variable
             name="percent"
             type="CharSequence" />
-
         <variable
             name="price"
             type="CharSequence" />
