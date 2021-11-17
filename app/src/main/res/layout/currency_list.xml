@@ -90,7 +90,7 @@
                 android:textSize="18dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
+                android:layout_gravity="left"
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 android:text="@{price, default=`Currency price`}" />
