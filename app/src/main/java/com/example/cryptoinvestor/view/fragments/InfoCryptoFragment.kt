@@ -2,12 +2,15 @@ package com.example.cryptoinvestor.view.fragments
 // fået inspiration fra https://medium.com/@yilmazvolkan/kotlinlinecharts-c2a730226ff1 til hvordan,
 // Man sætter en chart op i kotlin.
 
+import android.graphics.Color
 import android.graphics.Color.red
 import android.os.Build.ID
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.view.menu.MenuView
 import androidx.databinding.DataBindingUtil.setContentView
 import androidx.databinding.adapters.TextViewBindingAdapter.setText
 import androidx.fragment.app.Fragment
@@ -27,7 +30,11 @@ import androidx.navigation.findNavController
 import com.example.cryptoinvestor.R
 import com.example.cryptoinvestor.di.ServiceLocator.cryptoViewModel
 import com.example.cryptoinvestor.di.ServiceLocator.infoCryptoViewModel
+import com.example.cryptoinvestor.utils.FLOAT_FORMATTER
+import com.example.cryptoinvestor.utils.PRICE_FORMATTER
 import com.example.cryptoinvestor.viewmodel.InfoCryptoViewModel
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.currency_list.view.*
 
 
 class InfoCryptoFragment : Fragment() {
@@ -55,18 +62,36 @@ class InfoCryptoFragment : Fragment() {
         val bundle = arguments
 
         if (bundle != null) {
-            id = bundle.getString("ID").toString()
-//            CurrencyInti.text = bundle.getString("ID")
+            id = bundle.getString("id").toString()
             viewModel.refreshAsset(id)
-        }
-        viewModel.asset.observe(viewLifecycleOwner, {asset ->
-            if(asset.isSuccessful){
-                asset.body()?.let {
-                    println(asset.body()?.toString())
 
+
+            viewModel.asset.observe(viewLifecycleOwner, {asset ->
+                if(asset.isSuccessful){
+                    asset.body()?.let {
+                        var imageUrl = "https://static.coincap.io/assets/icons/"
+                        view.CurrencyFullName.text = it.name
+                        view.CurrencyInti.text = it.symbol
+                        view.Currencies_price.text = PRICE_FORMATTER.format(it.price).toString()
+                        var changeTxt = FLOAT_FORMATTER.format(it.change24Hr).toString()
+                        println(asset.body()?.toString())
+                        view.info_changePr24Hr.text = changeTxt
+                        Picasso.get().load(imageUrl+it.symbol.lowercase()+"@2x.png").into(view.info_CurrencyImage)
+                        if (changeTxt.contains("-")){
+                            Log.w("Negativ", changeTxt)
+                            view.info_changePr24Hr.setTextColor(Color.RED)
+                            view.procent.setTextColor(Color.RED)
+                        }else{
+                            Log.w("Positiv", changeTxt)
+                            view.info_changePr24Hr.setTextColor(Color.GREEN)
+                            view.procent.setTextColor(Color.GREEN)
+                        }
+
+                    }
                 }
-            }
-        })
+            })
+        }
+
 
     }
 

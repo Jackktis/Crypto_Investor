@@ -29,7 +29,7 @@ interface CoinCapApi {
     /*
         "v2" er tilføjet her da baseUrlen ikke gav den videre, mærkeligt problem?
     */
-    @GET("v2/assets/?limit=10")
+    @GET("v2/assets/?limit=100")
     suspend fun getTenAssets(): Response<List<AssetDto>>
 
     companion object {

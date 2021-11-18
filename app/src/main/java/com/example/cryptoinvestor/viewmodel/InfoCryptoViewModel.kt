@@ -1,12 +1,17 @@
 package com.example.cryptoinvestor.viewmodel
 
+import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import androidx.lifecycle.*
 import com.example.cryptoinvestor.model.api.CoinCapApi
 import com.example.cryptoinvestor.model.api.dto.AssetDto
 import com.example.cryptoinvestor.utils.FLOAT_FORMATTER
 import com.example.cryptoinvestor.utils.INTEGER_PRICE_FORMATTER
 import com.example.cryptoinvestor.utils.PRICE_FORMATTER
+import com.example.cryptoinvestor.view.adapter.RateAdapter
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.currency_list.view.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import retrofit2.Call
@@ -26,20 +31,21 @@ class InfoCryptoViewModel(private val coinCapApi: CoinCapApi) : ViewModel() {
 //    val change: LiveData<String> = asset.map { FLOAT_FORMATTER.format(it.change24Hr) + "%" }
 //    val updatedAt: LiveData<String> = asset.map { LocalTime.now().toString() }
 
-    fun refreshAsset(assetName : String) {
-        println(assetName)
+    fun refreshAsset(assetId : String) {
+        println(assetId)
         viewModelScope.launch {
             try {
-                val response = coinCapApi.getAsset(assetName)
+                val response = coinCapApi.getAsset(assetId)
+
 
                 asset.value = response
-
             } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
-
     }
+    }
+
 
 //    fun getCoinInfo(name : String) {
 //        coinCapApi.getRateAsString(name).enqueue(object : Callback<String> {
@@ -55,7 +61,3 @@ class InfoCryptoViewModel(private val coinCapApi: CoinCapApi) : ViewModel() {
 //            }
 //        })
 //    }
-
-
-
-}

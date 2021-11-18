@@ -67,7 +67,7 @@ class CryptoFragment : Fragment() {
 
 
         adapter.onItemClick = { assets ->
-            val bundle = bundleOf("id" to assets.name)
+            val bundle = bundleOf("id" to assets.id)
 
             findNavController().navigate(R.id.InfoCryptoFragment, bundle)
 
