@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.lifecycle.get
-import com.example.cryptoinvestor.model.AssetsRepository
 import com.example.cryptoinvestor.model.api.CoinCapApi
 import com.example.cryptoinvestor.viewmodel.CryptoViewModel
 import com.example.cryptoinvestor.model.db.AppDatabase
@@ -29,17 +28,13 @@ object ServiceLocator {
     }
 
 
-    private val assetsRepository: AssetsRepository by lazy {
-        AssetsRepository(coinCapApi, database)
-    }
-
     private val viewModelFactory by lazy {
         object : ViewModelProvider.Factory {
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
                 return when (modelClass) {
                     //MainViewModel::class.java -> MainViewModel(gameRepository)
                     //AssetDetailsViewModel::class.java -> AssetDetailsViewModel(assetsRepository)
-                    CryptoViewModel::class.java -> CryptoViewModel(coinCapApi, assetsRepository)
+                    CryptoViewModel::class.java -> CryptoViewModel(coinCapApi)
                     else -> throw IllegalArgumentException("Unsupported ViewModel $modelClass")
                 } as T
             }

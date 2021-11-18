@@ -32,7 +32,7 @@ class RateAdapter : RecyclerView.Adapter<RateAdapter.RateViewHolder>(), Filterab
             assetFilterList = rates
 
             itemView.setOnClickListener {
-                onItemClick?.invoke(rates[adapterPosition])
+                onItemClick?.invoke(assetFilterList[adapterPosition])
             }
         }
     }
