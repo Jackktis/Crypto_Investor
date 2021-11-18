@@ -59,7 +59,7 @@
             android:layout_gravity="right"
             android:textSize="18sp"
             android:textColor="@color/black"
-            android:text="total $" />
+            android:text="" />
 
         <TextView
             android:id="@+id/soldPrice"
