@@ -64,11 +64,8 @@ class CryptoFragment : Fragment() {
         currency_RV.adapter = adapter
         currency_RV.layoutManager = LinearLayoutManager(context)
 
-
-
         adapter.onItemClick = { assets ->
             val bundle = bundleOf("ID" to assets.id)
-
             findNavController().navigate(R.id.InfoCryptoFragment, bundle)
 
 
