@@ -23,7 +23,7 @@ interface CoinCapApi {
     @GET("rates/{id}")
     fun getRateAsString(@Path("id") id: String): Call<String>
 
-    @GET("assets/{id}")
+    @GET("v2/assets/{id}")
     suspend fun getAsset(@Path("id") id: String): Response<AssetDto>
 
     /*

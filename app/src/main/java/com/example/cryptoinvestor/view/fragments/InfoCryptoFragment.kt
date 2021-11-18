@@ -3,14 +3,15 @@ package com.example.cryptoinvestor.view.fragments
 // Man sætter en chart op i kotlin.
 
 import android.graphics.Color.red
+import android.os.Build.ID
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil.setContentView
+import androidx.databinding.adapters.TextViewBindingAdapter.setText
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
-import com.example.cryptoinvestor.R
 import com.example.cryptoinvestor.databinding.FragmentInfoCryptoBinding
 import com.example.cryptoinvestor.databinding.FragmentCryptoBinding
 import com.github.mikephil.charting.animation.Easing
@@ -22,9 +23,14 @@ import com.github.mikephil.charting.data.LineDataSet
 import kotlinx.android.synthetic.main.fragment_info_crypto.*
 import kotlinx.android.synthetic.main.fragment_info_crypto.view.*
 
+import androidx.navigation.findNavController
+import com.example.cryptoinvestor.R
+
+
 class InfoCryptoFragment : Fragment() {
 
     private lateinit var binding: FragmentInfoCryptoBinding
+
 
     companion object{
         fun newInstance() = InfoCryptoFragment()
@@ -34,13 +40,25 @@ class InfoCryptoFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         binding = FragmentInfoCryptoBinding.inflate(inflater, container, false)
 
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val bundle = arguments
+
+        if (bundle != null) {
+            CurrencyInti.text = bundle.getString("ID")
+        }
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+    }
+
 
     fun setLineChartData(lineChart: LineChart) {
 
@@ -98,5 +116,6 @@ class InfoCryptoFragment : Fragment() {
         val markerView = CustomMarker(this@ShowForexActivity, R.layout.marker_view)
         lineChart.marker = markerView
          */
-
     }
+}
+

@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".view.fragments.BuyCryptoFragment">
+    tools:context=".view.fragments.InfoCryptoFragment"
+    android:background="@color/white">
 
     <!-- Banner start -->
 

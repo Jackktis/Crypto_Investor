@@ -1,25 +1,18 @@
 package com.example.cryptoinvestor.view.fragments
 
-import android.graphics.Insets.add
 import android.os.Bundle
-import android.text.Layout
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.OneShotPreDrawListener.add
-import androidx.core.view.get
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cryptoinvestor.R
 import com.example.cryptoinvestor.databinding.FragmentCryptoBinding
-import com.example.cryptoinvestor.databinding.FragmentInfoCryptoBinding
 import com.example.cryptoinvestor.di.ServiceLocator.cryptoViewModel
 import com.example.cryptoinvestor.view.adapter.RateAdapter
-import kotlinx.android.synthetic.main.activity_navigation.*
 import kotlinx.android.synthetic.main.fragment_crypto.*
-import timber.log.Timber
 
 class CryptoFragment : Fragment() {
 
@@ -49,7 +42,7 @@ class CryptoFragment : Fragment() {
         viewModel.getTenAssets()
         //Her er forbindelsen med at hente vores liste af coins og sætter dataen til adapteren
         viewModel.assetsList.observe(viewLifecycleOwner, { assets ->
-            if (assets.isSuccessful){
+            if (assets.isSuccessful) {
                 assets.body()?.let {
                     println(assets.body()?.toString())
                     adapter.setData(it)
@@ -60,27 +53,31 @@ class CryptoFragment : Fragment() {
 //                    Log.d("Response", it.volume24Hr.toString())
 
                 }
-            }else{
+            } else {
                 Log.d("Response", assets.errorBody().toString())
             }
         })
     }
 
-    private fun setupRecyclerView(){
+    private fun setupRecyclerView() {
         currency_RV.adapter = adapter
         currency_RV.layoutManager = LinearLayoutManager(context)
 
-        adapter.onItemClick = { assets ->
 
-            activity?.supportFragmentManager?.beginTransaction()
-                ?.replace(R.id.container,InfoCryptoFragment.newInstance())?.addToBackStack(null)?.commit()
-            //parentFragmentManager.beginTransaction().add(R.id.container, InfoCryptoFragment.newInstance())
-                //.commitNow()
+
+        adapter.onItemClick = { assets ->
+            val bundle = Bundle()
+            bundle.putString("ID", assets.id)
+
+            findNavController().navigate(R.id.InfoCryptoFragment, bundle)
+
+            /*
+            requireActivity().supportFragmentManager.beginTransaction()
+                .addToBackStack("crypto_list")
+                .replace(R.id.container, infoCryptoFragment)
+                .commit()
+*/
         }
 
     }
-//    override fun onDestroyView() {
-//        super.onDestroyView()
-//        _binding = null
-//    }
 }
