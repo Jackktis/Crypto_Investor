@@ -52,13 +52,13 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
+
                 <ImageView
                     android:id="@+id/info_CurrencyImage"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
 
                     android:background="@drawable/under_currency_icon" />
-
 
                 <LinearLayout
                     android:layout_marginTop="5dp"
@@ -76,7 +76,7 @@
                         android:layout_gravity="end"/>
 
                     <TextView
-                        android:id="@+id/Currencies_price"
+                        android:id="@+id/info_CurrencyPrice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="123"
@@ -99,21 +99,21 @@
                         android:layout_weight="1"
                         android:orientation="vertical">
                     <TextView
-                        android:id="@+id/CurrencyInti"
+                        android:id="@+id/info_CurrencyInitials"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{viewModel.asset.body().symbol}"
+                        android:text="@{viewModel.asset.body().symbol, default=`CurrencyInitials`}"
                         android:textColor="@color/white"
                         android:textStyle="bold"
                         android:textSize="28sp"
                         />
                         <TextView
 
-                            android:id="@+id/CurrencyFullName"
+                            android:id="@+id/info_CurrencyName"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="0dp"
-                            android:text="@{viewModel.asset.body().name}"
+                            android:text="@{viewModel.asset.body().name, default=`CurrencyName`}"
                             android:textColor="@color/white"
                             android:textStyle="bold"
                             android:textSize="14sp"

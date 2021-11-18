@@ -2,39 +2,27 @@ package com.example.cryptoinvestor.view.fragments
 // fået inspiration fra https://medium.com/@yilmazvolkan/kotlinlinecharts-c2a730226ff1 til hvordan,
 // Man sætter en chart op i kotlin.
 
+import CustomMarker
 import android.graphics.Color
-import android.graphics.Color.red
-import android.os.Build.ID
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.view.menu.MenuView
-import androidx.databinding.DataBindingUtil.setContentView
-import androidx.databinding.adapters.TextViewBindingAdapter.setText
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.RecyclerView
 import com.example.cryptoinvestor.databinding.FragmentInfoCryptoBinding
-import com.example.cryptoinvestor.databinding.FragmentCryptoBinding
 import com.github.mikephil.charting.animation.Easing
-import com.github.mikephil.charting.charts.Chart
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
-import kotlinx.android.synthetic.main.fragment_info_crypto.*
 import kotlinx.android.synthetic.main.fragment_info_crypto.view.*
 
-import androidx.navigation.findNavController
 import com.example.cryptoinvestor.R
-import com.example.cryptoinvestor.di.ServiceLocator.cryptoViewModel
 import com.example.cryptoinvestor.di.ServiceLocator.infoCryptoViewModel
 import com.example.cryptoinvestor.utils.FLOAT_FORMATTER
 import com.example.cryptoinvestor.utils.PRICE_FORMATTER
-import com.example.cryptoinvestor.viewmodel.InfoCryptoViewModel
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.currency_list.view.*
 
 
 class InfoCryptoFragment : Fragment() {
@@ -70,13 +58,14 @@ class InfoCryptoFragment : Fragment() {
                 if(asset.isSuccessful){
                     asset.body()?.let {
                         var imageUrl = "https://static.coincap.io/assets/icons/"
-                        view.CurrencyFullName.text = it.name
-                        view.CurrencyInti.text = it.symbol
-                        view.Currencies_price.text = PRICE_FORMATTER.format(it.price).toString()
+                        view.info_CurrencyName.text = it.name
+                        view.info_CurrencyInitials.text = it.symbol
+                        view.info_CurrencyPrice.text = PRICE_FORMATTER.format(it.price).toString()
                         var changeTxt = FLOAT_FORMATTER.format(it.change24Hr).toString()
                         println(asset.body()?.toString())
                         view.info_changePr24Hr.text = changeTxt
                         Picasso.get().load(imageUrl+it.symbol.lowercase()+"@2x.png").into(view.info_CurrencyImage)
+                        setLineChartData(view.lineChart)
                         if (changeTxt.contains("-")){
                             Log.w("Negativ", changeTxt)
                             view.info_changePr24Hr.setTextColor(Color.RED)
@@ -152,10 +141,9 @@ class InfoCryptoFragment : Fragment() {
 
         //TODO: dette vil være en dot du kan hive rundt på charten for at se specifik værdi.
         // hvis vi gerne vil se hvordan, kan vi bruge https://medium.com/@yilmazvolkan/kotlinlinecharts-c2a730226ff1
-        /*
-        val markerView = CustomMarker(this@ShowForexActivity, R.layout.marker_view)
+        val markerView = context?.let { CustomMarker(it, R.layout.chart) }
         lineChart.marker = markerView
-         */
+
     }
 }
 

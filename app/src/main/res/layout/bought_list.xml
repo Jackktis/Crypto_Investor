@@ -79,7 +79,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/currency_current_price"
+            android:id="@+id/CurrencyPrice"
             android:textSize="18sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

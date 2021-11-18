@@ -5,19 +5,15 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.Filter
 import android.widget.Filterable
-import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cryptoinvestor.R
 import com.example.cryptoinvestor.model.api.dto.AssetDto
 import com.example.cryptoinvestor.utils.PRICE_FORMATTER
-import com.github.mikephil.charting.utils.Utils
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.currency_list.view.*
 import java.util.*
-import kotlin.collections.ArrayList
 
 class RateAdapter : RecyclerView.Adapter<RateAdapter.RateViewHolder>(), Filterable {
     var charSearch = ""
@@ -50,20 +46,20 @@ class RateAdapter : RecyclerView.Adapter<RateAdapter.RateViewHolder>(), Filterab
         var imageUrl = "https://static.coincap.io/assets/icons/"
         holder.itemView.CurrencyName.text = assetFilterList[position].name
         holder.itemView.CurrencySymbol.text = assetFilterList[position].symbol
-        holder.itemView.currency_current_price.text =
+        holder.itemView.CurrencyPrice.text =
             PRICE_FORMATTER.format(assetFilterList[position].price).toString()
         var changeTxt = assetFilterList[position].change24Hr.toString()
-        holder.itemView.Currency_percent.text = changeTxt
+        holder.itemView.CurrencyPercent.text = changeTxt
         Picasso.get().load(imageUrl + assetFilterList[position].symbol.lowercase() + "@2x.png")
             .into(holder.itemView.CurrencyIcon)
 
         //Changing the color of the changeTxt according to being negative or positive.
         if (changeTxt.contains("-")) {
-            Log.w("Negativ", changeTxt)
-            holder.itemView.Currency_percent.setTextColor(Color.RED)
+            //Log.w("Negativ", changeTxt)
+            holder.itemView.CurrencyPercent.setTextColor(Color.RED)
         } else {
-            Log.w("Positiv", changeTxt)
-            holder.itemView.Currency_percent.setTextColor(Color.GREEN)
+            //Log.w("Positiv", changeTxt)
+            holder.itemView.CurrencyPercent.setTextColor(Color.GREEN)
         }
 
 

@@ -23,6 +23,13 @@ interface CoinCapApi {
     suspend fun getAsset(@Path("id") id: String): Response<AssetDto>
 
     /*
+    Den her skal hente historikken for en asset
+    @GET("v2/assets/{id}/history?interval=[d1]")
+    suspend fun getAssetHistory(@Path("id") id: String):
+     */
+
+
+    /*
         "v2" er tilføjet her da baseUrlen ikke gav den videre, mærkeligt problem?
     */
     @GET("v2/assets/?limit=100")
