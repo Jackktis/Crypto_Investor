@@ -55,10 +55,18 @@ class InfoCryptoFragment : Fragment() {
         val bundle = arguments
 
         if (bundle != null) {
-//            id = bundle.getString("ID").toString()
+            id = bundle.getString("ID").toString()
 //            CurrencyInti.text = bundle.getString("ID")
-            viewModel.getCoinDetails(bundle.getString("id").toString())
+            viewModel.refreshAsset(id)
         }
+        viewModel.asset.observe(viewLifecycleOwner, {asset ->
+            if(asset.isSuccessful){
+                asset.body()?.let {
+                    println(asset.body()?.toString())
+
+                }
+            }
+        })
 
     }
 

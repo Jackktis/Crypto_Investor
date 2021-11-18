@@ -14,7 +14,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.time.LocalTime
 
-class InfoCryptoViewModel(coinCapApi: CoinCapApi) : ViewModel() {
+class InfoCryptoViewModel(private val coinCapApi: CoinCapApi) : ViewModel() {
     //val _asset: MutableLiveData<Response<AssetDto>> = MutableLiveData()
 
 
@@ -25,12 +25,9 @@ class InfoCryptoViewModel(coinCapApi: CoinCapApi) : ViewModel() {
 //    val volume: LiveData<String> = asset.map { INTEGER_PRICE_FORMATTER.format(it.volume24Hr) }
 //    val change: LiveData<String> = asset.map { FLOAT_FORMATTER.format(it.change24Hr) + "%" }
 //    val updatedAt: LiveData<String> = asset.map { LocalTime.now().toString() }
-    var assetName : String = ""
-    fun getCoinDetails (name : String) {
-        assetName = name
-    }
 
-    init {
+    fun refreshAsset(assetName : String) {
+        println(assetName)
         viewModelScope.launch {
             try {
                 val response = coinCapApi.getAsset(assetName)
