@@ -16,8 +16,8 @@ data class AssetEntity(
     @ColumnInfo(name = "volume_24", defaultValue = "0") val volume24Hr: Float,
 )
 
-fun AssetEntity.toModel(): AssetDto =
-    AssetDto(id, name, symbol, price, volume24Hr, change24Hr)
+//fun AssetEntity.toModel(): AssetDto =
+    //AssetDto(id,name,symbol,price)
 
 fun AssetDto.toEntity(): AssetEntity =
     AssetEntity(id, name, symbol, price, change24Hr, volume24Hr)

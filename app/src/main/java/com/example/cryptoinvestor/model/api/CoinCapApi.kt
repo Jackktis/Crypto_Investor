@@ -1,7 +1,6 @@
 package com.example.cryptoinvestor.model.api
 
 import com.example.cryptoinvestor.model.api.dto.AssetDto
-import com.example.cryptoinvestor.model.api.dto.RateDto
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
@@ -16,9 +15,6 @@ import timber.log.Timber
 interface CoinCapApi {
     @GET("rates")
     fun getRates(): Call<List<AssetDto>>
-
-    @GET("rates/{id}")
-    suspend fun getRate(@Path("id") id: String): RateDto
 
     @GET("rates/{id}")
     fun getRateAsString(@Path("id") id: String): Call<String>

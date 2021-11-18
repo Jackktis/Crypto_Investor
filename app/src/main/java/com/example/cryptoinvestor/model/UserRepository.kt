@@ -13,12 +13,5 @@ class UserRepository (val application: CryptoInvestApplication) {
             "password" to password,
             "balance" to 10000,
         )
-
-
     }
-
-
-
-
-
 }
