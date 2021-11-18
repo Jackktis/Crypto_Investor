@@ -9,6 +9,7 @@ import com.example.cryptoinvestor.model.AssetsRepository
 import com.example.cryptoinvestor.model.api.CoinCapApi
 import com.example.cryptoinvestor.viewmodel.CryptoViewModel
 import com.example.cryptoinvestor.model.db.AppDatabase
+import com.example.cryptoinvestor.viewmodel.InfoCryptoViewModel
 
 //import com.example.coincapshortc.ui.rates.RatesViewModel
 
@@ -40,6 +41,7 @@ object ServiceLocator {
                     //MainViewModel::class.java -> MainViewModel(gameRepository)
                     //AssetDetailsViewModel::class.java -> AssetDetailsViewModel(assetsRepository)
                     CryptoViewModel::class.java -> CryptoViewModel(coinCapApi, assetsRepository)
+                    InfoCryptoViewModel::class.java -> InfoCryptoViewModel(coinCapApi)
                     else -> throw IllegalArgumentException("Unsupported ViewModel $modelClass")
                 } as T
             }
@@ -55,5 +57,8 @@ object ServiceLocator {
 //        get() = ViewModelProvider(this, viewModelFactory).get()
 
     val ViewModelStoreOwner.cryptoViewModel: CryptoViewModel
+        get() = ViewModelProvider(this, viewModelFactory).get()
+
+    val ViewModelStoreOwner.infoCryptoViewModel: InfoCryptoViewModel
         get() = ViewModelProvider(this, viewModelFactory).get()
 }
