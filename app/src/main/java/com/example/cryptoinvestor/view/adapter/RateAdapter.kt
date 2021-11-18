@@ -49,6 +49,7 @@ class RateAdapter : RecyclerView.Adapter<RateAdapter.RateViewHolder>(), Filterab
     override fun onBindViewHolder(holder: RateViewHolder, position: Int) {
         var imageUrl = "https://static.coincap.io/assets/icons/"
         holder.itemView.CurrencyName.text = assetFilterList[position].name
+        holder.itemView.CurrencySymbol.text = assetFilterList[position].symbol
         holder.itemView.currency_current_price.text =
             PRICE_FORMATTER.format(assetFilterList[position].price).toString()
         var changeTxt = assetFilterList[position].change24Hr.toString()

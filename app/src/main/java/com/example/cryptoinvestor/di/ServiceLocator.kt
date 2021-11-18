@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.lifecycle.get
-import com.example.cryptoinvestor.model.AssetsRepository
 import com.example.cryptoinvestor.model.api.CoinCapApi
 import com.example.cryptoinvestor.viewmodel.CryptoViewModel
 import com.example.cryptoinvestor.model.db.AppDatabase
