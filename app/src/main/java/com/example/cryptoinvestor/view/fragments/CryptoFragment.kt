@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,15 +16,10 @@ import com.example.cryptoinvestor.view.adapter.RateAdapter
 import kotlinx.android.synthetic.main.fragment_crypto.*
 
 class CryptoFragment : Fragment() {
-
     private val viewModel by lazy { cryptoViewModel }
     private val adapter by lazy { RateAdapter() }
 
     private lateinit var binding: FragmentCryptoBinding
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    //private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,24 +33,32 @@ class CryptoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setupRecyclerView()
-
-        //Her henter vi 10 coins
+        /*
+           Grabbing the list of 10 coins(Response List of AssetDto from the api-call)
+           and setting the data to the adapter.
+         */
         viewModel.getTenAssets()
-        //Her er forbindelsen med at hente vores liste af coins og sætter dataen til adapteren
         viewModel.assetsList.observe(viewLifecycleOwner, { assets ->
             if (assets.isSuccessful) {
                 assets.body()?.let {
                     println(assets.body()?.toString())
                     adapter.setData(it)
-//                    Log.d("Response", it.name)
-//                    Log.d("Response", it.id)
-//                    Log.d("Response", it.price.toString())
-//                    Log.d("Response", it.change24Hr.toString())
-//                    Log.d("Response", it.volume24Hr.toString())
-
                 }
             } else {
                 Log.d("Response", assets.errorBody().toString())
+            }
+        })
+
+        /*
+          Gets called every time we type in the SearchView, and updates the Recyclerview accordingly
+       */
+        rateSearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(p0: String?): Boolean {
+                return false
+            }
+            override fun onQueryTextChange(newText: String?): Boolean {
+                adapter.filter.filter(newText)
+                return false
             }
         })
     }
@@ -63,12 +67,9 @@ class CryptoFragment : Fragment() {
         currency_RV.adapter = adapter
         currency_RV.layoutManager = LinearLayoutManager(context)
 
-
-
         adapter.onItemClick = { assets ->
             val bundle = Bundle()
             bundle.putString("ID", assets.id)
-
             findNavController().navigate(R.id.InfoCryptoFragment, bundle)
 
 
