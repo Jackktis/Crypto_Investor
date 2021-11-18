@@ -71,12 +71,15 @@ class CryptoFragment : Fragment() {
 
             findNavController().navigate(R.id.InfoCryptoFragment, bundle)
 
+
+            // Used only if you are accessing a very specific/custom fragment
+            // using the navcontroller and navgraph is favored
             /*
             requireActivity().supportFragmentManager.beginTransaction()
                 .addToBackStack("crypto_list")
                 .replace(R.id.container, infoCryptoFragment)
                 .commit()
-*/
+            */
         }
 
     }
