@@ -66,14 +66,6 @@ class CryptoViewModel(private val coinCapApi: CoinCapApi, assetsRepo: AssetsRepo
 
         })
 
-//        viewModelScope.launch {
-//            try {
-//                val response = coinCapApi.getTenAssets()
-//                assetsList.value = response
-//            } catch (e: Exception){
-//                e.printStackTrace()
-//            }
-//        }
 
     }
     fun getTenAssets(){
@@ -85,9 +77,5 @@ class CryptoViewModel(private val coinCapApi: CoinCapApi, assetsRepo: AssetsRepo
                 e.printStackTrace()
             }
         }
-    }
-
-    fun onItemClick(position: Int) {
-
     }
 }

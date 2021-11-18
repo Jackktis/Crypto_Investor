@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -66,8 +67,7 @@ class CryptoFragment : Fragment() {
 
 
         adapter.onItemClick = { assets ->
-            val bundle = Bundle()
-            bundle.putString("ID", assets.id)
+            val bundle = bundleOf("id" to assets.name)
 
             findNavController().navigate(R.id.InfoCryptoFragment, bundle)
 

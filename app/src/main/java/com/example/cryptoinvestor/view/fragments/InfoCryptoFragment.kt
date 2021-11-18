@@ -25,12 +25,16 @@ import kotlinx.android.synthetic.main.fragment_info_crypto.view.*
 
 import androidx.navigation.findNavController
 import com.example.cryptoinvestor.R
+import com.example.cryptoinvestor.di.ServiceLocator.cryptoViewModel
+import com.example.cryptoinvestor.di.ServiceLocator.infoCryptoViewModel
+import com.example.cryptoinvestor.viewmodel.InfoCryptoViewModel
 
 
 class InfoCryptoFragment : Fragment() {
 
     private lateinit var binding: FragmentInfoCryptoBinding
-
+    private val viewModel by lazy { infoCryptoViewModel }
+    var id : String = ""
 
     companion object{
         fun newInstance() = InfoCryptoFragment()
@@ -51,8 +55,11 @@ class InfoCryptoFragment : Fragment() {
         val bundle = arguments
 
         if (bundle != null) {
-            CurrencyInti.text = bundle.getString("ID")
+//            id = bundle.getString("ID").toString()
+//            CurrencyInti.text = bundle.getString("ID")
+            viewModel.getCoinDetails(bundle.getString("id").toString())
         }
+
     }
 
     override fun onDestroy() {
