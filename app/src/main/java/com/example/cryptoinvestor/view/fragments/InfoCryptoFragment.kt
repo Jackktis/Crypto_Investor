@@ -88,6 +88,9 @@ class InfoCryptoFragment : Fragment() {
                         if (it != null) {
                             println("Det her er kroppen " + it.map { it.priceUsd })
                             val entries = ArrayList<Entry>()
+                            /*
+                            mapper assetHistoryDto responsets data til to lister der bruges til at lave entries som senere bliver brugt i setLineChartData()
+                             */
                             val assetUsd: List<Float> = it.map { it.priceUsd }
                             val assetTime: List<Float> = it.map { it.time }
                             val assetTimeStr = mutableListOf<String>()
@@ -95,6 +98,10 @@ class InfoCryptoFragment : Fragment() {
                             //it.forEach(entries.add(Entry(assetUsd,assetTime)))
                             for (asset in it.indices){
                                 entries.add(Entry(assetTime[asset],assetUsd[asset]))
+
+                                /*
+                                Nedestående er forsøg på at ændre x label med en liste af strings
+                                 */
                                 assetTimeStr.add("HEJ")
                                // assetTimeStr.add(Date(assetTime[asset].toLong()).toString())
                             }
@@ -117,6 +124,9 @@ class InfoCryptoFragment : Fragment() {
         super.onDestroy()
     }
 
+    /*
+    LineChart Design og opsætning
+     */
 
     fun setLineChartData(
         lineChart: LineChart,
