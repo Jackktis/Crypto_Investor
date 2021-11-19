@@ -18,7 +18,7 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import kotlinx.android.synthetic.main.fragment_info_crypto.view.*
 
-import com.example.cryptoinvestor.R
+
 import com.example.cryptoinvestor.di.ServiceLocator.infoCryptoViewModel
 import com.example.cryptoinvestor.utils.FLOAT_FORMATTER
 import com.example.cryptoinvestor.utils.PRICE_FORMATTER
@@ -26,6 +26,9 @@ import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.squareup.picasso.Picasso
 import java.util.*
 import kotlin.collections.ArrayList
+
+import androidx.core.content.ContextCompat
+import com.example.cryptoinvestor.R
 
 
 class InfoCryptoFragment : Fragment() {
@@ -137,17 +140,6 @@ class InfoCryptoFragment : Fragment() {
 
 
         // x-værdier
-        /*
-        val xValue = ArrayList<String>()
-        xValue.add("11.00")
-        xValue.add("12.00")
-        xValue.add("13.00")
-        xValue.add("14.00")
-        xValue.add("15.00")
-*/
-        // y-værdier
-
-
         // datasættet for line
         val lineDataSet = LineDataSet(entries, "first")
 
@@ -155,25 +147,34 @@ class InfoCryptoFragment : Fragment() {
         // DrawFilled sættes til true for at fylde ud under grafen
         // linewidth kan vi ændre tykkelsen og fylde dens farve
 
-        lineDataSet.setDrawValues(false)
+        lineDataSet.setDrawValues(true)
         lineDataSet.setDrawFilled(true)
         lineDataSet.lineWidth = 3f
-        lineDataSet.fillColor = R.color.ThirdColor
-        lineDataSet.fillAlpha = R.color.black
-        lineDataSet.setCircleColor(R.color.bannerGold)
-        lineDataSet.setDrawCircles(false)
 
+
+        val drawable = context?.let { ContextCompat.getDrawable(it,R.drawable.linechart_fill_color) }
+        val color = context?.let { ContextCompat.getColor(it, R.color.PrimaryColor) }
+        lineDataSet.fillDrawable = drawable
+
+        if (color != null) {
+            lineDataSet.color = color
+        }
+
+        lineDataSet.setDrawCircles(false)
 
         //Her sættes en rotation angle til x-aksen (måske udkommenteres)
         lineChart.xAxis.labelRotationAngle = 0f
+
 
         // hver sætter vi vores datasæt ind i en line chart til at tegnes
 
         lineChart.data = LineData(lineDataSet)
         lineChart.xAxis.valueFormatter = IndexAxisValueFormatter(assetTimeStr)
+        lineChart.xAxis.setDrawGridLines(false)
+        lineChart.axisRight.setDrawGridLines(false)
 
         //removing extra y-axis
-        lineChart.axisRight.isEnabled = false
+        lineChart.axisLeft.isEnabled = false
 
         // Dette kan bruges, hvis der ikke kommer noget data ind
         lineChart.description.text = "x-axis"
