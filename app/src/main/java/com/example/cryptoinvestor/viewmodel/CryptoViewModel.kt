@@ -43,7 +43,6 @@ class CryptoViewModel(private val coinCapApi: CoinCapApi) : ViewModel() {
                 val response = coinCapApi.getAsset("bitcoin")
 
                 _assets.value = response
-
             } catch (e: Exception) {
                 e.printStackTrace()
             }

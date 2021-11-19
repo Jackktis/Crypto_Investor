@@ -1,6 +1,7 @@
 package com.example.cryptoinvestor.model.api
 
 import com.example.cryptoinvestor.model.api.dto.AssetDto
+import com.example.cryptoinvestor.model.api.dto.AssetHistoryDTO
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
@@ -24,14 +25,10 @@ interface CoinCapApi {
 
     /*
     Den her skal hente historikken for en asset
-    @GET("v2/assets/{id}/history?interval=[d1]")
-    suspend fun getAssetHistory(@Path("id") id: String):
      */
+    @GET("v2/assets/{id}/history?interval=m1")
+    suspend fun getAssetHistory(@Path("id") id: String): Response<List<AssetHistoryDTO>>
 
-
-    /*
-        "v2" er tilføjet her da baseUrlen ikke gav den videre, mærkeligt problem?
-    */
     @GET("v2/assets/?limit=100")
     suspend fun getTenAssets(): Response<List<AssetDto>>
 

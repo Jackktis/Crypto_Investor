@@ -22,7 +22,10 @@ import com.example.cryptoinvestor.R
 import com.example.cryptoinvestor.di.ServiceLocator.infoCryptoViewModel
 import com.example.cryptoinvestor.utils.FLOAT_FORMATTER
 import com.example.cryptoinvestor.utils.PRICE_FORMATTER
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.squareup.picasso.Picasso
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class InfoCryptoFragment : Fragment() {
@@ -52,7 +55,7 @@ class InfoCryptoFragment : Fragment() {
         if (bundle != null) {
             id = bundle.getString("id").toString()
             viewModel.refreshAsset(id)
-
+            viewModel.getAssetHistory(id)
 
             viewModel.asset.observe(viewLifecycleOwner, {asset ->
                 if(asset.isSuccessful){
@@ -65,7 +68,6 @@ class InfoCryptoFragment : Fragment() {
                         println(asset.body()?.toString())
                         view.info_changePr24Hr.text = changeTxt
                         Picasso.get().load(imageUrl+it.symbol.lowercase()+"@2x.png").into(view.info_CurrencyImage)
-                        setLineChartData(view.lineChart)
                         if (changeTxt.contains("-")){
                             Log.w("Negativ", changeTxt)
                             view.info_changePr24Hr.setTextColor(Color.RED)
@@ -79,6 +81,33 @@ class InfoCryptoFragment : Fragment() {
                     }
                 }
             })
+
+            viewModel.assetHistory.observe(viewLifecycleOwner, { asset ->
+                if (asset.isSuccessful){
+                    asset.body().let {
+                        if (it != null) {
+                            println("Det her er kroppen " + it.map { it.priceUsd })
+                            val entries = ArrayList<Entry>()
+                            val assetUsd: List<Float> = it.map { it.priceUsd }
+                            val assetTime: List<Float> = it.map { it.time }
+                            val assetTimeStr = mutableListOf<String>()
+                            println("Det her er formateret tid " + it.map { Date(it.time.toLong()) })
+                            //it.forEach(entries.add(Entry(assetUsd,assetTime)))
+                            for (asset in it.indices){
+                                entries.add(Entry(assetTime[asset],assetUsd[asset]))
+                                assetTimeStr.add("HEJ")
+                               // assetTimeStr.add(Date(assetTime[asset].toLong()).toString())
+                            }
+                            setLineChartData(view.lineChart, entries,assetTime, assetTimeStr)
+
+                        }
+                    }
+                }else{
+                    println("IT IS NULL!!!!")
+                }
+            })
+
+
         }
 
 
@@ -89,7 +118,12 @@ class InfoCryptoFragment : Fragment() {
     }
 
 
-    fun setLineChartData(lineChart: LineChart) {
+    fun setLineChartData(
+        lineChart: LineChart,
+        entries: ArrayList<Entry>,
+        assetTime: List<Float>,
+        assetTimeStr: MutableList<String>
+    ) {
 
 
         // x-værdier
@@ -103,13 +137,6 @@ class InfoCryptoFragment : Fragment() {
 */
         // y-værdier
 
-        val entries = ArrayList<Entry>()
-        entries.add(Entry(20f, 0F))
-        entries.add(Entry(50f, 1F))
-        entries.add(Entry(60f, 2F))
-        entries.add(Entry(70f, 3F))
-        entries.add(Entry(80f, 4F))
-
 
         // datasættet for line
         val lineDataSet = LineDataSet(entries, "first")
@@ -122,14 +149,21 @@ class InfoCryptoFragment : Fragment() {
         lineDataSet.setDrawFilled(true)
         lineDataSet.lineWidth = 3f
         lineDataSet.fillColor = R.color.ThirdColor
-        lineDataSet.fillAlpha = R.color.PrimaryColor
+        lineDataSet.fillAlpha = R.color.black
+        lineDataSet.setCircleColor(R.color.bannerGold)
+        lineDataSet.setDrawCircles(false)
+
 
         //Her sættes en rotation angle til x-aksen (måske udkommenteres)
-        //lineChart.xAxis.labelRotationAngle = 0f
+        lineChart.xAxis.labelRotationAngle = 0f
 
         // hver sætter vi vores datasæt ind i en line chart til at tegnes
 
         lineChart.data = LineData(lineDataSet)
+        lineChart.xAxis.valueFormatter = IndexAxisValueFormatter(assetTimeStr)
+
+        //removing extra y-axis
+        lineChart.axisRight.isEnabled = false
 
         // Dette kan bruges, hvis der ikke kommer noget data ind
         lineChart.description.text = "x-axis"
@@ -143,7 +177,6 @@ class InfoCryptoFragment : Fragment() {
         // hvis vi gerne vil se hvordan, kan vi bruge https://medium.com/@yilmazvolkan/kotlinlinecharts-c2a730226ff1
         val markerView = context?.let { CustomMarker(it, R.layout.chart) }
         lineChart.marker = markerView
-
     }
 }
 

@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.lifecycle.*
 import com.example.cryptoinvestor.model.api.CoinCapApi
 import com.example.cryptoinvestor.model.api.dto.AssetDto
+import com.example.cryptoinvestor.model.api.dto.AssetHistoryDTO
 import com.example.cryptoinvestor.utils.FLOAT_FORMATTER
 import com.example.cryptoinvestor.utils.INTEGER_PRICE_FORMATTER
 import com.example.cryptoinvestor.utils.PRICE_FORMATTER
@@ -24,6 +25,8 @@ class InfoCryptoViewModel(private val coinCapApi: CoinCapApi) : ViewModel() {
 
 
     val asset:  MutableLiveData<Response<AssetDto>> = MutableLiveData()
+    var assetHistory: MutableLiveData<Response<List<AssetHistoryDTO>>> = MutableLiveData()
+
 //    val name: LiveData<String> = asset.map{it.name}
 //    val symbol: LiveData<String> = asset.map {it.symbol}
 //    val price: LiveData<String> = asset.map { PRICE_FORMATTER.format(it.price) }
@@ -37,14 +40,26 @@ class InfoCryptoViewModel(private val coinCapApi: CoinCapApi) : ViewModel() {
             try {
                 val response = coinCapApi.getAsset(assetId)
 
-
                 asset.value = response
             } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
     }
+
+    fun getAssetHistory(assetId: String){
+        viewModelScope.launch {
+            try {
+                val response = coinCapApi.getAssetHistory(assetId)
+                assetHistory.value = response
+                println("RESPONSE: $response")
+            }catch (e: Exception){
+                e.printStackTrace()
+            }
+        }
     }
+
+}
 
 
 //    fun getCoinInfo(name : String) {

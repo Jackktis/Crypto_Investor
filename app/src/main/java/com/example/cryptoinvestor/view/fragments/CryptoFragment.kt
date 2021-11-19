@@ -42,7 +42,7 @@ class CryptoFragment : Fragment() {
         viewModel.assetsList.observe(viewLifecycleOwner, { assets ->
             if (assets.isSuccessful) {
                 assets.body()?.let {
-                    println(assets.body()?.toString())
+                    println("ASSET BODY" + assets.body()?.toString())
                     adapter.setData(it)
                 }
             } else {
