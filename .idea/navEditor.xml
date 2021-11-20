@@ -8,14 +8,56 @@
             <LayoutPositions>
               <option name="myPositions">
                 <map>
+                  <entry key="Buy_and_sell_fragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="157" />
+                            <option name="y" value="355" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_Buy_and_sell_fragment_to_Dialog_checkout_fragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="Dialog_checkout_fragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="349" />
+                            <option name="y" value="354" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="InfoCryptoFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="320" />
-                            <option name="y" value="359" />
+                            <option name="x" value="-62" />
+                            <option name="y" value="358" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_InfoCryptoFragment_to_Buy_and_sell_fragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>
@@ -25,8 +67,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="256" />
-                            <option name="y" value="12" />
+                            <option name="x" value="28" />
+                            <option name="y" value="15" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -51,8 +93,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="12" />
-                            <option name="y" value="368" />
+                            <option name="x" value="265" />
+                            <option name="y" value="2" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -72,8 +114,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="12" />
-                            <option name="y" value="12" />
+                            <option name="x" value="-198" />
+                            <option name="y" value="15" />
                           </Point>
                         </option>
                         <option name="myPositions">
