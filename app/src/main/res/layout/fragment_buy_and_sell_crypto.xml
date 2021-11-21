@@ -13,22 +13,23 @@
         android:id="@+id/amount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="30dp"
         android:textColor="@color/PrimaryColor"
         android:textSize="20dp"
         android:gravity="center"
         android:text="amount" />
 
-    <EditText
-        android:id="@+id/amountInDollars"
+<LinearLayout
+    android:paddingTop="100dp"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/textCrypto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="40dp"
-        android:ems="10"
-        android:hint="USD"
-        android:textAlignment="center"
-        android:inputType="textPersonName" />
+        android:text="Amount in dollars you buy:" />
 
     <EditText
         android:id="@+id/amountInCrypto"
@@ -38,7 +39,14 @@
         android:layout_marginVertical="20dp"
         android:ems="10"
         android:hint="Crypto"
-        android:inputType="textPersonName" />
+        android:inputType="number" />
+
+    <TextView
+        android:id="@+id/textQuantity"
+        android:paddingTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Amount of Quantities for the crypto:" />
 
     <EditText
         android:id="@+id/AmountInQuantity"
@@ -48,7 +56,8 @@
         android:layout_marginVertical="20dp"
         android:ems="10"
         android:hint="Quantity"
-        android:inputType="textPersonName" />
+        android:inputType="number"
+        />
 
     <Button
         android:id="@+id/BuyandSellBT"
@@ -56,4 +65,5 @@
         android:layout_marginTop="20dp"
         android:layout_height="wrap_content"
         android:text="buy" />
+</LinearLayout>
 </LinearLayout>

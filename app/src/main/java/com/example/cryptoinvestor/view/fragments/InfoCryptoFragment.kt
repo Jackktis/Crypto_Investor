@@ -28,7 +28,10 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
+import androidx.navigation.fragment.findNavController
 import com.example.cryptoinvestor.R
+import kotlinx.android.synthetic.main.fragment_info_crypto.*
 
 
 class InfoCryptoFragment : Fragment() {
@@ -47,6 +50,9 @@ class InfoCryptoFragment : Fragment() {
     ): View {
         binding = FragmentInfoCryptoBinding.inflate(inflater, container, false)
 
+
+
+
         return binding.root
     }
 
@@ -60,9 +66,12 @@ class InfoCryptoFragment : Fragment() {
             viewModel.refreshAsset(id)
             viewModel.getAssetHistory(id)
 
-            viewModel.asset.observe(viewLifecycleOwner, {asset ->
-                if(asset.isSuccessful){
+            viewModel.asset.observe(viewLifecycleOwner, { asset ->
+
+                if (asset.isSuccessful) {
+
                     asset.body()?.let {
+
                         var imageUrl = "https://static.coincap.io/assets/icons/"
                         view.info_CurrencyName.text = it.name
                         view.info_CurrencyInitials.text = it.symbol
@@ -70,67 +79,94 @@ class InfoCryptoFragment : Fragment() {
                         var changeTxt = FLOAT_FORMATTER.format(it.change24Hr).toString()
                         println(asset.body()?.toString())
                         view.info_changePr24Hr.text = changeTxt
-                        Picasso.get().load(imageUrl+it.symbol.lowercase()+"@2x.png").into(view.info_CurrencyImage)
-                        if (changeTxt.contains("-")){
+                        Picasso.get().load(imageUrl + it.symbol.lowercase() + "@2x.png")
+                            .into(view.info_CurrencyImage)
+                        if (changeTxt.contains("-")) {
                             Log.w("Negativ", changeTxt)
                             view.info_changePr24Hr.setTextColor(Color.RED)
                             view.procent.setTextColor(Color.RED)
-                        }else{
+                        } else {
                             Log.w("Positiv", changeTxt)
                             view.info_changePr24Hr.setTextColor(Color.GREEN)
                             view.procent.setTextColor(Color.GREEN)
                         }
-
                     }
                 }
             })
-
-            viewModel.assetHistory.observe(viewLifecycleOwner, { asset ->
-                if (asset.isSuccessful){
-                    asset.body().let {
-                        if (it != null) {
-                            println("Det her er kroppen " + it.map { it.priceUsd })
-                            val entries = ArrayList<Entry>()
-                            /*
-                            mapper assetHistoryDto responsets data til to lister der bruges til at lave entries som senere bliver brugt i setLineChartData()
-                             */
-                            val assetUsd: List<Float> = it.map { it.priceUsd }
-                            val assetTime: List<Float> = it.map { it.time }
-                            val assetTimeStr = mutableListOf<String>()
-                            println("Det her er formateret tid " + it.map { Date(it.time.toLong()) })
-                            //it.forEach(entries.add(Entry(assetUsd,assetTime)))
-                            for (asset in it.indices){
-                                entries.add(Entry(assetTime[asset],assetUsd[asset]))
-
-                                /*
-                                Nedestående er forsøg på at ændre x label med en liste af strings
-                                 */
-                                assetTimeStr.add("HEJ")
-                               // assetTimeStr.add(Date(assetTime[asset].toLong()).toString())
-                            }
-                            setLineChartData(view.lineChart, entries,assetTime, assetTimeStr)
-
-                        }
-                    }
-                }else{
-                    println("IT IS NULL!!!!")
-                }
-            })
-
-
         }
 
+        // knapper over chart
+        buyCryptoBT.setOnClickListener(){
+            if (bundle != null) {
+                id = bundle.getString("id").toString()
+            }
+            viewModel.refreshAsset(id)
+            viewModel.getAssetHistory(id)
 
-    }
+            viewModel.asset.observe(viewLifecycleOwner, { asset ->
 
-    override fun onDestroy() {
-        super.onDestroy()
+                if (asset.isSuccessful) {
+                    asset.body().let {
+                        if (it != null) {
+                            val buyAsset = bundleOf("price" to it.price,
+                                "name" to it.name,
+                                "id" to it.id,
+                                "change24Hr" to it.change24Hr,
+                                "marketCapUsd" to it.marketCapUsd,
+                                "maxSupply" to it.maxSupply,
+                                "rank" to it.rank,
+                                "symbol" to it.symbol,
+                                "volume24Hr" to it.volume24Hr,
+                                "vwap24Hr" to it.vwap24Hr)
+                            findNavController().navigate(R.id.Buy_and_sell_fragment, buyAsset)
+                        }
+                    }
+                }
+            })
+        }
+        favoriteBT.setOnClickListener(){
+            //TODO: her skal crypto-værdien gemt som en favorite
+        }
+        sellCryptoBT.setOnClickListener(){
+            findNavController().navigate(R.id.Buy_and_sell_fragment)
+        }
+
+        viewModel.assetHistory.observe(viewLifecycleOwner, { asset ->
+            if (asset.isSuccessful){
+                asset.body().let {
+                    if (it != null) {
+                        println("Det her er kroppen " + it.map { it.priceUsd })
+                        val entries = ArrayList<Entry>()
+                        /*
+                        mapper assetHistoryDto responsets data til to lister der bruges til at lave entries som senere bliver brugt i setLineChartData()
+                         */
+                        val assetUsd: List<Float> = it.map { it.priceUsd }
+                        val assetTime: List<Float> = it.map { it.time }
+                        val assetTimeStr = mutableListOf<String>()
+                        println("Det her er formateret tid " + it.map { Date(it.time.toLong()) })
+                        //it.forEach(entries.add(Entry(assetUsd,assetTime)))
+                        for (asset in it.indices){
+                            entries.add(Entry(assetTime[asset],assetUsd[asset]))
+
+                            /*
+                            Nedestående er forsøg på at ændre x label med en liste af strings
+                             */
+                            assetTimeStr.add("HEJ")
+                            // assetTimeStr.add(Date(assetTime[asset].toLong()).toString())
+                        }
+                        setLineChartData(view.lineChart, entries,assetTime, assetTimeStr)
+
+                    }
+                }
+            }else{
+                println("IT IS NULL!!!!")
+            }
+        })
     }
 
     /*
     LineChart Design og opsætning
      */
-
     fun setLineChartData(
         lineChart: LineChart,
         entries: ArrayList<Entry>,
