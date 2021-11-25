@@ -24,7 +24,7 @@ class CryptoInvestApplication : Application() {
 
     //lateinit var authRepository : AuthRepository
     lateinit var userRepository: UserRepository
-    lateinit var transactionRepository: TransactionRepository
+    //lateinit var transactionRepository: TransactionRepository
 
     override fun onCreate() {
         super.onCreate()
@@ -36,7 +36,7 @@ class CryptoInvestApplication : Application() {
 
         //authRepository = AuthRepository(this)
         userRepository = UserRepository(this)
-        transactionRepository = TransactionRepository(this)
+        //transactionRepository = TransactionRepository(this)
 
     }
 

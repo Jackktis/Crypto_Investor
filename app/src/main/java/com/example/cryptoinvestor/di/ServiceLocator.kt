@@ -5,9 +5,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.lifecycle.get
+import com.example.cryptoinvestor.model.TransactionRepository
 import com.example.cryptoinvestor.model.api.CoinCapApi
 import com.example.cryptoinvestor.viewmodel.CryptoViewModel
 import com.example.cryptoinvestor.model.db.AppDatabase
+import com.example.cryptoinvestor.viewmodel.BuyAndSellViewModel
 import com.example.cryptoinvestor.viewmodel.InfoCryptoViewModel
 
 //import com.example.coincapshortc.ui.rates.RatesViewModel
@@ -37,6 +39,7 @@ object ServiceLocator {
                     //AssetDetailsViewModel::class.java -> AssetDetailsViewModel(assetsRepository)
                     CryptoViewModel::class.java -> CryptoViewModel(coinCapApi)
                     InfoCryptoViewModel::class.java -> InfoCryptoViewModel(coinCapApi)
+                    BuyAndSellViewModel::class.java -> BuyAndSellViewModel(TransactionRepository())
                     else -> throw IllegalArgumentException("Unsupported ViewModel $modelClass")
                 } as T
             }
@@ -55,5 +58,7 @@ object ServiceLocator {
         get() = ViewModelProvider(this, viewModelFactory).get()
 
     val ViewModelStoreOwner.infoCryptoViewModel: InfoCryptoViewModel
+        get() = ViewModelProvider(this, viewModelFactory).get()
+    val ViewModelStoreOwner.buyAndSellViewModel: BuyAndSellViewModel
         get() = ViewModelProvider(this, viewModelFactory).get()
 }
