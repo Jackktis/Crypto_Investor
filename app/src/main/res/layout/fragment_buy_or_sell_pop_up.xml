@@ -15,15 +15,7 @@
             android:id="@+id/plainTxt1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Do you want to"
-            />
-        <TextView
-            android:id="@+id/buyOrSellTxT"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:textStyle="bold"
-            android:text="buy"
+            android:text="You bought"
             />
         <TextView
             android:id="@+id/quantitiesXamountTxt"
@@ -37,7 +29,14 @@
             android:id="@+id/plainTxt3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="quantities of this Crypto? "
+            android:text="quantities of "
+            />
+
+        <TextView
+            android:id="@+id/plainTxt4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Crypto"
             />
     </LinearLayout>
 
@@ -53,7 +52,7 @@
             android:id="@+id/plainTxtDollar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="total amount in $ "
+            android:text="Total amount in $ "
             />
         <TextView
             android:id="@+id/amount_before_tax"
@@ -86,13 +85,5 @@
             android:text=" X "
             />
     </LinearLayout>
-
-    <Button
-        android:id="@+id/button3"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Buy" />
 
 </LinearLayout>
