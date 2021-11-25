@@ -9,24 +9,45 @@ import com.google.firebase.ktx.Firebase
 class TransactionRepository () {
     val currentUserID = "D0gjXmihfLebZdZlzpQl"
 
-    fun buyTransaction(coinName: String, totalPrice : Double, quantity : Double){
+    fun registerTransaction(coinName: String, totalPrice : Double, quantity : Double, tag : String){
         // Data that need to be sent to "users/-someUserID-/transaction"
-        val tData = mapOf(
+        var tData = mapOf(
             "Currency Name" to coinName,
             "Price" to totalPrice,
             "Quantity" to quantity,
+            "Action" to tag,
             "Time" to Timestamp.now()
         )
 
         Firebase.firestore
             .collection("/users/"+currentUserID+"/transaction")
             .add(tData)
-
-
     }
 
-    fun sellTransaction(TransactionID: Int){
+    fun buyTransaction(coinName: String, totalPrice : Double, quantity : Double){
+        // Data that need to be sent to "users/-someUserID-/transaction"
+        val tData = mapOf(
+            "Currency Name" to coinName,
+            "Price" to totalPrice,
+            "Quantity" to quantity
+        )
 
+        Firebase.firestore
+            .collection("/users/"+currentUserID+"/portfolio").document(coinName)
+            .set(tData)
+    }
+
+    fun sellTransaction(coinName: String, totalPrice : Double, quantity : Double){
+        val tData = mapOf(
+            "Currency Name" to coinName,
+            "Price" to totalPrice,
+            "Quantity" to quantity
+        )
+
+        // Need a getter so of the current portfolio and then subtract from it
+        Firebase.firestore
+            .collection("/users/"+currentUserID+"/portfolio").document(coinName)
+            .set(tData)
     }
 
 

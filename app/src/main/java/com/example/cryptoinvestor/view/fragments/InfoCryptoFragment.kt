@@ -120,7 +120,8 @@ class InfoCryptoFragment : Fragment() {
                                 "rank" to it.rank,
                                 "symbol" to it.symbol,
                                 "volume24Hr" to it.volume24Hr,
-                                "vwap24Hr" to it.vwap24Hr)
+                                "vwap24Hr" to it.vwap24Hr,
+                                "tag" to "Buy")
                             findNavController().navigate(R.id.Buy_and_sell_fragment, buyAsset)
                         }
                     }
@@ -131,7 +132,31 @@ class InfoCryptoFragment : Fragment() {
             //TODO: her skal crypto-værdien gemt som en favorite
         }
         sellCryptoBT.setOnClickListener(){
-            findNavController().navigate(R.id.Buy_and_sell_fragment)
+            if (bundle != null) {
+                id = bundle.getString("id").toString()
+            }
+            viewModel.refreshAsset(id)
+
+            viewModel.asset.observe(viewLifecycleOwner, { asset ->
+                if (asset.isSuccessful) {
+                    asset.body().let {
+                        if (it != null) {
+                            val sellAsset = bundleOf("price" to it.price,
+                                "name" to it.name,
+                                "id" to it.id,
+                                "change24Hr" to it.change24Hr,
+                                "marketCapUsd" to it.marketCapUsd,
+                                "maxSupply" to it.maxSupply,
+                                "rank" to it.rank,
+                                "symbol" to it.symbol,
+                                "volume24Hr" to it.volume24Hr,
+                                "vwap24Hr" to it.vwap24Hr,
+                                "tag" to "Sell")
+                            findNavController().navigate(R.id.Buy_and_sell_fragment, sellAsset)
+                        }
+                    }
+                }
+            })
         }
 
         viewModel.assetHistory.observe(viewLifecycleOwner, { asset ->

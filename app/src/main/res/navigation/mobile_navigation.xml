@@ -51,7 +51,7 @@
     </fragment>
     <fragment
         android:id="@+id/Buy_and_sell_fragment"
-        android:name="com.example.cryptoinvestor.view.fragments.BuyAndSellCrypto"
+        android:name="com.example.cryptoinvestor.view.fragments.BuyAndSellCryptoFragment"
         android:label="info_crypto"
         tools:layout="@layout/fragment_buy_and_sell_crypto" >
         <action

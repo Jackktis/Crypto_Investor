@@ -59,6 +59,7 @@ object ServiceLocator {
 
     val ViewModelStoreOwner.infoCryptoViewModel: InfoCryptoViewModel
         get() = ViewModelProvider(this, viewModelFactory).get()
+
     val ViewModelStoreOwner.buyAndSellViewModel: BuyAndSellViewModel
         get() = ViewModelProvider(this, viewModelFactory).get()
 }

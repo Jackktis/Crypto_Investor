@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".view.fragments.BuyAndSellCrypto"
+    tools:context=".view.fragments.BuyAndSellCryptoFragment"
     android:orientation="vertical"
     android:gravity="center"
     android:paddingHorizontal="90dp">
@@ -17,22 +17,32 @@
         android:textColor="@color/PrimaryColor"
         android:textSize="20dp"
         android:gravity="center"
-        android:text="amount" />
+        android:text="Transaction" />
 
 <LinearLayout
-    android:paddingTop="100dp"
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:gravity="center"
     android:layout_height="match_parent">
     <TextView
+        android:id="@+id/nameCrypto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:textColor="@color/PrimaryColor"
+        android:textSize="18dp"
+        android:gravity="center"
+        android:text="Crypto Name" />
+
+    <TextView
         android:id="@+id/textCrypto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Amount in dollars you buy:" />
+        android:layout_marginTop="50dp"
+        android:text="Price in dollars:" />
 
     <EditText
-        android:id="@+id/amountInCrypto"
+        android:id="@+id/priceCrypto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
@@ -46,10 +56,10 @@
         android:paddingTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Amount of Quantities for the crypto:" />
+        android:text="Quantity:" />
 
     <EditText
-        android:id="@+id/AmountInQuantity"
+        android:id="@+id/quantityCrypto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
