@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.example.cryptoinvestor.R
 import kotlinx.android.synthetic.main.fragment_buy_and_sell_crypto.*
 
@@ -48,5 +49,10 @@ class BuyAndSellCrypto : Fragment() {
                 view.invalidate()
             }
         }
+
+        BuyandSellBT.setOnClickListener(){
+            findNavController().navigate(R.id.Dialog_checkout_fragment, buyBundle)
+        }
+
     }
     }
