@@ -10,7 +10,7 @@ class TransactionRepository () {
     val currentUserID = "D0gjXmihfLebZdZlzpQl"
 
     fun buyTransaction(coinName: String, totalPrice : Double, quantity : Double){
-        // Data that need to be sent to "users/-someUser-/
+        // Data that need to be sent to "users/-someUserID-/transaction"
         val tData = mapOf(
             "Currency Name" to coinName,
             "Price" to totalPrice,
