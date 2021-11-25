@@ -124,6 +124,19 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
+                        android:orientation="vertical">
+                        <TextView
+                            android:id="@+id/textView"
+                            android:layout_width="wrap_content"
+                            android:textSize="16sp"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"
+                            android:layout_weight="1"
+                            android:text="24 hr. change" />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
                         android:orientation="horizontal">
 
                         <TextView
@@ -142,7 +155,7 @@
                             android:textColor="@color/white"
                             android:textSize="16sp"
                             android:textStyle="bold" />
-
+                    </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
 

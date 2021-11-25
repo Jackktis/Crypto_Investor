@@ -9,6 +9,9 @@ import com.example.cryptoinvestor.R
 import kotlinx.android.synthetic.main.fragment_buy_and_sell_crypto.*
 
 class BuyAndSellCrypto : Fragment() {
+
+    var changedPrice: Float = 0.0f
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -24,14 +27,15 @@ class BuyAndSellCrypto : Fragment() {
 
         if (buyBundle != null) {
             amountInCrypto.setText(buyBundle.getFloat("price").toString())
+            changedPrice =(buyBundle.getFloat("price"))
         }
 
         amountInCrypto.setOnClickListener(){
             if (buyBundle != null) {
                 val amount = (buyBundle.getFloat("price"))
-                val quantities = (AmountInQuantity.text.toString()).toFloat()
-                val newQuantityAmount = (quantities/amount)
+                val newQuantityAmount = (amount/changedPrice)
                 AmountInQuantity.setText(newQuantityAmount.toString())
+                view.invalidate()
             }
         }
 
@@ -41,6 +45,7 @@ class BuyAndSellCrypto : Fragment() {
                 val quantities = (AmountInQuantity.text.toString()).toFloat()
                 val newPrice = (quantities * amount)
                 amountInCrypto.setText(newPrice.toString())
+                view.invalidate()
             }
         }
     }

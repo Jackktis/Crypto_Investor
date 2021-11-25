@@ -31,6 +31,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import com.example.cryptoinvestor.R
+import com.google.android.gms.common.util.ArrayUtils.contains
 import kotlinx.android.synthetic.main.fragment_info_crypto.*
 
 
@@ -39,6 +40,7 @@ class InfoCryptoFragment : Fragment() {
     private lateinit var binding: FragmentInfoCryptoBinding
     private val viewModel by lazy { infoCryptoViewModel }
     var id : String = ""
+    var linecharChangecolor: String = ""
 
     companion object{
         fun newInstance() = InfoCryptoFragment()
@@ -77,6 +79,7 @@ class InfoCryptoFragment : Fragment() {
                         view.info_CurrencyInitials.text = it.symbol
                         view.info_CurrencyPrice.text = PRICE_FORMATTER.format(it.price).toString()
                         var changeTxt = FLOAT_FORMATTER.format(it.change24Hr).toString()
+                        linecharChangecolor = changeTxt
                         println(asset.body()?.toString())
                         view.info_changePr24Hr.text = changeTxt
                         Picasso.get().load(imageUrl + it.symbol.lowercase() + "@2x.png")
@@ -154,7 +157,7 @@ class InfoCryptoFragment : Fragment() {
                             assetTimeStr.add("HEJ")
                             // assetTimeStr.add(Date(assetTime[asset].toLong()).toString())
                         }
-                        setLineChartData(view.lineChart, entries,assetTime, assetTimeStr)
+                        setLineChartData(view.lineChart, entries, assetTime, assetTimeStr)
 
                     }
                 }
@@ -188,13 +191,22 @@ class InfoCryptoFragment : Fragment() {
         lineDataSet.lineWidth = 3f
 
 
-        val drawable = context?.let { ContextCompat.getDrawable(it,R.drawable.linechart_fill_color) }
-        val color = context?.let { ContextCompat.getColor(it, R.color.PrimaryColor) }
-        lineDataSet.fillDrawable = drawable
 
-        if (color != null) {
-            lineDataSet.color = color
+        if(linecharChangecolor.contains("-")){
+            val drawable = context?.let { ContextCompat.getDrawable(it,R.drawable.linechart_fill_color_negative) }
+            val color = context?.let { ContextCompat.getColor(it, R.color.Red) }
+            lineDataSet.fillDrawable = drawable
+            if (color != null) {
+                lineDataSet.color = color
+            }
+                        } else {
+            val drawable = context?.let { ContextCompat.getDrawable(it, R.drawable.linechart_fill_color_positiv) }
+            val color = context?.let { ContextCompat.getColor(it, R.color.green) }
+            if (color != null) {
+                lineDataSet.color = color
+            }
         }
+
 
         lineDataSet.setDrawCircles(false)
 
