@@ -8,10 +8,11 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.cryptoinvestor.R
 import kotlinx.android.synthetic.main.fragment_buy_and_sell_crypto.*
+import java.math.BigDecimal
 
 class BuyAndSellCrypto : Fragment() {
 
-    var changedPrice: Float = 0.0f
+    var coinOriginalPrice: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,30 +24,23 @@ class BuyAndSellCrypto : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        AmountInQuantity.setText("" + 1)
+        AmountInQuantity.setText("" + 1.0)
         val buyBundle = arguments
 
         if (buyBundle != null) {
             amountInCrypto.setText(buyBundle.getFloat("price").toString())
-            changedPrice =(buyBundle.getFloat("price"))
+            coinOriginalPrice = (buyBundle.getFloat("price")).toString()
         }
 
         amountInCrypto.setOnClickListener(){
             if (buyBundle != null) {
-                val amount = (buyBundle.getFloat("price"))
-                val newQuantityAmount = (amount/changedPrice)
-                AmountInQuantity.setText(newQuantityAmount.toString())
-                view.invalidate()
+                updateQuantities(amountInCrypto.text.toString().toBigDecimal())
             }
         }
 
         AmountInQuantity.setOnClickListener(){
             if (buyBundle != null) {
-                val amount = (buyBundle.getFloat("price"))
-                val quantities = (AmountInQuantity.text.toString()).toFloat()
-                val newPrice = (quantities * amount)
-                amountInCrypto.setText(newPrice.toString())
-                view.invalidate()
+               updateAmount(AmountInQuantity.text.toString().toBigDecimal())
             }
         }
 
@@ -54,5 +48,15 @@ class BuyAndSellCrypto : Fragment() {
             findNavController().navigate(R.id.Dialog_checkout_fragment, buyBundle)
         }
 
+    }
+
+    fun updateQuantities(enteredAmount: BigDecimal){
+        val newQuantities: BigDecimal = enteredAmount/coinOriginalPrice.toBigDecimal()
+        AmountInQuantity.setText(String.format(newQuantities.toString()))
+    }
+
+    fun updateAmount(enteredQuantities: BigDecimal){
+        val newQuantities: BigDecimal = coinOriginalPrice.toBigDecimal() * enteredQuantities
+        amountInCrypto.setText(String.format(newQuantities.toString()))
     }
     }
