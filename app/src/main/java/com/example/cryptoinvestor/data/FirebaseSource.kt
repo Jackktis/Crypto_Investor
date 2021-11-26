@@ -30,8 +30,8 @@ class FirebaseSource @Inject constructor(private val firebaseAuth: FirebaseAuth,
 
     fun fetchUser() = firestore.collection("users").get()
 
-    fun saveUser(email: String, fullName: String, userName: String, balance: Int?) = firestore.collection("users").document()
-        .set(User(email = email, fullName = fullName, userName = userName, balance = balance))
+    fun saveUser(email: String, fullName: String, userName: String, balance: Int?, userId: String) = firestore.collection("users").document(userId)
+        .set(User(email = email, fullName = fullName, userName = userName, balance = balance, userId = userId))
         .addOnSuccessListener { Log.d(TAG,"Success!!!!!!") }
         .addOnFailureListener{e -> Log.w(TAG, "ERORRR!!!!!", e)}
 

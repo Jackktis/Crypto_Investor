@@ -5,20 +5,14 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.cryptoinvestor.R
 import android.graphics.Color
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.navigation.findNavController
 import com.android.example.github.vo.Status
 import com.example.cryptoinvestor.databinding.ActivityAuthBinding
-import com.example.cryptoinvestor.model.AuthRepository
 import com.example.cryptoinvestor.viewmodel.AuthViewModel
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 
-import com.google.firebase.firestore.DocumentReference
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_auth.*
 import javax.inject.Inject
@@ -88,12 +82,15 @@ class AuthActivity : AppCompatActivity() {
         viewModel.signUp(email, password, fullname, username).observe(this, {
             when (it.status) {
                 Status.SUCCESS -> {
-                    viewModel.saveUser(
-                        it.data?.email.toString(),
-                        it.data?.fullName.toString(),
-                        it.data?.userName.toString(),
-                        10000
-                    )
+                    auth.currentUser?.let { it1 ->
+                        viewModel.saveUser(
+                            it.data?.email.toString(),
+                            it.data?.fullName.toString(),
+                            it.data?.userName.toString(),
+                            10000,
+                            it1.uid
+                        )
+                    }
                     view.showsnackBar("Account registered")
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
@@ -113,6 +110,7 @@ class AuthActivity : AppCompatActivity() {
         val email = emailAddressEditText.text.toString().trim()
         val password = password.text.toString().trim()
 
+
         viewModel.signIn(email, password).observe(this) {
             when (it.status) {
                 Status.LOADING -> {
@@ -121,6 +119,7 @@ class AuthActivity : AppCompatActivity() {
                 Status.SUCCESS -> {
                     view.showsnackBar("Login successfull")
                     val intent = Intent(this, MainActivity::class.java)
+                    println("USER LOGGED IN : " + it.data?.userId.toString())
                     startActivity(intent)
                     finish()
                 }

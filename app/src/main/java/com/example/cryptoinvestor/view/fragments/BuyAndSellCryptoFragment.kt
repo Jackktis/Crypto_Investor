@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -15,17 +16,21 @@ import com.example.cryptoinvestor.databinding.FragmentBuyAndSellCryptoBinding
 import com.example.cryptoinvestor.databinding.FragmentBuyOrSellPopUpBinding
 import com.example.cryptoinvestor.di.ServiceLocator.buyAndSellViewModel
 import com.example.cryptoinvestor.di.ServiceLocator.cryptoViewModel
+import com.example.cryptoinvestor.viewmodel.AuthViewModel
 import com.example.cryptoinvestor.viewmodel.BuyAndSellViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_buy_and_sell_crypto.*
 import kotlinx.android.synthetic.main.fragment_buy_or_sell_pop_up.*
 import java.math.BigDecimal
 
+@AndroidEntryPoint
 class BuyAndSellCryptoFragment : Fragment() {
 
     var coinOriginalPrice: String = ""
     var changedPrice: Float = 0.0f
 
-    private val viewModel by lazy { buyAndSellViewModel }
+    //private val viewModel by lazy { buyAndSellViewModel }
+    private val viewModel: BuyAndSellViewModel by viewModels()
 
     private lateinit var binding: FragmentBuyAndSellCryptoBinding
     private lateinit var bindingPopUp: FragmentBuyOrSellPopUpBinding

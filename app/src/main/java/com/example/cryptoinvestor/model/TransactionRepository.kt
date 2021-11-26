@@ -4,10 +4,12 @@ import com.example.cryptoinvestor.CryptoInvestApplication
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import javax.inject.Inject
 
 
-class TransactionRepository () {
-    val currentUserID = "D0gjXmihfLebZdZlzpQl"
+class TransactionRepository @Inject constructor (private val auth : AuthRepository) {
+    //val currentUserID = "D0gjXmihfLebZdZlzpQl"
+    val currentUserID = auth.getUserId()
 
     fun registerTransaction(coinName: String, totalPrice : Double, quantity : Double, tag : String){
         // Data that need to be sent to "users/-someUserID-/transaction"
@@ -32,6 +34,7 @@ class TransactionRepository () {
             "Quantity" to quantity
         )
 
+        println("USER: " + currentUserID)
         Firebase.firestore
             .collection("/users/"+currentUserID+"/portfolio").document(coinName)
             .set(tData)

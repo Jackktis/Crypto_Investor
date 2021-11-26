@@ -2,8 +2,11 @@ package com.example.cryptoinvestor.viewmodel
 
 import androidx.lifecycle.ViewModel
 import com.example.cryptoinvestor.model.TransactionRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class BuyAndSellViewModel(
+@HiltViewModel
+class BuyAndSellViewModel @Inject constructor(
     private val transactionRepository: TransactionRepository
     ) : ViewModel() {
 

@@ -39,7 +39,7 @@ object ServiceLocator {
                     //AssetDetailsViewModel::class.java -> AssetDetailsViewModel(assetsRepository)
                     CryptoViewModel::class.java -> CryptoViewModel(coinCapApi)
                     InfoCryptoViewModel::class.java -> InfoCryptoViewModel(coinCapApi)
-                    BuyAndSellViewModel::class.java -> BuyAndSellViewModel(TransactionRepository())
+                    //BuyAndSellViewModel::class.java -> BuyAndSellViewModel(TransactionRepository())
                     else -> throw IllegalArgumentException("Unsupported ViewModel $modelClass")
                 } as T
             }

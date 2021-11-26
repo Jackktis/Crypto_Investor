@@ -12,8 +12,6 @@ import com.example.cryptoinvestor.model.api.dto.User
 //import com.example.cryptoinvestor.model.dto.dto
 import com.example.cryptoinvestor.utils.NetworkCheck
 import com.example.cryptoinvestor.vo.Resource
-import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -89,8 +87,8 @@ class AuthViewModel @Inject constructor(
         return userLiveData
     }
 
-    fun saveUser(email: String, fullName: String, userName: String, balance: Int?) {
-        authRepository.saveUser(email, fullName, userName, balance).addOnCompleteListener() {
+    fun saveUser(email: String, fullName: String, userName: String, balance: Int?, userId: String) {
+        authRepository.saveUser(email, fullName, userName, balance, userId).addOnCompleteListener() {
             if (it.isSuccessful) {
                 _saveUserLiveData.postValue(
                     Resource.success(
@@ -98,7 +96,8 @@ class AuthViewModel @Inject constructor(
                             email,
                             fullName,
                             userName,
-                            balance
+                            balance,
+                            userId
                         )
                     )
                 )
@@ -131,11 +130,16 @@ class AuthViewModel @Inject constructor(
                                                     userTask.result?.documents?.forEach {
                                                         if (it.data!!["email"] == email) {
                                                             val name = it.data?.getValue("fullName")
+                                                            val userName = it.data?.getValue("userName")
+                                                            val balance = it.data?.getValue("balance")
                                                             userLiveData.postValue(
                                                                 Resource.success(
                                                                     User(
                                                                         firebaseAuth.currentUser?.email!!,
-                                                                        name?.toString()!!
+                                                                        name?.toString()!!,
+                                                                        userName?.toString()!!,
+                                                                        balance?.toString()!!.toInt(),
+                                                                        firebaseAuth.currentUser!!.uid
                                                                     )
                                                                 )
                                                             )
