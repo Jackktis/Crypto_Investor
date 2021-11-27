@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 class TransactionRepository @Inject constructor (private val auth : AuthRepository) {
     //val currentUserID = "D0gjXmihfLebZdZlzpQl"
-    val currentUserID = auth.getUserId()
+    private val currentUserID = auth.getUserId()
 
     fun registerTransaction(coinName: String, totalPrice : Double, quantity : Double, tag : String){
         // Data that need to be sent to "users/-someUserID-/transaction"

@@ -77,10 +77,11 @@
                             android:textStyle="bold"/>
 
                         <TextView
+                            android:id="@+id/UserBalancePortfolio"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="start"
-                            android:text="10.000"
+                            android:text=""
                             android:textColor="@color/white"
                             android:textSize="24dp"
                             android:textStyle="bold"

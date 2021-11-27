@@ -2,6 +2,9 @@ package com.example.cryptoinvestor.model.api
 
 import com.example.cryptoinvestor.model.api.dto.AssetDto
 import com.example.cryptoinvestor.model.api.dto.AssetHistoryDTO
+import com.example.cryptoinvestor.view.activities.MainActivity
+import dagger.hilt.EntryPoint
+import dagger.hilt.InstallIn
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call

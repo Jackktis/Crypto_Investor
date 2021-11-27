@@ -8,16 +8,22 @@ import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cryptoinvestor.R
 import com.example.cryptoinvestor.databinding.FragmentCryptoBinding
-import com.example.cryptoinvestor.di.ServiceLocator.cryptoViewModel
+import com.example.cryptoinvestor.utils.PRICE_FORMATTER
 import com.example.cryptoinvestor.view.adapter.RateAdapter
+import com.example.cryptoinvestor.viewmodel.CryptoViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_crypto.*
+import kotlinx.android.synthetic.main.fragment_crypto.view.*
 
+@AndroidEntryPoint
 class CryptoFragment : Fragment() {
-    private val viewModel by lazy { cryptoViewModel }
+    //private val cryptoViewModel by lazy { this.cryptoViewModel }
+    private val cryptoViewModel: CryptoViewModel by viewModels()
     private val adapter by lazy { RateAdapter() }
 
     private lateinit var binding: FragmentCryptoBinding
@@ -38,8 +44,11 @@ class CryptoFragment : Fragment() {
            Grabbing the list of 10 coins(Response List of AssetDto from the api-call)
            and setting the data to the adapter.
          */
-        viewModel.getTenAssets()
-        viewModel.assetsList.observe(viewLifecycleOwner, { assets ->
+        cryptoViewModel.userBalance.observe(viewLifecycleOwner, {
+            view.UserBalanceCrypto.text = PRICE_FORMATTER.format(it.toFloat()).toString()
+        })
+        cryptoViewModel.getTenAssets()
+        cryptoViewModel.assetsList.observe(viewLifecycleOwner, { assets ->
             if (assets.isSuccessful) {
                 assets.body()?.let {
                     println("ASSET BODY" + assets.body()?.toString())

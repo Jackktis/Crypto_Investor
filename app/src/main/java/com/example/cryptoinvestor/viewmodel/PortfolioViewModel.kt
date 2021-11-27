@@ -3,11 +3,29 @@ package com.example.cryptoinvestor.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.cryptoinvestor.model.AuthRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class PortfolioViewModel : ViewModel() {
+@HiltViewModel
+class PortfolioViewModel @Inject constructor(
+    private val auth : AuthRepository
+): ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is home Fragment/Portfolio"
+    val userBalance: MutableLiveData<String> = MutableLiveData()
+
+    init {
+        viewModelScope.launch {
+            try {
+                auth.getUserBalance {
+                    userBalance.value = it
+                }
+            } catch (e: Exception){
+                e.printStackTrace()
+            }
+        }
     }
-    val text: LiveData<String> = _text
+
 }
