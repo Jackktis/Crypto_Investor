@@ -1,6 +1,9 @@
 package com.example.cryptoinvestor.model
 
 
+import android.content.ContentValues
+import android.content.ContentValues.TAG
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.example.cryptoinvestor.CryptoInvestApplication
 import com.example.cryptoinvestor.data.FirebaseSource
@@ -10,10 +13,15 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
+import retrofit2.Response
 import javax.inject.Inject
+import kotlin.concurrent.thread
 
 class AuthRepository @Inject constructor(private val firebaseSource: FirebaseSource) {
+
     fun signOut() = firebaseSource.signOut()
 
     fun signIn(email: String, password: String) = firebaseSource.signIn(email, password)
@@ -27,4 +35,30 @@ class AuthRepository @Inject constructor(private val firebaseSource: FirebaseSou
     fun getUserId() = firebaseSource.getCurrentUserID()
 
     fun fetchUser() = firebaseSource.fetchUser()
+
+    fun getUserBalance() : String{
+    var balance = ""
+        val userBalance = Firebase.firestore.collection("users").document("${getUserId()}")
+
+// Get the document, forcing the SDK to use the offline cache
+        userBalance.get()
+            .addOnSuccessListener { document ->
+                if (document != null) {
+                    Log.d(TAG, "DocumentSnapshot data: ${document.data?.get("balance").toString()}")
+                    println(" <----- ${document.data?.get("balance").toString()}")
+                    balance = document.data?.get("balance").toString()
+                } else {
+                    Log.d(TAG, "No such document")
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.d(TAG, "get failed with ", exception)
+            }
+
+        println ("lige før vi returner balance: $balance")
+        return balance
+    }
+
+
+
 }

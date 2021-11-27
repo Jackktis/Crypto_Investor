@@ -1,6 +1,7 @@
 package com.example.cryptoinvestor.model
 
-import com.example.cryptoinvestor.CryptoInvestApplication
+import android.content.ContentValues.TAG
+import android.util.Log
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
