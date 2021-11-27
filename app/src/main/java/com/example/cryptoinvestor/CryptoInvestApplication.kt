@@ -23,7 +23,7 @@ class CryptoInvestApplication : Application() {
     lateinit var storage: FirebaseStorage
 
     //lateinit var authRepository : AuthRepository
-    lateinit var userRepository: UserRepository
+    //lateinit var userRepository: UserRepository
     //lateinit var transactionRepository: TransactionRepository
 
     override fun onCreate() {
@@ -35,7 +35,7 @@ class CryptoInvestApplication : Application() {
         storage = Firebase.storage
 
         //authRepository = AuthRepository(this)
-        userRepository = UserRepository(this)
+        //userRepository = UserRepository(this)
         //transactionRepository = TransactionRepository(this)
 
     }

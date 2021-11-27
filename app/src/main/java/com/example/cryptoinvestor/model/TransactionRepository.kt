@@ -29,7 +29,7 @@ class TransactionRepository @Inject constructor (private val auth : AuthReposito
             .add(tData)
     }
 
-    fun buyTransaction(coinName: String, totalPrice : Double, quantity : Double){
+    fun buyTransaction(coinName: String, totalPrice : Double, quantity : Double, balance : Double){
         var finalQuantity = quantity
         var finalPrice = totalPrice
 
@@ -40,6 +40,7 @@ class TransactionRepository @Inject constructor (private val auth : AuthReposito
 
         docRef.get()
             .addOnSuccessListener { document ->
+
                 // If we already own some quantity of the crypto currency
                 if (document.exists()) {
                     finalQuantity += document.get("Quantity").toString().toDouble()
@@ -57,6 +58,12 @@ class TransactionRepository @Inject constructor (private val auth : AuthReposito
                         .collection("/users/"+currentUserID+"/portfolio").document(coinName)
                     .set(tData)
             }
+        val newBalance = balance - totalPrice
+
+        if (currentUserID != null) {
+            Firebase.firestore
+                .collection("/users/").document(currentUserID).update(mapOf("balance" to newBalance))
+        }
     }
 
     fun sellTransaction(coinName: String, totalPrice : Double, quantity : Double){

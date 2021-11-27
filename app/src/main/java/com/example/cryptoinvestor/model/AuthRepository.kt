@@ -37,26 +37,4 @@ class AuthRepository @Inject constructor(private val firebaseSource: FirebaseSou
 
     fun fetchUser() = firebaseSource.fetchUser()
 
-    fun getUserBalance(myCallback: (String) -> Unit) {
-        val userBalance = Firebase.firestore.collection("users").document("${getUserId()}")
-
-        // Get the document, forcing the SDK to use the offline cache
-        userBalance.get()
-            .addOnSuccessListener { document ->
-                if (document != null) {
-                    println(" Balance value from AuthRep:  ${document.data?.get("balance").toString()}")
-                    var balance = document.data?.get("balance").toString()
-
-                    //callback on the result of the network work
-                    myCallback.invoke(balance)
-                } else {
-                    Log.d(TAG, "No such document")
-                }
-            }
-            .addOnFailureListener { exception ->
-                Log.d(TAG, "get failed with ", exception)
-            }
-    }
-
-
 }
