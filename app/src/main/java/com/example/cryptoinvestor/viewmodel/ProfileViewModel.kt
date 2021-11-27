@@ -13,27 +13,22 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
-    private val auth : AuthRepository
+    private val auth: AuthRepository
 ) : ViewModel() {
     val userBalance: MutableLiveData<String> = MutableLiveData()
 
     init {
-
         viewModelScope.launch {
             try {
-                var balance = auth.getUserBalance()
-                println("hej fra viewmodel $balance")
-                userBalance.value = balance
-
-            }catch (e: Exception) {
+                //network call to get users balance
+                auth.getUserBalance {
+                    //Using the result from our network call and setting the user's balance
+                    userBalance.value = it
+                    println("Balance value from viewModel: $it")
+                }
+            } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
-
-
-
-
-
-
     }
 }

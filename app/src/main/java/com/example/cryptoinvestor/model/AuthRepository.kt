@@ -30,23 +30,25 @@ class AuthRepository @Inject constructor(private val firebaseSource: FirebaseSou
     fun signUp(email: String, password: String, fullName: String, userName: String) =
         firebaseSource.createUser(email, password, fullName, userName)
 
-    fun saveUser(email: String, fullName: String, userName: String, balance: Int?, userId: String) = firebaseSource.saveUser(email, fullName, userName, balance, userId)
+    fun saveUser(email: String, fullName: String, userName: String, balance: Int?, userId: String) =
+        firebaseSource.saveUser(email, fullName, userName, balance, userId)
 
     fun getUserId() = firebaseSource.getCurrentUserID()
 
     fun fetchUser() = firebaseSource.fetchUser()
 
-    fun getUserBalance() : String{
-    var balance = ""
+    fun getUserBalance(myCallback: (String) -> Unit) {
         val userBalance = Firebase.firestore.collection("users").document("${getUserId()}")
 
-// Get the document, forcing the SDK to use the offline cache
+        // Get the document, forcing the SDK to use the offline cache
         userBalance.get()
             .addOnSuccessListener { document ->
                 if (document != null) {
-                    Log.d(TAG, "DocumentSnapshot data: ${document.data?.get("balance").toString()}")
-                    println(" <----- ${document.data?.get("balance").toString()}")
-                    balance = document.data?.get("balance").toString()
+                    println(" Balance value from AuthRep:  ${document.data?.get("balance").toString()}")
+                    var balance = document.data?.get("balance").toString()
+
+                    //callback on the result of the network work
+                    myCallback.invoke(balance)
                 } else {
                     Log.d(TAG, "No such document")
                 }
@@ -54,11 +56,7 @@ class AuthRepository @Inject constructor(private val firebaseSource: FirebaseSou
             .addOnFailureListener { exception ->
                 Log.d(TAG, "get failed with ", exception)
             }
-
-        println ("lige før vi returner balance: $balance")
-        return balance
     }
-
 
 
 }
