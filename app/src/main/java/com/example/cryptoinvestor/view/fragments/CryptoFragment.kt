@@ -64,6 +64,10 @@ class CryptoFragment : Fragment() {
         })
     }
 
+    // TODO: OnCallBack needs to be implemented
+
+
+
     private fun setupRecyclerView() {
         currency_RV.adapter = adapter
         currency_RV.layoutManager = LinearLayoutManager(context)

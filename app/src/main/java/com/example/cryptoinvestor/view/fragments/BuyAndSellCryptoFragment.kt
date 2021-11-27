@@ -106,7 +106,7 @@ class BuyAndSellCryptoFragment : Fragment() {
                     .setCancelable(false)
                     .setPositiveButton("Ok", DialogInterface.OnClickListener { dialog, id ->
                         dialog.dismiss()
-                        findNavController().navigate(R.id.InfoCryptoFragment)
+                        findNavController().navigate(R.id.navigation_Crypto)
                     })
             }
             val alert = dialogBuilder.create()

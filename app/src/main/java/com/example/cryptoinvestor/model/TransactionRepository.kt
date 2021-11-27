@@ -4,10 +4,12 @@ import com.example.cryptoinvestor.CryptoInvestApplication
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.awaitAll
+import java.util.*
 
 
 class TransactionRepository () {
-    val currentUserID = "D0gjXmihfLebZdZlzpQl"
+    val currentUserID = "GxvXyguNRROZRVtkhRpy9mkSriw2"
 
     fun registerTransaction(coinName: String, totalPrice : Double, quantity : Double, tag : String){
         // Data that need to be sent to "users/-someUserID-/transaction"
@@ -25,16 +27,33 @@ class TransactionRepository () {
     }
 
     fun buyTransaction(coinName: String, totalPrice : Double, quantity : Double){
-        // Data that need to be sent to "users/-someUserID-/transaction"
-        val tData = mapOf(
-            "Currency Name" to coinName,
-            "Price" to totalPrice,
-            "Quantity" to quantity
-        )
+        var finalQuantity = quantity
+        var finalPrice = totalPrice
 
-        Firebase.firestore
-            .collection("/users/"+currentUserID+"/portfolio").document(coinName)
-            .set(tData)
+        // Check if user already own some quantity of a coin
+        val docRef = Firebase.firestore
+            .collection("/users/"+currentUserID+"/portfolio")
+            .document(coinName)
+
+        docRef.get()
+            .addOnSuccessListener { document ->
+                // If we already own some quantity of the crypto currency
+                if (document.exists()) {
+                    finalQuantity += document.get("Quantity").toString().toDouble()
+                    finalPrice += document.get("Price").toString().toDouble()
+                }
+
+                // Data that need to be sent to "users/-someUserID-/transaction"
+                val tData = mapOf(
+                    "Currency Name" to coinName,
+                    "Price" to finalPrice,
+                    "Quantity" to finalQuantity
+                )
+
+                Firebase.firestore
+                        .collection("/users/"+currentUserID+"/portfolio").document(coinName)
+                    .set(tData)
+            }
     }
 
     fun sellTransaction(coinName: String, totalPrice : Double, quantity : Double){
