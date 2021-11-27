@@ -37,7 +37,7 @@ class AuthRepository @Inject constructor(private val firebaseSource: FirebaseSou
 
     fun fetchUser() = firebaseSource.fetchUser()
 
-    fun getUserBalance(myCallback: (String) -> Unit) {
+    fun getUserBalance(myCallback: (String) -> Unit){
         val userBalance = Firebase.firestore.collection("users").document("${getUserId()}")
 
         // Get the document, forcing the SDK to use the offline cache

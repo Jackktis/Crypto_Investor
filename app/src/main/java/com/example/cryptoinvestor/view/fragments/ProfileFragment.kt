@@ -8,8 +8,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 
 import com.example.cryptoinvestor.databinding.FragmentProfileBinding
+import com.example.cryptoinvestor.utils.PRICE_FORMATTER
 import com.example.cryptoinvestor.viewmodel.ProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_crypto.view.*
 import kotlinx.android.synthetic.main.fragment_profile.view.*
 
 @AndroidEntryPoint
@@ -36,7 +38,7 @@ class ProfileFragment : Fragment() {
 
         //calling our viewmodel to perform network call and observing the result of the network call to set our UI text
         profileViewModel.userBalance.observe(viewLifecycleOwner, {
-            view.UserBalanceProfile.text = it
+            view.UserBalanceProfile.text = PRICE_FORMATTER.format(it.toFloat()).toString()
         })
 
     }
