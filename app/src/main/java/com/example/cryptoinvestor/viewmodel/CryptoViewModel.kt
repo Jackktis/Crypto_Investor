@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cryptoinvestor.model.AuthRepository
+import com.example.cryptoinvestor.model.UserRepository
 import com.example.cryptoinvestor.model.api.CoinCapApi
 import com.example.cryptoinvestor.model.api.dto.AssetDto
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,7 +22,10 @@ import javax.inject.Inject
 
  */
 @HiltViewModel
-class CryptoViewModel @Inject constructor(private val coinCapApi: CoinCapApi, private val auth: AuthRepository) : ViewModel() {
+class CryptoViewModel @Inject constructor(
+    private val coinCapApi: CoinCapApi,
+    private val user: UserRepository
+) : ViewModel() {
 
     var assetsList: MutableLiveData<Response<List<AssetDto>>> = MutableLiveData()
     val userBalance: MutableLiveData<String> = MutableLiveData()
@@ -35,7 +39,7 @@ class CryptoViewModel @Inject constructor(private val coinCapApi: CoinCapApi, pr
         viewModelScope.launch {
             try {
                 //network call to get users balance
-                auth.getUserBalance {
+                user.getUserBalance {
                     //Using the result from our network call and setting the user's balance
                     userBalance.value = it
                     println("Balance value from viewModel: $it")

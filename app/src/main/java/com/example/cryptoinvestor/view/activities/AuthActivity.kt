@@ -87,7 +87,7 @@ class AuthActivity : AppCompatActivity() {
                             it.data?.email.toString(),
                             it.data?.fullName.toString(),
                             it.data?.userName.toString(),
-                            10000,
+                            10000.0,
                             it1.uid
                         )
                     }

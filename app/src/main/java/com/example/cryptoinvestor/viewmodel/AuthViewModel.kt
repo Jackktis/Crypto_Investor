@@ -61,7 +61,7 @@ class AuthViewModel @Inject constructor(
                                         Resource.success(
                                             User(
                                                 email = email, fullName = fullName,
-                                                userName = userName, balance = 0
+                                                userName = userName, balance = 0.0
                                             )
                                         )
                                     )
@@ -87,7 +87,7 @@ class AuthViewModel @Inject constructor(
         return userLiveData
     }
 
-    fun saveUser(email: String, fullName: String, userName: String, balance: Int?, userId: String) {
+    fun saveUser(email: String, fullName: String, userName: String, balance: Double?, userId: String) {
         authRepository.saveUser(email, fullName, userName, balance, userId).addOnCompleteListener() {
             if (it.isSuccessful) {
                 _saveUserLiveData.postValue(
@@ -138,7 +138,7 @@ class AuthViewModel @Inject constructor(
                                                                         firebaseAuth.currentUser?.email!!,
                                                                         name?.toString()!!,
                                                                         userName?.toString()!!,
-                                                                        balance?.toString()!!.toInt(),
+                                                                        balance?.toString()!!.toDouble(),
                                                                         firebaseAuth.currentUser!!.uid
                                                                     )
                                                                 )

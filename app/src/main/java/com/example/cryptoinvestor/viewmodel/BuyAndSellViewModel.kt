@@ -10,7 +10,6 @@ import javax.inject.Inject
 @HiltViewModel
 class BuyAndSellViewModel @Inject constructor(
     private val transactionRepository: TransactionRepository,
-    private val authRepository: AuthRepository,
     private val userRepository: UserRepository
     ) : ViewModel() {
 
