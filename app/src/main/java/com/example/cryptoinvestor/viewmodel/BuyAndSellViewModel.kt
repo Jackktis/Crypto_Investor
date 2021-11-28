@@ -13,8 +13,8 @@ class BuyAndSellViewModel @Inject constructor(
     private val userRepository: UserRepository
     ) : ViewModel() {
 
-    fun registerTransaction(coinName: String, totalPrice : Double, quantity : Double, tag : String){
-        transactionRepository.registerTransaction(coinName,totalPrice,quantity,tag)
+    fun registerTransaction(coinName: String, symbol:String,totalPrice : Double, quantity : Double, tag : String){
+        transactionRepository.registerTransaction(coinName, symbol,totalPrice,quantity,tag)
     }
 
     fun registerBuyTransaction(coinName : String, totalPrice : Double, quantity : Double) {

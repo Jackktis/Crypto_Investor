@@ -10,6 +10,7 @@ import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cryptoinvestor.R
 import com.example.cryptoinvestor.model.api.dto.AssetDto
+import com.example.cryptoinvestor.model.api.dto.TransactionDto
 import com.example.cryptoinvestor.utils.PRICE_FORMATTER
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.currency_list.view.*
@@ -20,6 +21,7 @@ class RateAdapter : RecyclerView.Adapter<RateAdapter.RateViewHolder>(), Filterab
     var onItemClick: ((AssetDto) -> Unit)? = null
     var rates = emptyList<AssetDto>()
     var assetFilterList = emptyList<AssetDto>()
+
 
 
     //Laver en inner class her istedet for den nederste chunk kode
@@ -61,9 +63,8 @@ class RateAdapter : RecyclerView.Adapter<RateAdapter.RateViewHolder>(), Filterab
             //Log.w("Positiv", changeTxt)
             holder.itemView.CurrencyPercent.setTextColor(Color.GREEN)
         }
-
-
     }
+
 
     override fun getItemCount(): Int = assetFilterList.size
 

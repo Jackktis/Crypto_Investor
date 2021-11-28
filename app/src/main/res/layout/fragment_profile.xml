@@ -145,6 +145,6 @@
         android:id="@+id/transaction_RV"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/transactions_list"/>
+        tools:listitem="@layout/transactions_list" />
 
 </LinearLayout>

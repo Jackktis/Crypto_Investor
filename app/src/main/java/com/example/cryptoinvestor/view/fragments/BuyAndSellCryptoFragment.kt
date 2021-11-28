@@ -82,6 +82,7 @@ class BuyAndSellCryptoFragment : Fragment() {
 
         BuyandSellBT.setOnClickListener(){
             val coinName = buyBundle?.getString("id").toString()
+            val symbol = buyBundle?.getString("symbol").toString()
             val price = priceCrypto.text.toString()
             val quantity = quantityCrypto.text.toString()
 
@@ -91,14 +92,14 @@ class BuyAndSellCryptoFragment : Fragment() {
                 action = "bought"
 
                 // register buy transaction in firestore
-                viewModel.registerTransaction(coinName, price.toDouble(), quantity.toDouble(),"Buy")
+                viewModel.registerTransaction(coinName, symbol, price.toDouble(), quantity.toDouble(),"Buy")
                 viewModel.registerBuyTransaction(coinName, price.toDouble() ,quantity.toDouble())
 
             } else {
                 action = "sold"
 
                 // register sell transaction in firestore
-                viewModel.registerTransaction(coinName, price.toDouble(), quantity.toDouble(),"Sell")
+                viewModel.registerTransaction(coinName,symbol, price.toDouble(), quantity.toDouble(),"Sell")
                 viewModel.registerSellTransaction(coinName, price.toDouble(), quantity.toDouble())
             }
 
