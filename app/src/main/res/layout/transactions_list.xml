@@ -1,118 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="90dp"
+    android:layout_height="wrap_content"
     android:layout_centerVertical="true"
     android:orientation="horizontal">
 
-    <ImageView
-        android:layout_gravity="center"
-        android:id="@+id/BoughtCurrencyIcon"
-        android:layout_marginHorizontal="5dp"
-        android:layout_weight="1.4"
+    <LinearLayout
+        android:id="@+id/perTransactionList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:srcCompat="@mipmap/crypto_icon" />
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
-
-
-        android:layout_weight="1"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/CurrencyNameSold"
+        <ImageView
+            android:id="@+id/BoughtCurrencyIcon"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="CURRENCY NAME"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:textStyle="bold"/>
-
-        <TextView
-            android:id="@+id/CurrencySymbolSold"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="Symbol" />
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="5dp"
+            android:layout_weight="1.4"
+            app:srcCompat="@mipmap/crypto_icon" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+
+
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/CurrencyNameSold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="CURRENCY NAME"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/CurrencySymbolSold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Symbol"
+                android:textColor="@color/black" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_weight="1.2"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/soldPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginVertical="7dp"
+                android:paddingTop="2dp"
+                android:text="sold pr. quantity:"
+                android:textColor="@color/black"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/soldQuantities"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:paddingTop="2dp"
+                android:text="sold quantities:"
+                android:textColor="@color/black"
+                android:textSize="10sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/quantityPriceSold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginVertical="7dp"
+                android:text="sold price pr. quantity"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/amountOfQuantities"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:text="Amount of quantities"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/SoldLine"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/perTransactionList"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginHorizontal="30dp"
+        android:orientation="horizontal">
+
         <TextView
             android:id="@+id/soldDatetxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Sold at: " />
-            <TextView
-                android:id="@+id/soldDateOutput"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text=" date" />
-    </LinearLayout>
-    </LinearLayout>
 
-    <LinearLayout
+        <TextView
+            android:id="@+id/soldDateOutput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=" date" />
+    </LinearLayout>
+    <View
+        android:id="@+id/SplitLine_hor1"
+        android:layout_below="@+id/SoldLine"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_weight="1.2"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/soldPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_marginVertical="7dp"
-            android:paddingTop="2dp"
-            android:textSize="10sp"
-            android:textColor="@color/black"
-            android:text="sold pr. quantity:" />
-
-        <TextView
-            android:id="@+id/soldQuantities"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:paddingTop="2dp"
-            android:textSize="10sp"
-            android:textColor="@color/black"
-            android:text="sold quantities:" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_weight="1.1"
-        android:layout_marginEnd="10dp"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/quantityPriceSold"
-            android:layout_width="wrap_content"
-            android:textColor="@color/black"
-            android:textSize="12sp"
-            android:layout_gravity="right"
-            android:layout_marginVertical="7dp"
-            android:layout_height="wrap_content"
-            android:text="sold price pr. quantity" />
-        <TextView
-            android:id="@+id/amountOfQuantities"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:textSize="12sp"
-            android:textColor="@color/black"
-            android:text="Amount of quantities" />
-    </LinearLayout>
-
-
-</LinearLayout>
+        android:layout_height= "1dp"
+        android:background="@color/black" />
+</RelativeLayout>

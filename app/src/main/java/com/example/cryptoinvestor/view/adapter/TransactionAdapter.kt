@@ -35,17 +35,17 @@ class TransactionAdapter : RecyclerView.Adapter<TransactionAdapter.RateViewHolde
     override fun onBindViewHolder(holder: RateViewHolder, position: Int) {
         var imageUrl = "https://static.coincap.io/assets/icons/"
 
-        var date = transactionFilterList[position].Time
 
-        println("____________________________________")
-        println(date)
-        date
-        println(date)
-        println("____________________________________")
+        if(transactionFilterList[position].action == "Buy") {
+            holder.itemView.soldDatetxt.text = "bought at: "
+        }
+        if(transactionFilterList[position].action == "Sell"){
+            holder.itemView.soldDatetxt.text = "Sold at: "
+        }
 
         holder.itemView.CurrencyNameSold.text = transactionFilterList[position].Currency_Name
         holder.itemView.CurrencySymbolSold.text = transactionFilterList[position].symbol
-        holder.itemView.soldDateOutput.text = date
+        holder.itemView.soldDateOutput.text = transactionFilterList[position].Time.toString()
         holder.itemView.quantityPriceSold.text = transactionFilterList[position].price.toString()
         holder.itemView.amountOfQuantities.text = transactionFilterList[position].quantity.toString()
 

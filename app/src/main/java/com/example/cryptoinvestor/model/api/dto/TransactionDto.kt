@@ -2,6 +2,7 @@ package com.example.cryptoinvestor.model.api.dto
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import java.util.*
 
 
 @JsonClass(generateAdapter = true)
@@ -22,7 +23,7 @@ data class TransactionDto(
     val quantity: Float,
 
     @Json(name = "Time")
-    val Time: String
+    val Time: Date
 )
 
 fun TransactionDto.toModel(): TransactionDto =

@@ -1,16 +1,11 @@
 package com.example.cryptoinvestor.model
 
 import android.content.ContentValues
-import android.content.ContentValues.TAG
 import android.util.Log
 import com.example.cryptoinvestor.model.api.dto.TransactionDto
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.awaitAll
-import java.lang.String.format
-import java.sql.Types.TIMESTAMP
-import java.util.*
 import javax.inject.Inject
 
 
@@ -101,9 +96,10 @@ class TransactionRepository @Inject constructor (private val auth : AuthReposito
                     val symbol = document.data?.getValue("Symbol").toString()
                     val price = document.data?.getValue("Price").toString().toFloat()
                     val quantity = document.data?.getValue("Quantity").toString().toFloat()
-                    val time = format(document.data?.getValue("Time").toString())
+                    val timestamp = document.data?.getValue("Time") as Timestamp
+                    val date = timestamp.toDate()
 
-                    TransactionList.add(TransactionDto(action,currencyName,symbol,price,quantity,time ))
+                    TransactionList.add(TransactionDto(action,currencyName,symbol,price,quantity,date))
 
                     myCallback(TransactionList)
                 }
