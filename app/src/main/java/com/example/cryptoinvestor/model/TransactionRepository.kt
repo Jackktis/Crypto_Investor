@@ -109,5 +109,34 @@ class TransactionRepository @Inject constructor (private val auth : AuthReposito
             }
     }
 
+    fun getBoughtInTransaction(myCallback: (MutableList<TransactionDto>) -> Unit) {
+        var boughtTransactionList = mutableListOf<TransactionDto>()
+
+        val usersBoughtTransaction = Firebase.firestore.collection("users")
+            .document("$currentUserID")
+            .collection("transaction").whereEqualTo("Action", "Buy")
+
+        // Get the document, forcing the SDK to use the offline cache
+        usersBoughtTransaction.get()
+            .addOnSuccessListener { result  ->
+                for (document in result) {
+                    val action = document.data?.getValue("Action").toString()
+                    val currencyName = document.data?.getValue("Currency Name").toString()
+                    val symbol = document.data?.getValue("Symbol").toString()
+                    val price = document.data?.getValue("Price").toString().toFloat()
+                    val quantity = document.data?.getValue("Quantity").toString().toFloat()
+                    val timestamp = document.data?.getValue("Time") as Timestamp
+                    val date = timestamp.toDate()
+
+                    boughtTransactionList.add(TransactionDto(action,currencyName,symbol,price,quantity,date))
+
+                    myCallback(boughtTransactionList)
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.d(ContentValues.TAG, "get failed with ", exception)
+            }
+    }
+
 
 }

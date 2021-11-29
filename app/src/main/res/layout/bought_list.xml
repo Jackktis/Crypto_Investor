@@ -22,7 +22,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/CurrencyName"
+            android:id="@+id/boughtCurrencyName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="CURRENCY NAME"
@@ -31,17 +31,17 @@
             android:textStyle="bold"/>
 
         <TextView
-            android:id="@+id/CurrencySymbol"
+            android:id="@+id/boughtCurrencySymbol"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:text="Symbol" />
 
         <TextView
-            android:id="@+id/procent"
+            android:id="@+id/boughtPrice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="IntProcent" />
+            android:text="bought at" />
     </LinearLayout>
 
     <LinearLayout
@@ -79,7 +79,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/CurrencyPrice"
+            android:id="@+id/differencePrice"
             android:textSize="18sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -88,7 +88,7 @@
             android:textStyle="bold"
             android:text="bought price" />
         <TextView
-            android:id="@+id/init_price"
+            android:id="@+id/bought_quantities"
             android:layout_width="wrap_content"
             android:layout_gravity="right"
             android:layout_marginVertical="10dp"
