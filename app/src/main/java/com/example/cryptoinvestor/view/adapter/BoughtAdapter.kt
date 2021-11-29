@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cryptoinvestor.R
+import com.example.cryptoinvestor.model.api.CoinCapApi
 import com.example.cryptoinvestor.model.api.dto.TransactionDto
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.bought_list.view.*
@@ -27,6 +28,7 @@ class BoughtAdapter : RecyclerView.Adapter<BoughtAdapter.RateViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RateViewHolder {
         return RateViewHolder(
+
             LayoutInflater.from(parent.context).inflate(R.layout.bought_list, parent, false)
         )
     }
@@ -40,6 +42,8 @@ class BoughtAdapter : RecyclerView.Adapter<BoughtAdapter.RateViewHolder>(){
         holder.itemView.boughtCurrencySymbol.text = boughtFilterList[position].symbol
         holder.itemView.boughtPrice.text = boughtFilterList[position].price.toString()
         //ændre her under
+
+
         holder.itemView.differencePrice.text = boughtFilterList[position].price.toString()
         holder.itemView.bought_quantities.text = boughtFilterList[position].quantity.toString()
         Picasso.get().load(imageUrl + boughtFilterList[position].symbol.lowercase() + "@2x.png")
@@ -49,7 +53,7 @@ class BoughtAdapter : RecyclerView.Adapter<BoughtAdapter.RateViewHolder>(){
 
     override fun getItemCount(): Int = boughtFilterList.size
 
-    fun setData(newList: List<TransactionDto>) {
+    fun setDataForBought(newList: List<TransactionDto>) {
         rates = newList
         boughtFilterList = rates
         notifyDataSetChanged()
