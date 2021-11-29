@@ -11,7 +11,7 @@
         android:id="@+id/crypto_logo"
         android:layout_width="282dp"
         android:layout_height="325dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="150dp"
         android:background="@mipmap/crypto_logo_1"
         app:layout_constraintBottom_toTopOf="@id/SplashScreenTV"
         app:layout_constraintHorizontal_bias="0.496"
