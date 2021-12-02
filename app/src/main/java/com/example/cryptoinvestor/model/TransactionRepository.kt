@@ -66,17 +66,43 @@ class TransactionRepository @Inject constructor (private val auth : AuthReposito
         }
     }
 
-    fun sellTransaction(coinName: String, totalPrice : Double, quantity : Double){
-        val tData = mapOf(
-            "Currency Name" to coinName,
-            "Price" to totalPrice,
-            "Quantity" to quantity
-        )
+    fun sellTransaction(coinName: String, totalPrice : Double, quantity : Double, balance : Double){
+        var finalQuantity = 0.0
+        var finalPrice = 0.0
 
-        // Need a getter so of the current portfolio and then subtract from it
-        Firebase.firestore
-            .collection("/users/"+currentUserID+"/portfolio").document(coinName)
-            .set(tData)
+        // Check if user already own some quantity of a coin
+        val docRef = Firebase.firestore
+            .collection("/users/"+currentUserID+"/portfolio")
+            .document(coinName)
+
+        docRef.get()
+            .addOnSuccessListener { document ->
+                // If we already own some quantity of the crypto currency
+                if (document.exists()) {
+                    finalQuantity += document.get("Quantity").toString().toDouble()
+                    finalQuantity -= quantity
+                    finalPrice += document.get("Price").toString().toDouble()
+                    finalPrice -= totalPrice
+                }
+
+                // Data that need to be sent to "users/-someUserID-/transaction"
+                val tData = mapOf(
+                    "Currency Name" to coinName,
+                    "Price" to finalPrice,
+                    "Quantity" to finalQuantity
+                )
+
+                Firebase.firestore
+                    .collection("/users/"+currentUserID+"/portfolio").document(coinName)
+                    .set(tData)
+            }
+
+        val newBalance = balance + totalPrice
+
+        if (currentUserID != null) {
+            Firebase.firestore
+                .collection("/users/").document(currentUserID).update(mapOf("balance" to newBalance))
+        }
     }
 
     fun getTransaction(myCallback: (MutableList<TransactionDto>) -> Unit) {

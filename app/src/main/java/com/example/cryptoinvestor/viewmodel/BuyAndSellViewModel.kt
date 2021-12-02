@@ -26,7 +26,9 @@ class BuyAndSellViewModel @Inject constructor(
     }
 
     fun registerSellTransaction(coinName : String, totalPrice : Double, quantity : Double){
-        transactionRepository.sellTransaction(coinName, totalPrice, quantity)
+        userRepository.getUserBalance {
+            transactionRepository.sellTransaction(coinName, totalPrice, quantity, it.toDouble())
+        }
     }
 
 
