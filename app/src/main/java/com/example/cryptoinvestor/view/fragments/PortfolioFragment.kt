@@ -10,11 +10,14 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.cryptoinvestor.databinding.FragmentPortfolioBinding
 import com.example.cryptoinvestor.utils.PRICE_FORMATTER
 import com.example.cryptoinvestor.view.adapter.BoughtAdapter
 import com.example.cryptoinvestor.viewmodel.PortfolioViewModel
 import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_portfolio.*
 import kotlinx.android.synthetic.main.fragment_portfolio.view.*
@@ -46,13 +49,14 @@ class PortfolioFragment : Fragment() {
 
         setupRecyclerViewForBought()
 
-        portfolioViewModel.getBought()
+        TabLayoutMediator(tablayout, bought_currency_VP) { tab, position ->
+            if(position == 0){
+                tab.setText("Favourites")
+            }else if (position == 1){
+                tab.setText("Bought")
+            }
+        }.attach()
 
-        portfolioViewModel.boughtList.observe(viewLifecycleOwner, { boughs ->
-
-            adapter.setDataForBought(boughs)
-
-        })
 
         portfolioViewModel.userBalance.observe(viewLifecycleOwner, {
             view.UserBalancePortfolio.text = PRICE_FORMATTER.format(it.toFloat()).toString()
@@ -61,13 +65,30 @@ class PortfolioFragment : Fragment() {
 
 }
     private fun setupRecyclerViewForBought() {
-        bought_currency_RV.adapter = adapter
-        bought_currency_RV.layoutManager = LinearLayoutManager(context)
+        bought_currency_VP.adapter = Adapter(this)
+//        bought_currency_RV.adapter = adapter
+//        bought_currency_RV.layoutManager = LinearLayoutManager(context)
     }
 
 
     override fun onDestroyView() {
         super.onDestroyView()
         binding = null
+    }
+}
+
+class Adapter(parentFragment: Fragment) : FragmentStateAdapter(parentFragment) {
+    override fun getItemCount(): Int = 2
+
+    override fun createFragment(position: Int): Fragment {
+
+
+
+        if(position == 1) {
+            return BoughtFragment()
+        }else
+            return FavouritesFragment()
+
+
     }
 }
