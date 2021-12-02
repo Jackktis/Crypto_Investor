@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.cryptoinvestor.viewmodel.InfoCryptoViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <!-- Banner start -->
+
+        <ImageView
+            android:id="@+id/portfolio_banner"
+            android:layout_width="411dp"
+            android:layout_height="200dp"
+            android:background="@drawable/portfolio_banner"
+            android:elevation="2dp" />
+
+
+
+
+        <!-- card start -->
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/portfolio_card"
+            android:layout_width="372dp"
+            android:layout_height="160dp"
+            android:layout_gravity="center"
+            android:layout_margin="20dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="18dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/portfolio_card"
+                android:padding="10dp"
+                android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="7dp"
+
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:id="@+id/info_CurrencyImage"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_gravity="bottom"
+                    android:background="@drawable/under_currency_icon" />
+
+                <LinearLayout
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="20dp"
+                        android:text="$"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="36sp"
+                        android:layout_gravity="end"/>
+
+                    <TextView
+                        android:id="@+id/info_CurrencyPrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="123"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="36sp"
+                        android:layout_gravity="right"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="7dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/info_CurrencyInitials"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.asset.body().symbol, default=`CurrencyInitials`}"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="28sp"
+                        />
+                        <TextView
+
+                            android:id="@+id/info_CurrencyName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="0dp"
+                            android:text="@{viewModel.asset.body().name, default=`CurrencyName`}"
+                            android:textColor="@color/white"
+                            android:textStyle="bold"
+                            android:textSize="14sp"
+                            />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:orientation="vertical">
+                        <TextView
+                            android:id="@+id/textView"
+                            android:layout_width="wrap_content"
+                            android:textSize="16sp"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"
+                            android:layout_weight="1"
+                            android:text="24 hr. change" />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/info_changePr24Hr"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1.00 BTC"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+                        <TextView
+                            android:id="@+id/procent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=" % "
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+        <!-- card start -->
+
+        <!-- Banner end -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_below="@+id/portfolio_banner"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingVertical="40dp">
+
+                <Button
+                    android:id="@+id/buyCryptoBT"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="buy" />
+
+                <ImageView
+                    android:id="@+id/favoriteBT"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:paddingHorizontal="40dp"
+                    android:src="@drawable/ic_baseline_favorite_border_24" />
+
+                <Button
+                    android:id="@+id/sellCryptoBT"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/white"
+                    android:text="sell"
+                    android:textColor="@color/PrimaryColor"
+                    app:strokeColor="@color/PrimaryColor"
+                    app:strokeWidth="3dp" />
+            </LinearLayout>
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/lineChart"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:padding="9dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</layout>

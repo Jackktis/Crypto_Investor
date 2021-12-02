@@ -7,27 +7,53 @@
 
     <fragment
         android:id="@+id/navigation_portfolio"
-        android:name="com.example.cryptoinvestor.ui.portfolio.PortfolioFragment"
+        android:name="com.example.cryptoinvestor.view.fragments.PortfolioFragment"
         android:label="@string/title_Portfolio"
         tools:layout="@layout/fragment_portfolio" >
         <action
             android:id="@+id/action_navigation_portfolio_to_navigation_Crypto"
             app:destination="@id/navigation_Crypto" />
+        <action
+            android:id="@+id/action_navigation_portfolio_to_InfoCryptoFragment"
+            app:destination="@id/InfoCryptoFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/navigation_Crypto"
-        android:name="com.example.cryptoinvestor.ui.crypto.CryptoFragment"
+        android:name="com.example.cryptoinvestor.view.fragments.CryptoFragment"
         android:label="@string/title_Crypto"
         tools:layout="@layout/fragment_crypto" >
         <action
             android:id="@+id/action_navigation_Crypto_to_navigation_Profile"
             app:destination="@id/navigation_Profile" />
+        <action
+            android:id="@+id/action_navigation_Crypto_to_InfoCryptoFragment"
+            app:destination="@id/InfoCryptoFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/navigation_Profile"
-        android:name="com.example.cryptoinvestor.ui.profile.ProfileFragment"
+        android:name="com.example.cryptoinvestor.view.fragments.ProfileFragment"
         android:label="@string/title_Profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_navigation_Profile_to_InfoCryptoFragment"
+            app:destination="@id/InfoCryptoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/InfoCryptoFragment"
+        android:name="com.example.cryptoinvestor.view.fragments.InfoCryptoFragment"
+        android:label="info_crypto"
+        tools:layout="@layout/fragment_info_crypto" >
+        <action
+            android:id="@+id/action_InfoCryptoFragment_to_Buy_and_sell_fragment"
+            app:destination="@id/Buy_and_sell_fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/Buy_and_sell_fragment"
+        android:name="com.example.cryptoinvestor.view.fragments.BuyAndSellCryptoFragment"
+        android:label="info_crypto"
+        tools:layout="@layout/fragment_buy_and_sell_crypto" >
+    </fragment>
+
 </navigation>
