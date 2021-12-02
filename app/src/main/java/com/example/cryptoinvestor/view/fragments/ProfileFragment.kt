@@ -1,26 +1,18 @@
 package com.example.cryptoinvestor.view.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.cryptoinvestor.R
 
 import com.example.cryptoinvestor.databinding.FragmentProfileBinding
 import com.example.cryptoinvestor.utils.PRICE_FORMATTER
-import com.example.cryptoinvestor.view.adapter.RateAdapter
 import com.example.cryptoinvestor.view.adapter.TransactionAdapter
 import com.example.cryptoinvestor.viewmodel.ProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_crypto.*
-import kotlinx.android.synthetic.main.fragment_crypto.currency_RV
-import kotlinx.android.synthetic.main.fragment_crypto.view.*
 import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.fragment_profile.view.*
 

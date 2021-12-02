@@ -31,6 +31,7 @@ class AuthActivity : AppCompatActivity() {
     //Get ViewModel instance
     private val viewModel: AuthViewModel by viewModels()
 
+    //Injected object of FirebaseAuth
     @Inject
     lateinit var auth: FirebaseAuth
 
@@ -40,15 +41,22 @@ class AuthActivity : AppCompatActivity() {
         binding.signin.performClick()
         setContentView(binding.root)
 
+        //OnClickListener for the sign in / sign up button on
         signin_signup_btn.setOnClickListener {
             logIn(it)
         }
 
+        //This sets the UI for the signin part
         binding.signin.setOnClickListener {
+            /*
+                swaps the sign in and sign up color of text and background
+                to make it looked like its onSelected.
+             */
             signup.setTextColor(Color.parseColor("#FFFFFF"))
             signup.setBackgroundColor(this.getColor(R.color.bannerGold))
             signin.setTextColor(this.getColor(R.color.bannerGold))
             signin.setBackgroundResource(R.drawable.border_shape)
+
             circleImageView.setImageResource(R.mipmap.ic_login)
             signin_signup_txt.text = "Log in"
             signin_signup_btn.text = "Login"
@@ -67,6 +75,10 @@ class AuthActivity : AppCompatActivity() {
             circleImageView.setImageResource(R.mipmap.ic_signup)
             signin_signup_txt.text = "Sign Up"
             signin_signup_btn.text = "CREATE"
+            /*
+             Hides the "forgot password",
+             and shows the extra text input fields for username and full name.
+             */
             forgot_password.visibility = View.INVISIBLE
             usernameTextInput.visibility = View.VISIBLE
             nameTextInput.visibility = View.VISIBLE
@@ -83,8 +95,13 @@ class AuthActivity : AppCompatActivity() {
         val username = usernameEditText.text.toString()
         val fullname = nameEditText.text.toString()
 
+        //Observes the method signUp
         viewModel.signUp(email, password, fullname, username).observe(this, {
             when (it.status) {
+                /*
+                If the status is set to success we save a user with the current user's ID
+                 together with the signUp information and a start balance of 10000
+                 */
                 Status.SUCCESS -> {
                     auth.currentUser?.let { it1 ->
                         viewModel.saveUser(
@@ -95,6 +112,9 @@ class AuthActivity : AppCompatActivity() {
                             it1.uid
                         )
                     }
+                    /*
+                    Provide feedback for user, and start and navigate to MainActivity
+                     */
                     view.showSnackBar("Account registered")
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
@@ -111,18 +131,26 @@ class AuthActivity : AppCompatActivity() {
     }
 
     private fun logIn(view: View) {
+        /*
+        Trimming fields for whitespaces and assigning them to immutable values.
+         */
         val email = emailAddressEditText.text.toString().trim()
         val password = password.text.toString().trim()
 
+        /*
+        Observing the signIn() method for returning a status from viewModel
+         */
         viewModel.signIn(email, password).observe(this) {
             when (it.status) {
                 Status.LOADING -> {
                     view.showSnackBar("...")
                 }
+                /*
+                Is status set to success we logged in successfully and start and navigate to MainActivity
+                 */
                 Status.SUCCESS -> {
                     view.showSnackBar("Login successfull")
                     val intent = Intent(this, MainActivity::class.java)
-                    println("USER LOGGED IN : " + it.data?.userId.toString())
                     startActivity(intent)
                     finish()
                 }

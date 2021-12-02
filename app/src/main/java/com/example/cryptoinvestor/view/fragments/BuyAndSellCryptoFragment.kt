@@ -13,7 +13,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.cryptoinvestor.R
 import com.example.cryptoinvestor.databinding.FragmentBuyAndSellCryptoBinding
-import com.example.cryptoinvestor.databinding.FragmentBuyOrSellPopUpBinding
 import com.example.cryptoinvestor.viewmodel.BuyAndSellViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_buy_and_sell_crypto.*
@@ -21,24 +20,17 @@ import java.math.BigDecimal
 
 @AndroidEntryPoint
 class BuyAndSellCryptoFragment : Fragment() {
-
-    var coinOriginalPrice: String = ""
-
-    //private val viewModel by lazy { buyAndSellViewModel }
     private val viewModel: BuyAndSellViewModel by viewModels()
-
     private lateinit var binding: FragmentBuyAndSellCryptoBinding
-    private lateinit var bindingPopUp: FragmentBuyOrSellPopUpBinding
+    private var coinOriginalPrice: String =
+        "" //String for holding the original price of a crypto, will be used for exchange rates
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentBuyAndSellCryptoBinding.inflate(inflater, container, false)
-        bindingPopUp = FragmentBuyOrSellPopUpBinding.inflate(inflater, container, false)
-        // Inflate the layout for this fragment
         return binding.root
-        //inflater.inflate(R.layout.fragment_buy_and_sell_crypto, container, false)
     }
 
     @SuppressLint("UseRequireInsteadOfGet")
@@ -65,13 +57,13 @@ class BuyAndSellCryptoFragment : Fragment() {
 
         priceCrypto.setOnClickListener() {
             if (buyBundle != null) {
-                updateAmount(priceCrypto.text.toString().toBigDecimal())
+                updateQuantityAccordingToPrice(priceCrypto.text.toString().toBigDecimal())
             }
         }
 
         quantityCrypto.setOnClickListener() {
             if (buyBundle != null) {
-                updateQuantities(quantityCrypto.text.toString().toBigDecimal())
+                updatePriceAccordingToQuantity(quantityCrypto.text.toString().toBigDecimal())
             }
         }
 
@@ -136,23 +128,31 @@ class BuyAndSellCryptoFragment : Fragment() {
 
     }
 
-    fun updateAmount(enteredAmount: BigDecimal) {
-        val newQuantities: BigDecimal = enteredAmount / coinOriginalPrice.toBigDecimal()
-        quantityCrypto.setText(String.format(newQuantities.toString()))
+    private fun updateQuantityAccordingToPrice(priceForQuantity: BigDecimal) {
+        val quantityAccordingToPrice: BigDecimal =
+            priceForQuantity / coinOriginalPrice.toBigDecimal()
+        quantityCrypto.setText(String.format(quantityAccordingToPrice.toString()))
     }
 
-    fun updateQuantities(enteredQuantities: BigDecimal) {
-        val newQuantities: BigDecimal = coinOriginalPrice.toBigDecimal() * enteredQuantities
-        priceCrypto.setText(String.format(newQuantities.toString()))
+    private fun updatePriceAccordingToQuantity(quantityEntered: BigDecimal) {
+        val priceAccordingToQuantity: BigDecimal =
+            coinOriginalPrice.toBigDecimal() * quantityEntered
+        priceCrypto.setText(String.format(priceAccordingToQuantity.toString()))
     }
 
-    fun transactionDialog(action: String, quantity: String, coinName: String, buyBundle: Bundle?) {
-        // Dialog box for after completion of transaction
+    /*
+    Creation of a dialog with the transaction info
+     */
+    private fun transactionDialog(
+        action: String,
+        quantity: String,
+        coinName: String,
+        buyBundle: Bundle?
+    ) {
         val dialogBuilder = AlertDialog.Builder(requireActivity())
         if (buyBundle != null) {
             dialogBuilder
                 .setMessage("You have $action $quantity of $coinName")
-                // if the dialog is cancelable
                 .setCancelable(false)
                 .setPositiveButton("Ok", DialogInterface.OnClickListener { dialog, id ->
                     dialog.dismiss()
@@ -163,5 +163,4 @@ class BuyAndSellCryptoFragment : Fragment() {
         alert.setTitle("Transaction complete")
         alert.show()
     }
-
 }

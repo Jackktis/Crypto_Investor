@@ -33,7 +33,7 @@ interface CoinCapApi {
     suspend fun getAssetHistory(@Path("id") id: String): Response<List<AssetHistoryDTO>>
 
     @GET("v2/assets/?limit=100")
-    suspend fun getTenAssets(): Response<List<AssetDto>>
+    suspend fun getHundredAssets(): Response<List<AssetDto>>
 
     companion object {
         fun build(): CoinCapApi =

@@ -9,19 +9,22 @@ import com.example.cryptoinvestor.model.api.dto.TransactionDto
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.transactions_list.view.*
 
-class TransactionAdapter : RecyclerView.Adapter<TransactionAdapter.RateViewHolder>(){
+/*
+  This adapter is almost setup the exact same way CryptoAdapter.kt is, cryptoAdapter even has more.
+  I'll keep this class uncommented for that specific reason.
+ */
+class TransactionAdapter : RecyclerView.Adapter<TransactionAdapter.RateViewHolder>() {
     var onItemClick: ((TransactionDto) -> Unit)? = null
-    var transactionFilterList = emptyList<TransactionDto>()
-    var rates = emptyList<TransactionDto>()
+    var assetTransactionList = emptyList<TransactionDto>()
+    var assets = emptyList<TransactionDto>()
 
 
-    //Laver en inner class her istedet for den nederste chunk kode
     inner class RateViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         init {
-            transactionFilterList = rates
+            assetTransactionList = assets
 
             itemView.setOnClickListener {
-                onItemClick?.invoke(transactionFilterList[adapterPosition])
+                onItemClick?.invoke(assetTransactionList[adapterPosition])
             }
         }
     }
@@ -36,29 +39,29 @@ class TransactionAdapter : RecyclerView.Adapter<TransactionAdapter.RateViewHolde
         var imageUrl = "https://static.coincap.io/assets/icons/"
 
 
-        if(transactionFilterList[position].action == "Buy") {
-            holder.itemView.soldDatetxt.text = "bought at: "
+        if (assetTransactionList[position].action == "Buy") {
+            holder.itemView.soldDatetxt.text = "Bought at: "
         }
-        if(transactionFilterList[position].action == "Sell"){
+        if (assetTransactionList[position].action == "Sell") {
             holder.itemView.soldDatetxt.text = "Sold at: "
         }
 
-        holder.itemView.CurrencyNameSold.text = transactionFilterList[position].Currency_Name
-        holder.itemView.CurrencySymbolSold.text = transactionFilterList[position].symbol
-        holder.itemView.soldDateOutput.text = transactionFilterList[position].Time.toString()
-        holder.itemView.quantityPriceSold.text = transactionFilterList[position].price.toString()
-        holder.itemView.amountOfQuantities.text = transactionFilterList[position].quantity.toString()
+        holder.itemView.CurrencyNameSold.text = assetTransactionList[position].Currency_Name
+        holder.itemView.CurrencySymbolSold.text = assetTransactionList[position].symbol
+        holder.itemView.soldDateOutput.text = assetTransactionList[position].Time.toString()
+        holder.itemView.quantityPriceSold.text = assetTransactionList[position].price.toString()
+        holder.itemView.amountOfQuantities.text = assetTransactionList[position].quantity.toString()
 
-        Picasso.get().load(imageUrl + transactionFilterList[position].symbol.lowercase() + "@2x.png")
+        Picasso.get().load(imageUrl + assetTransactionList[position].symbol.lowercase() + "@2x.png")
             .into(holder.itemView.BoughtCurrencyIcon)
 
     }
 
-    override fun getItemCount(): Int = transactionFilterList.size
+    override fun getItemCount(): Int = assetTransactionList.size
 
     fun setData(newList: List<TransactionDto>) {
-        rates = newList
-        transactionFilterList = rates
+        assets = newList
+        assetTransactionList = assets
         notifyDataSetChanged()
     }
 }

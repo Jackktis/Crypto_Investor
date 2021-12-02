@@ -48,7 +48,7 @@ class InfoCryptoFragment : Fragment() {
     private val infoCryptoViewModel: InfoCryptoViewModel by viewModels()
 
     var id: String = ""
-    private var linecharChangecolor: String = ""
+    private var lineChartColorAccordingToSign: String = ""
 
     companion object {
         fun newInstance() = InfoCryptoFragment()
@@ -85,11 +85,12 @@ class InfoCryptoFragment : Fragment() {
                         view.info_CurrencyInitials.text = it.symbol
                         view.info_CurrencyPrice.text = PRICE_FORMATTER.format(it.price).toString()
                         var changeTxt = FLOAT_FORMATTER.format(it.change24Hr).toString()
-                        linecharChangecolor = changeTxt
+                        lineChartColorAccordingToSign = changeTxt
                         println(asset.body()?.toString())
                         view.info_changePr24Hr.text = changeTxt
                         Picasso.get().load(imageUrl + it.symbol.lowercase() + "@2x.png")
                             .into(view.info_CurrencyImage)
+                        //Sætter textcolor til at være rød ved negativ værdi eller grøn ved positiv værdi
                         if (changeTxt.contains("-")) {
                             Log.w("Negativ", changeTxt)
                             view.info_changePr24Hr.setTextColor(Color.RED)
@@ -104,7 +105,6 @@ class InfoCryptoFragment : Fragment() {
             })
         }
 
-        // knapper over chart
         buyCryptoBT.setOnClickListener() {
             if (bundle != null) {
                 id = bundle.getString("id").toString()
@@ -182,22 +182,20 @@ class InfoCryptoFragment : Fragment() {
                         val assetTime: List<Float> = it.map { it.time }
                         val assetTimeStr = mutableListOf<String>()
                         println("Det her er formateret tid " + it.map { Date(it.time.toLong()) })
-                        //it.forEach(entries.add(Entry(assetUsd,assetTime)))
                         for (asset in it.indices) {
                             entries.add(Entry(assetTime[asset], assetUsd[asset]))
 
                             /*
                             Nedestående er forsøg på at ændre x label med en liste af strings
                              */
-                            assetTimeStr.add("HEJ")
-                            // assetTimeStr.add(Date(assetTime[asset].toLong()).toString())
+                            assetTimeStr.add("")
                         }
-                        setLineChartData(view.lineChart, entries, assetTime, assetTimeStr)
+                        setLineChartData(view.lineChart, entries, assetTimeStr)
 
                     }
                 }
             } else {
-                println("IT IS NULL!!!!")
+                println("Asset has no history, it's brand new?")
             }
         })
     }
@@ -208,11 +206,8 @@ class InfoCryptoFragment : Fragment() {
     fun setLineChartData(
         lineChart: LineChart,
         entries: ArrayList<Entry>,
-        assetTime: List<Float>,
         assetTimeStr: MutableList<String>
     ) {
-
-
         // x-værdier
         // datasættet for line
         val lineDataSet = LineDataSet(entries, "first")
@@ -220,16 +215,15 @@ class InfoCryptoFragment : Fragment() {
         // DrawValue sættes false da en corresponding value i en chart vil i længden blive rodet
         // DrawFilled sættes til true for at fylde ud under grafen
         // linewidth kan vi ændre tykkelsen og fylde dens farve
-
         lineDataSet.setDrawValues(true)
         lineDataSet.setDrawFilled(true)
         lineDataSet.lineWidth = 3f
 
-
-        var gradientColor : Int
+        var gradientColor: Int
         var lineColor: Int
 
-        if (linecharChangecolor.contains("-")) {
+        //Hvis grafen er faldende "-" eller stigende "+" så skifter vi farven af grafen
+        if (lineChartColorAccordingToSign.contains("-")) {
             gradientColor = R.drawable.linechart_fill_color_negative
             lineColor = R.color.Red
         } else {
@@ -247,17 +241,12 @@ class InfoCryptoFragment : Fragment() {
         if (color != null) {
             lineDataSet.color = color
         }
-
-
-
         lineDataSet.setDrawCircles(false)
 
         //Her sættes en rotation angle til x-aksen (måske udkommenteres)
         lineChart.xAxis.labelRotationAngle = 0f
 
-
         // hver sætter vi vores datasæt ind i en line chart til at tegnes
-
         lineChart.data = LineData(lineDataSet)
         lineChart.xAxis.valueFormatter = IndexAxisValueFormatter(assetTimeStr)
         lineChart.xAxis.setDrawGridLines(false)
@@ -273,9 +262,7 @@ class InfoCryptoFragment : Fragment() {
         // denne burde gerne loade dataen ind, undervejs, det virker kun for API 11
         lineChart.animateX(1800, Easing.EaseInExpo)
 
-
-        //TODO: dette vil være en dot du kan hive rundt på charten for at se specifik værdi.
-        // hvis vi gerne vil se hvordan, kan vi bruge https://medium.com/@yilmazvolkan/kotlinlinecharts-c2a730226ff1
+        // Vi sætter en CustomMarker som viser sig ved interaktion med grafens punkter.
         val markerView = context?.let { CustomMarker(it, R.layout.chart) }
         lineChart.marker = markerView
     }

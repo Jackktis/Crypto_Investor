@@ -25,7 +25,6 @@ class AuthViewModel @Inject constructor(
 
     private val userLiveData = MutableLiveData<Resource<User>>()
     private val _saveUserLiveData = MutableLiveData<Resource<User>>()
-    val saveUserData = _saveUserLiveData
     private val pwMaxLength = 8
 
     fun signUp(
