@@ -4,13 +4,13 @@ import android.content.ContentValues
 import android.util.Log
 import com.example.cryptoinvestor.model.api.dto.TransactionDto
 import com.google.firebase.Timestamp
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import javax.inject.Inject
 
 
 class TransactionRepository @Inject constructor (private val auth : AuthRepository) {
-    //val currentUserID = "D0gjXmihfLebZdZlzpQl"
     private val currentUserID = auth.getUserId()
 
     fun registerTransaction(coinName: String, symbol: String, totalPrice : Double, quantity : Double, tag : String){
@@ -110,7 +110,7 @@ class TransactionRepository @Inject constructor (private val auth : AuthReposito
 
         val usersTransaction = Firebase.firestore.collection("users")
             .document("$currentUserID")
-            .collection("transaction")
+            .collection("transaction").orderBy("Time", Query.Direction.DESCENDING)
 
         // Get the document, forcing the SDK to use the offline cache
         usersTransaction.get()
