@@ -35,7 +35,7 @@ class TransactionRepository @Inject constructor (private val auth : AuthReposito
 
         // Check if user already own some quantity of a coin
         val docRef = Firebase.firestore
-            .collection("/users/"+currentUserID+"/portfolio")
+            .collection("/users/$currentUserID/portfolio")
             .document(coinName)
 
         docRef.get()
@@ -55,7 +55,7 @@ class TransactionRepository @Inject constructor (private val auth : AuthReposito
                 )
 
                 Firebase.firestore
-                        .collection("/users/"+currentUserID+"/portfolio").document(coinName)
+                        .collection("/users/$currentUserID/portfolio").document(coinName)
                     .set(tData)
             }
         val newBalance = balance - totalPrice
@@ -72,7 +72,7 @@ class TransactionRepository @Inject constructor (private val auth : AuthReposito
 
         // Check if user already own some quantity of a coin
         val docRef = Firebase.firestore
-            .collection("/users/"+currentUserID+"/portfolio")
+            .collection("/users/$currentUserID/portfolio")
             .document(coinName)
 
         docRef.get()
@@ -93,7 +93,7 @@ class TransactionRepository @Inject constructor (private val auth : AuthReposito
                 )
 
                 Firebase.firestore
-                    .collection("/users/"+currentUserID+"/portfolio").document(coinName)
+                    .collection("/users/$currentUserID/portfolio").document(coinName)
                     .set(tData)
             }
 
@@ -106,7 +106,7 @@ class TransactionRepository @Inject constructor (private val auth : AuthReposito
     }
 
     fun getTransaction(myCallback: (MutableList<TransactionDto>) -> Unit) {
-        var TransactionList = mutableListOf<TransactionDto>()
+        var transactionList = mutableListOf<TransactionDto>()
 
         val usersTransaction = Firebase.firestore.collection("users")
             .document("$currentUserID")
@@ -117,17 +117,17 @@ class TransactionRepository @Inject constructor (private val auth : AuthReposito
             .addOnSuccessListener { result  ->
                 for (document in result) {
 
-                    val action = document.data?.getValue("Action").toString()
-                    val currencyName = document.data?.getValue("Currency Name").toString()
-                    val symbol = document.data?.getValue("Symbol").toString()
-                    val price = document.data?.getValue("Price").toString().toFloat()
-                    val quantity = document.data?.getValue("Quantity").toString().toFloat()
-                    val timestamp = document.data?.getValue("Time") as Timestamp
+                    val action = document.data.getValue("Action").toString()
+                    val currencyName = document.data.getValue("Currency Name").toString()
+                    val symbol = document.data.getValue("Symbol").toString()
+                    val price = document.data.getValue("Price").toString().toFloat()
+                    val quantity = document.data.getValue("Quantity").toString().toFloat()
+                    val timestamp = document.data.getValue("Time") as Timestamp
                     val date = timestamp.toDate()
 
-                    TransactionList.add(TransactionDto(action,currencyName,symbol,price,quantity,date))
+                    transactionList.add(TransactionDto(action,currencyName,symbol,price,quantity,date))
 
-                    myCallback(TransactionList)
+                    myCallback(transactionList)
                 }
             }
             .addOnFailureListener { exception ->

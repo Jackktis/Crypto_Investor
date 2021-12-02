@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
@@ -21,13 +22,13 @@ import com.example.cryptoinvestor.viewmodel.BuyAndSellViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_buy_and_sell_crypto.*
 import kotlinx.android.synthetic.main.fragment_buy_or_sell_pop_up.*
+import java.io.IOException
 import java.math.BigDecimal
 
 @AndroidEntryPoint
 class BuyAndSellCryptoFragment : Fragment() {
 
     var coinOriginalPrice: String = ""
-    var changedPrice: Float = 0.0f
 
     //private val viewModel by lazy { buyAndSellViewModel }
     private val viewModel: BuyAndSellViewModel by viewModels()
@@ -55,7 +56,7 @@ class BuyAndSellCryptoFragment : Fragment() {
         // Setting the button and text programmatically
         // For future work TODO: learn about stateflows so it isn't necessary
         //                  to send tags through bundle
-        if(buyBundle?.getString("tag").equals("Buy")) {
+        if (buyBundle?.getString("tag").equals("Buy")) {
             binding.BuyandSellBT.text = "Buy"
         } else {
             binding.BuyandSellBT.text = "Sell"
@@ -68,67 +69,105 @@ class BuyAndSellCryptoFragment : Fragment() {
             coinOriginalPrice = (buyBundle.getFloat("price")).toString()
         }
 
-        priceCrypto.setOnClickListener(){
+        priceCrypto.setOnClickListener() {
             if (buyBundle != null) {
                 updateAmount(priceCrypto.text.toString().toBigDecimal())
             }
         }
 
-        quantityCrypto.setOnClickListener(){
+        quantityCrypto.setOnClickListener() {
             if (buyBundle != null) {
-               updateQuantities(quantityCrypto.text.toString().toBigDecimal())
+                updateQuantities(quantityCrypto.text.toString().toBigDecimal())
             }
         }
 
-        BuyandSellBT.setOnClickListener(){
+        BuyandSellBT.setOnClickListener() {
             val coinName = buyBundle?.getString("id").toString()
             val symbol = buyBundle?.getString("symbol").toString()
             val price = priceCrypto.text.toString()
             val quantity = quantityCrypto.text.toString()
 
             // checking if you are buying or selling
-            var action = ""
+            val action: String
             if (binding.BuyandSellBT.text.equals("Buy")) {
                 action = "bought"
 
                 // register buy transaction in firestore
-                viewModel.registerTransaction(coinName, symbol, price.toDouble(), quantity.toDouble(),"Buy")
-                viewModel.registerBuyTransaction(coinName, price.toDouble() ,quantity.toDouble())
+                viewModel.registerTransaction(
+                    coinName,
+                    symbol,
+                    price.toDouble(),
+                    quantity.toDouble(),
+                    "Buy"
+                )
+                viewModel.registerBuyTransaction(coinName, price.toDouble(), quantity.toDouble())
+
+                transactionDialog(action, quantity, coinName, buyBundle)
 
             } else {
                 action = "sold"
 
-                // register sell transaction in firestore
-                viewModel.registerTransaction(coinName,symbol, price.toDouble(), quantity.toDouble(),"Sell")
-                viewModel.registerSellTransaction(coinName, price.toDouble(), quantity.toDouble())
-            }
-
-            // Dialog box for after completion of transaction
-            val dialogBuilder = AlertDialog.Builder(activity!!)
-            if (buyBundle != null) {
-                dialogBuilder
-                    .setMessage("You have " + action + " "+ quantity + " of " + coinName)
-                    // if the dialog is cancelable
-                    .setCancelable(false)
-                    .setPositiveButton("Ok", DialogInterface.OnClickListener { dialog, id ->
-                        dialog.dismiss()
-                        findNavController().navigate(R.id.navigation_Crypto)
+                //Try make network call to register a transaction
+                try {
+                    viewModel.registerSellTransaction(
+                        coinName,
+                        price.toDouble(),
+                        quantity.toDouble()
+                    )
+                    viewModel.quantityMessageObserver.observe(viewLifecycleOwner, {
+                        //If quantityMessageObserver == true, that means that the user has enough quantity of the crypto to sell
+                        if (it == true) {
+                            viewModel.registerTransaction(
+                                coinName,
+                                symbol,
+                                price.toDouble(),
+                                quantity.toDouble(),
+                                "Sell"
+                            )
+                            transactionDialog(action, quantity, coinName, buyBundle)
+                        } else {
+                            Toast.makeText(
+                                activity,
+                                "You do not own enough $coinName",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
                     })
+                } catch (e: Exception) {
+
+                    e.printStackTrace()
+                }
             }
-            val alert = dialogBuilder.create()
-            alert.setTitle("Transaction complete")
-            alert.show()
         }
 
     }
 
-    fun updateAmount(enteredAmount: BigDecimal){
-        val newQuantities: BigDecimal = enteredAmount/coinOriginalPrice.toBigDecimal()
+    fun updateAmount(enteredAmount: BigDecimal) {
+        val newQuantities: BigDecimal = enteredAmount / coinOriginalPrice.toBigDecimal()
         quantityCrypto.setText(String.format(newQuantities.toString()))
     }
 
-    fun updateQuantities(enteredQuantities: BigDecimal){
+    fun updateQuantities(enteredQuantities: BigDecimal) {
         val newQuantities: BigDecimal = coinOriginalPrice.toBigDecimal() * enteredQuantities
         priceCrypto.setText(String.format(newQuantities.toString()))
     }
+
+    fun transactionDialog(action: String, quantity: String, coinName: String, buyBundle: Bundle?) {
+        // Dialog box for after completion of transaction
+        val dialogBuilder = AlertDialog.Builder(requireActivity())
+        if (buyBundle != null) {
+            dialogBuilder
+                .setMessage("You have $action $quantity of $coinName")
+                // if the dialog is cancelable
+                .setCancelable(false)
+                .setPositiveButton("Ok", DialogInterface.OnClickListener { dialog, id ->
+                    dialog.dismiss()
+                    findNavController().navigate(R.id.navigation_Crypto)
+                })
+        }
+        val alert = dialogBuilder.create()
+        alert.setTitle("Transaction complete")
+        alert.show()
     }
+
+}
