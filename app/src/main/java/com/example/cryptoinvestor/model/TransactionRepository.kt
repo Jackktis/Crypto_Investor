@@ -4,13 +4,13 @@ import android.content.ContentValues
 import android.util.Log
 import com.example.cryptoinvestor.model.api.dto.TransactionDto
 import com.google.firebase.Timestamp
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import javax.inject.Inject
 
 
-class TransactionRepository @Inject constructor (private val auth : AuthRepository) {
-    //val currentUserID = "D0gjXmihfLebZdZlzpQl"
+class TransactionRepository @Inject constructor (auth : AuthRepository) {
     private val currentUserID = auth.getUserId()
 
     fun registerTransaction(coinName: String, symbol: String, totalPrice : Double, quantity : Double, tag : String){
@@ -25,7 +25,7 @@ class TransactionRepository @Inject constructor (private val auth : AuthReposito
         )
 
         Firebase.firestore
-            .collection("/users/"+currentUserID+"/transaction")
+            .collection("/users/$currentUserID/transaction")
             .add(tData)
     }
 
@@ -35,7 +35,7 @@ class TransactionRepository @Inject constructor (private val auth : AuthReposito
 
         // Check if user already own some quantity of a coin
         val docRef = Firebase.firestore
-            .collection("/users/"+currentUserID+"/portfolio")
+            .collection("/users/$currentUserID/portfolio")
             .document(coinName)
 
         docRef.get()
@@ -55,7 +55,7 @@ class TransactionRepository @Inject constructor (private val auth : AuthReposito
                 )
 
                 Firebase.firestore
-                        .collection("/users/"+currentUserID+"/portfolio").document(coinName)
+                        .collection("/users/$currentUserID/portfolio").document(coinName)
                     .set(tData)
             }
         val newBalance = balance - totalPrice
@@ -72,7 +72,7 @@ class TransactionRepository @Inject constructor (private val auth : AuthReposito
 
         // Check if user already own some quantity of a coin
         val docRef = Firebase.firestore
-            .collection("/users/"+currentUserID+"/portfolio")
+            .collection("/users/$currentUserID/portfolio")
             .document(coinName)
 
         docRef.get()
@@ -93,7 +93,7 @@ class TransactionRepository @Inject constructor (private val auth : AuthReposito
                 )
 
                 Firebase.firestore
-                    .collection("/users/"+currentUserID+"/portfolio").document(coinName)
+                    .collection("/users/$currentUserID/portfolio").document(coinName)
                     .set(tData)
             }
 
@@ -106,28 +106,28 @@ class TransactionRepository @Inject constructor (private val auth : AuthReposito
     }
 
     fun getTransaction(myCallback: (MutableList<TransactionDto>) -> Unit) {
-        var TransactionList = mutableListOf<TransactionDto>()
+        var transactionList = mutableListOf<TransactionDto>()
 
         val usersTransaction = Firebase.firestore.collection("users")
             .document("$currentUserID")
-            .collection("transaction")
+            .collection("transaction").orderBy("Time", Query.Direction.DESCENDING)
 
         // Get the document, forcing the SDK to use the offline cache
         usersTransaction.get()
             .addOnSuccessListener { result  ->
                 for (document in result) {
 
-                    val action = document.data?.getValue("Action").toString()
-                    val currencyName = document.data?.getValue("Currency Name").toString()
-                    val symbol = document.data?.getValue("Symbol").toString()
-                    val price = document.data?.getValue("Price").toString().toFloat()
-                    val quantity = document.data?.getValue("Quantity").toString().toFloat()
-                    val timestamp = document.data?.getValue("Time") as Timestamp
+                    val action = document.data.getValue("Action").toString()
+                    val currencyName = document.data.getValue("Currency Name").toString()
+                    val symbol = document.data.getValue("Symbol").toString()
+                    val price = document.data.getValue("Price").toString().toFloat()
+                    val quantity = document.data.getValue("Quantity").toString().toFloat()
+                    val timestamp = document.data.getValue("Time") as Timestamp
                     val date = timestamp.toDate()
 
-                    TransactionList.add(TransactionDto(action,currencyName,symbol,price,quantity,date))
+                    transactionList.add(TransactionDto(action,currencyName,symbol,price,quantity,date))
 
-                    myCallback(TransactionList)
+                    myCallback(transactionList)
                 }
             }
             .addOnFailureListener { exception ->

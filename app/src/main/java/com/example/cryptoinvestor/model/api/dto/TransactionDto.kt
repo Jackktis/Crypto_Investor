@@ -4,6 +4,9 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import java.util.*
 
+/*
+    Data klasse som beskriver opbyggelsen af en transaction
+ */
 
 @JsonClass(generateAdapter = true)
 data class TransactionDto(

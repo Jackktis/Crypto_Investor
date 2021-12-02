@@ -7,6 +7,10 @@ import android.os.Build
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
+/*
+    Added from the github repository : https://github.com/kulloveth/FirebaseAndroidAuthSample/blob/master/app/src/main/java/io/kulloveth/firebaseandroidauthsample/data/NetworkControl.kt
+ */
+
 class NetworkCheck @Inject constructor (@ApplicationContext private val context: Context){
     fun isConnected(): Boolean {
         val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager

@@ -10,24 +10,28 @@ import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cryptoinvestor.R
 import com.example.cryptoinvestor.model.api.dto.AssetDto
-import com.example.cryptoinvestor.model.api.dto.TransactionDto
 import com.example.cryptoinvestor.utils.PRICE_FORMATTER
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.currency_list.view.*
 import java.util.*
 
-class RateAdapter : RecyclerView.Adapter<RateAdapter.RateViewHolder>(), Filterable {
+class CryptoAdapter : RecyclerView.Adapter<CryptoAdapter.RateViewHolder>(), Filterable {
     var charSearch = ""
     var onItemClick: ((AssetDto) -> Unit)? = null
-    var rates = emptyList<AssetDto>()
+    /*
+    Initializing two empty lists
+        - assets used for containing the new list of assets injected by the viewModel
+        - assetFilterList used for containing the newly retrieved list assets and later modified if the user requires to search in the list (the list that gets displayed)
+     */
+    var assets = emptyList<AssetDto>()
     var assetFilterList = emptyList<AssetDto>()
 
 
 
-    //Laver en inner class her istedet for den nederste chunk kode
     inner class RateViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         init {
-            assetFilterList = rates
+            //Sets the assetFilterList to be equal to rates
+            assetFilterList = assets
 
             itemView.setOnClickListener {
                 onItemClick?.invoke(assetFilterList[adapterPosition])
@@ -42,9 +46,10 @@ class RateAdapter : RecyclerView.Adapter<RateAdapter.RateViewHolder>(), Filterab
     }
 
     /*
-        Her tager vi fat i recyclerViewets data variabler og tildelere dem rates attribut-værdier
+        Her tager vi fat i recyclerViewets data variabler og tildelere dem assets attribut-værdier
      */
     override fun onBindViewHolder(holder: RateViewHolder, position: Int) {
+        //imageUrl contains the start of the URL for the crypto icons
         var imageUrl = "https://static.coincap.io/assets/icons/"
         holder.itemView.CurrencyName.text = assetFilterList[position].name
         holder.itemView.CurrencySymbol.text = assetFilterList[position].symbol
@@ -52,6 +57,10 @@ class RateAdapter : RecyclerView.Adapter<RateAdapter.RateViewHolder>(), Filterab
             PRICE_FORMATTER.format(assetFilterList[position].price).toString()
         var changeTxt = assetFilterList[position].change24Hr.toString()
         holder.itemView.CurrencyPercent.text = changeTxt
+        /*
+          We are using the 3rd party library Picasso for getting the crypto icons from paths and injecting them into the UI
+            we build the path from the imageUrl and the crypto's "symbol" e.g. "btc", and at last the scaling format
+         */
         Picasso.get().load(imageUrl + assetFilterList[position].symbol.lowercase() + "@2x.png")
             .into(holder.itemView.CurrencyIcon)
 
@@ -72,7 +81,7 @@ class RateAdapter : RecyclerView.Adapter<RateAdapter.RateViewHolder>(), Filterab
         Gets called from the CryptoFragment, sets the data of the adapter
      */
     fun setData(newList: List<AssetDto>) {
-        rates = newList
+        assets = newList
 
         /*
         Crucial, this sets the filter to empty when the initial data gets set,
@@ -88,32 +97,41 @@ class RateAdapter : RecyclerView.Adapter<RateAdapter.RateViewHolder>(), Filterab
             - then match the chars to the names of the objects in list of AssetDto's
              - add them to the resultList
              - add the rows from resultList to assetFilter
-             - Create a FilterResults object and add the assetFilterList to the object and return
-             - At last publish the filter results and notify the adapter, which shows the searched items in the recyclerview
+
+
      */
     override fun getFilter(): Filter {
         return object : Filter() {
             override fun performFiltering(constraint: CharSequence?): FilterResults {
                 charSearch = constraint.toString()
-                Log.d("TAG", charSearch)
+                //Does the charSearch contain anything
                 if (charSearch.isEmpty()) {
-                    assetFilterList = rates
+                    //If it doesn't just fill it with the list acquired by the viewModel
+                    assetFilterList = assets
                 } else {
+                    //If it does then we make a new empty list of AssetDTO, that we convert to mutable
                     val resultList = emptyList<AssetDto>().toMutableList()
+                    //for every crypto in the crypto list
                     for (row in assetFilterList) {
+                        // if the chars in the search field match the name of the object in the row of the cryptos list
                         if (row.name.lowercase(Locale.ROOT)
                                 .contains(charSearch.lowercase(Locale.ROOT))
                         ) {
+                            //then add the object of crypto to the result
                             resultList.add(row)
                         }
                     }
+                    //Now we add all the results that matched the search input to the list that's responsible for what is shown
                     assetFilterList = resultList
                 }
+                //Create a FilterResults object which is designated to hold the values of the filtering operation
                 val filterResults = FilterResults()
+                //We add the list of the search-matched cryptos to the filterResults
                 filterResults.values = assetFilterList
+                //We return it so we can return it!
                 return filterResults
             }
-
+            //At last publish the filter results and notify the adapter, which shows the searched items in the recyclerview, voilà!
             @Suppress("UNCHECKED_CAST")
             override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
                 assetFilterList = results?.values as List<AssetDto>

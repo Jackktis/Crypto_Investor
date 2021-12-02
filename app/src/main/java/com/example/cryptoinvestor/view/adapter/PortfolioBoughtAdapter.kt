@@ -5,23 +5,27 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cryptoinvestor.R
-import com.example.cryptoinvestor.model.api.CoinCapApi
 import com.example.cryptoinvestor.model.api.dto.TransactionDto
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.bought_list.view.*
 
-class BoughtAdapter : RecyclerView.Adapter<BoughtAdapter.RateViewHolder>(){
-    var onItemClick: ((TransactionDto) -> Unit)? = null
-    var boughtFilterList = emptyList<TransactionDto>()
-    var rates = emptyList<TransactionDto>()
+/*
+  This adapter is almost setup the exact same way CryptoAdapter.kt is, cryptoAdapter even has more.
+  I'll keep this class uncommented for that specific reason.
+ */
+class PortfolioBoughtAdapter : RecyclerView.Adapter<PortfolioBoughtAdapter.RateViewHolder>() {
 
-    //Laver en inner class her istedet for den nederste chunk kode
+    var onItemClick: ((TransactionDto) -> Unit)? = null
+
+    var assetBoughtList = emptyList<TransactionDto>()
+    var assets = emptyList<TransactionDto>()
+
     inner class RateViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         init {
-            boughtFilterList = rates
+            assetBoughtList = assets
 
             itemView.setOnClickListener {
-                onItemClick?.invoke(boughtFilterList[adapterPosition])
+                onItemClick?.invoke(assetBoughtList[adapterPosition])
             }
         }
     }
@@ -38,24 +42,24 @@ class BoughtAdapter : RecyclerView.Adapter<BoughtAdapter.RateViewHolder>(){
 
         //TODO("implement API kald, så den minuser med værdien du købt den for")
 
-        holder.itemView.boughtCurrencyName.text = boughtFilterList[position].Currency_Name
-        holder.itemView.boughtCurrencySymbol.text = boughtFilterList[position].symbol
-        holder.itemView.boughtPrice.text = boughtFilterList[position].price.toString()
+        holder.itemView.boughtCurrencyName.text = assetBoughtList[position].Currency_Name
+        holder.itemView.boughtCurrencySymbol.text = assetBoughtList[position].symbol
+        holder.itemView.boughtPrice.text = assetBoughtList[position].price.toString()
         //ændre her under
 
 
-        holder.itemView.differencePrice.text = boughtFilterList[position].price.toString()
-        holder.itemView.bought_quantities.text = boughtFilterList[position].quantity.toString()
-        Picasso.get().load(imageUrl + boughtFilterList[position].symbol.lowercase() + "@2x.png")
+        holder.itemView.differencePrice.text = assetBoughtList[position].price.toString()
+        holder.itemView.bought_quantities.text = assetBoughtList[position].quantity.toString()
+        Picasso.get().load(imageUrl + assetBoughtList[position].symbol.lowercase() + "@2x.png")
             .into(holder.itemView.BoughtCurrencyIcon)
 
     }
 
-    override fun getItemCount(): Int = boughtFilterList.size
+    override fun getItemCount(): Int = assetBoughtList.size
 
     fun setDataForBought(newList: List<TransactionDto>) {
-        rates = newList
-        boughtFilterList = rates
+        assets = newList
+        assetBoughtList = assets
         notifyDataSetChanged()
     }
 }

@@ -7,6 +7,9 @@ import retrofit2.Converter
 import retrofit2.Retrofit
 import java.lang.reflect.Type
 
+/*
+    Det her er direkte taget fra ShortCuts repository
+ */
 class WrapperConverter : Converter.Factory() {
     override fun responseBodyConverter(
         type: Type,

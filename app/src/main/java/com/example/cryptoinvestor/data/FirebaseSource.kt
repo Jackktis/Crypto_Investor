@@ -12,22 +12,32 @@ import javax.inject.Inject
 
 class FirebaseSource @Inject constructor(private val firebaseAuth: FirebaseAuth, private val firestore: FirebaseFirestore) {
 
-    fun createUser(email: String, password: String, fullName: String, userName: String): Task<AuthResult> {
+    /*
+        Source class for retrieving the API methods for both FirebaseAuth and FirebaseFirestore
+     */
+
+
+    //Method for creating a new user with email and password through FirebaseAuth.
+    fun createUser(email: String, password: String): Task<AuthResult> {
         return firebaseAuth.createUserWithEmailAndPassword(email,password)
     }
 
+    //Method for signing in an user with email and password
     fun signIn(email: String, password: String): Task<AuthResult>{
         return firebaseAuth.signInWithEmailAndPassword(email, password)
     }
 
+    //Method for signing out
     fun signOut(){
         firebaseAuth.signOut()
     }
 
+    //Method for getting the currently signed in user
     fun getCurrentUserID(): String? {
         return firebaseAuth.currentUser?.uid
     }
 
+    //Method for getting the collections of users
     fun fetchUser() = firestore.collection("users").get()
 
     fun saveUser(email: String, fullName: String, userName: String, balance: Double?, userId: String) = firestore.collection("users").document(userId)

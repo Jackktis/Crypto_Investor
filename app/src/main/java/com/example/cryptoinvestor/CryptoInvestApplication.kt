@@ -1,7 +1,6 @@
 package com.example.cryptoinvestor
 
 import android.app.Application
-import com.example.cryptoinvestor.di.ServiceLocator
 import com.example.cryptoinvestor.model.AuthRepository
 import com.example.cryptoinvestor.model.TransactionRepository
 import com.example.cryptoinvestor.model.UserRepository
@@ -28,7 +27,7 @@ class CryptoInvestApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        ServiceLocator.init(applicationContext)
+        //ServiceLocator.init(applicationContext)
 
         auth = Firebase.auth
         firestore = Firebase.firestore

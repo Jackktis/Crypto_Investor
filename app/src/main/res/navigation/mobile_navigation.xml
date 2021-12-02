@@ -54,13 +54,6 @@
         android:name="com.example.cryptoinvestor.view.fragments.BuyAndSellCryptoFragment"
         android:label="info_crypto"
         tools:layout="@layout/fragment_buy_and_sell_crypto" >
-        <action
-            android:id="@+id/action_Buy_and_sell_fragment_to_Dialog_checkout_fragment"
-            app:destination="@id/Dialog_checkout_fragment" />
     </fragment>
-    <fragment
-        android:id="@+id/Dialog_checkout_fragment"
-        android:name="com.example.cryptoinvestor.view.dialogs.BuyOrSellCheckOut"
-        android:label="info_crypto"
-        tools:layout="@layout/fragment_buy_or_sell_pop_up" />
+
 </navigation>
