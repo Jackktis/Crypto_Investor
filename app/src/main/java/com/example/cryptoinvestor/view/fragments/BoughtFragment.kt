@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.cryptoinvestor.databinding.FragmentBoughtBinding
-import com.example.cryptoinvestor.view.adapter.BoughtAdapter
+import com.example.cryptoinvestor.view.adapter.PortfolioBoughtAdapter
 import com.example.cryptoinvestor.viewmodel.PortfolioViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -15,7 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class BoughtFragment : Fragment() {
     private val portfolioViewModel: PortfolioViewModel by viewModels()
     private lateinit var binding: FragmentBoughtBinding
-    private val adapter by lazy { BoughtAdapter() }
+    private val portfolioBoughtAdapter by lazy { PortfolioBoughtAdapter() }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,13 +30,16 @@ class BoughtFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.list.adapter = adapter
+        // sætter vores bindings bought_recycler adapter med PortfolioBoughtAdapter
+        binding.boughtRV.adapter = portfolioBoughtAdapter
 
+        //her laver vi vores getbought fra vores Viewmodel
         portfolioViewModel.getBought()
 
         portfolioViewModel.boughtList.observe(viewLifecycleOwner, { boughs ->
 
-            adapter.setDataForBought(boughs)
+            //her har vi en observer til når har en ændring at det bliver lagt ind i adapteren
+            portfolioBoughtAdapter.setDataForBought(boughs)
 
         })
     }

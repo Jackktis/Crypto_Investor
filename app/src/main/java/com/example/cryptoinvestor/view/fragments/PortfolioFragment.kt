@@ -34,6 +34,7 @@ class PortfolioFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerViewForBought()
 
+        //her attacher vi vores tablayout OG viewpager2 så man kan klikke og swipe.
         TabLayoutMediator(tablayout, bought_currency_VP) { tab, position ->
             if (position == 0) {
                 tab.setText("Favourites")
@@ -58,9 +59,11 @@ class PortfolioFragment : Fragment() {
     }
 }
 
+// Adapter som forbindes til ViewPager i xml
 class Adapter(parentFragment: Fragment) : FragmentStateAdapter(parentFragment) {
     override fun getItemCount(): Int = 2
     override fun createFragment(position: Int): Fragment {
+        //Ud for position 0(favourite) eller 1(bought) sættet fragment ind i viewpager2
         if (position == 1) {
             return BoughtFragment()
         } else
