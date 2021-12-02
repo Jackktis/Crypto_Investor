@@ -111,13 +111,19 @@
 
 
     </com.google.android.material.tabs.TabLayout>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/bought_currency_RV"
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/bought_currency_VP"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:listitem="@layout/bought_list"
+        android:layout_height="match_parent" >
 
-        />
+    </androidx.viewpager2.widget.ViewPager2>
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/bought_currency_RV"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        tools:listitem="@layout/bought_list"-->
+
+<!--        />-->
 
     <TextView
         android:id="@+id/text_home"
