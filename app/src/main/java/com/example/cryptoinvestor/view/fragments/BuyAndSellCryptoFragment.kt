@@ -8,21 +8,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.cryptoinvestor.R
 import com.example.cryptoinvestor.databinding.FragmentBuyAndSellCryptoBinding
 import com.example.cryptoinvestor.databinding.FragmentBuyOrSellPopUpBinding
-import com.example.cryptoinvestor.di.ServiceLocator.buyAndSellViewModel
-import com.example.cryptoinvestor.di.ServiceLocator.cryptoViewModel
-import com.example.cryptoinvestor.viewmodel.AuthViewModel
 import com.example.cryptoinvestor.viewmodel.BuyAndSellViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_buy_and_sell_crypto.*
-import kotlinx.android.synthetic.main.fragment_buy_or_sell_pop_up.*
-import java.io.IOException
 import java.math.BigDecimal
 
 @AndroidEntryPoint

@@ -4,6 +4,10 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import java.util.*
 
+/*
+    Data klasse som beskriver historikken for en Krypto-valuta
+ */
+
 @JsonClass(generateAdapter = true)
 data class AssetHistoryDTO(
     @Json(name = "priceUsd")

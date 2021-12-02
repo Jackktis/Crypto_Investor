@@ -9,7 +9,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cryptoinvestor.model.AuthRepository
 import com.example.cryptoinvestor.model.api.dto.User
-//import com.example.cryptoinvestor.model.dto.dto
 import com.example.cryptoinvestor.utils.NetworkCheck
 import com.example.cryptoinvestor.vo.Resource
 import com.google.firebase.auth.FirebaseAuth
@@ -53,7 +52,7 @@ class AuthViewModel @Inject constructor(
                 userLiveData.postValue(Resource.loading(null))
                 firebaseAuth.fetchSignInMethodsForEmail(email).addOnCompleteListener() {
                     if (it.result?.signInMethods?.size == 0) {
-                        authRepository.signUp(email, password, fullName, userName)
+                        authRepository.signUp(email, password)
                             .addOnCompleteListener() { task ->
                                 if (task.isSuccessful) {
                                     firebaseAuth.currentUser?.sendEmailVerification()
@@ -87,22 +86,29 @@ class AuthViewModel @Inject constructor(
         return userLiveData
     }
 
-    fun saveUser(email: String, fullName: String, userName: String, balance: Double?, userId: String) {
-        authRepository.saveUser(email, fullName, userName, balance, userId).addOnCompleteListener() {
-            if (it.isSuccessful) {
-                _saveUserLiveData.postValue(
-                    Resource.success(
-                        User(
-                            email,
-                            fullName,
-                            userName,
-                            balance,
-                            userId
+    fun saveUser(
+        email: String,
+        fullName: String,
+        userName: String,
+        balance: Double?,
+        userId: String
+    ) {
+        authRepository.saveUser(email, fullName, userName, balance, userId)
+            .addOnCompleteListener() {
+                if (it.isSuccessful) {
+                    _saveUserLiveData.postValue(
+                        Resource.success(
+                            User(
+                                email,
+                                fullName,
+                                userName,
+                                balance,
+                                userId
+                            )
                         )
                     )
-                )
+                }
             }
-        }
     }
 
     fun signOut() = viewModelScope.launch {
@@ -130,15 +136,18 @@ class AuthViewModel @Inject constructor(
                                                     userTask.result?.documents?.forEach {
                                                         if (it.data!!["email"] == email) {
                                                             val name = it.data?.getValue("fullName")
-                                                            val userName = it.data?.getValue("userName")
-                                                            val balance = it.data?.getValue("balance")
+                                                            val userName =
+                                                                it.data?.getValue("userName")
+                                                            val balance =
+                                                                it.data?.getValue("balance")
                                                             userLiveData.postValue(
                                                                 Resource.success(
                                                                     User(
                                                                         firebaseAuth.currentUser?.email!!,
                                                                         name?.toString()!!,
                                                                         userName?.toString()!!,
-                                                                        balance?.toString()!!.toDouble(),
+                                                                        balance?.toString()!!
+                                                                            .toDouble(),
                                                                         firebaseAuth.currentUser!!.uid
                                                                     )
                                                                 )
@@ -182,9 +191,10 @@ class AuthViewModel @Inject constructor(
         }
         return userLiveData
     }
-        fun getUserId(): String? {
-            return authRepository.getUserId()
-        }
+
+    fun getUserId(): String? {
+        return authRepository.getUserId()
+    }
 
 //   override fun onIdTokenChanged(auth: FirebaseAuth) {
 //      this.user.value = auth.currentUser
@@ -195,7 +205,7 @@ class AuthViewModel @Inject constructor(
 //      super.onCleared()
 //   }
 
-    }
+}
 
 //class AuthViewModelFactory(private val application: Application) : ViewModelProvider.Factory{
 //   override fun <T : ViewModel?> create(modelClass: Class<T>): T {

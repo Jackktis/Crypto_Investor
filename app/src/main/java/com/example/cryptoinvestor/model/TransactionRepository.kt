@@ -10,7 +10,7 @@ import com.google.firebase.ktx.Firebase
 import javax.inject.Inject
 
 
-class TransactionRepository @Inject constructor (private val auth : AuthRepository) {
+class TransactionRepository @Inject constructor (auth : AuthRepository) {
     private val currentUserID = auth.getUserId()
 
     fun registerTransaction(coinName: String, symbol: String, totalPrice : Double, quantity : Double, tag : String){
@@ -25,7 +25,7 @@ class TransactionRepository @Inject constructor (private val auth : AuthReposito
         )
 
         Firebase.firestore
-            .collection("/users/"+currentUserID+"/transaction")
+            .collection("/users/$currentUserID/transaction")
             .add(tData)
     }
 

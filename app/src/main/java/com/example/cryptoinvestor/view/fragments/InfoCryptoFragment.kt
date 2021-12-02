@@ -1,6 +1,5 @@
 package com.example.cryptoinvestor.view.fragments
-// fået inspiration fra https://medium.com/@yilmazvolkan/kotlinlinecharts-c2a730226ff1 til hvordan,
-// Man sætter en chart op i kotlin.
+
 
 import CustomMarker
 import android.graphics.Color
@@ -19,7 +18,6 @@ import com.github.mikephil.charting.data.LineDataSet
 import kotlinx.android.synthetic.main.fragment_info_crypto.view.*
 
 
-import com.example.cryptoinvestor.di.ServiceLocator.infoCryptoViewModel
 import com.example.cryptoinvestor.utils.FLOAT_FORMATTER
 import com.example.cryptoinvestor.utils.PRICE_FORMATTER
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
@@ -29,31 +27,39 @@ import kotlin.collections.ArrayList
 
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.cryptoinvestor.R
-import com.google.android.gms.common.util.ArrayUtils.contains
+import com.example.cryptoinvestor.viewmodel.InfoCryptoViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_info_crypto.*
 
-
+/*
+    I denne klasse har vi brugt nedenstående guide til at undersøge hvordan man kunne implementere vores graf
+    https://medium.com/@yilmazvolkan/kotlinlinecharts-c2a730226ff1
+ */
+@AndroidEntryPoint
 class InfoCryptoFragment : Fragment() {
 
+    //Data binding til UI
     private lateinit var binding: FragmentInfoCryptoBinding
-    private val viewModel by lazy { infoCryptoViewModel }
-    var id : String = ""
-    var linecharChangecolor: String = ""
 
-    companion object{
+    //Få ViewModel
+    private val infoCryptoViewModel: InfoCryptoViewModel by viewModels()
+
+    var id: String = ""
+    private var linecharChangecolor: String = ""
+
+    companion object {
         fun newInstance() = InfoCryptoFragment()
     }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentInfoCryptoBinding.inflate(inflater, container, false)
-
-
-
 
         return binding.root
     }
@@ -65,10 +71,10 @@ class InfoCryptoFragment : Fragment() {
 
         if (bundle != null) {
             id = bundle.getString("id").toString()
-            viewModel.refreshAsset(id)
-            viewModel.getAssetHistory(id)
+            infoCryptoViewModel.refreshAsset(id)
+            infoCryptoViewModel.getAssetHistory(id)
 
-            viewModel.asset.observe(viewLifecycleOwner, { asset ->
+            infoCryptoViewModel.asset.observe(viewLifecycleOwner, { asset ->
 
                 if (asset.isSuccessful) {
 
@@ -99,19 +105,20 @@ class InfoCryptoFragment : Fragment() {
         }
 
         // knapper over chart
-        buyCryptoBT.setOnClickListener(){
+        buyCryptoBT.setOnClickListener() {
             if (bundle != null) {
                 id = bundle.getString("id").toString()
             }
-            viewModel.refreshAsset(id)
-            viewModel.getAssetHistory(id)
+            infoCryptoViewModel.refreshAsset(id)
+            infoCryptoViewModel.getAssetHistory(id)
 
-            viewModel.asset.observe(viewLifecycleOwner, { asset ->
+            infoCryptoViewModel.asset.observe(viewLifecycleOwner, { asset ->
 
                 if (asset.isSuccessful) {
                     asset.body().let {
                         if (it != null) {
-                            val buyAsset = bundleOf("price" to it.price,
+                            val buyAsset = bundleOf(
+                                "price" to it.price,
                                 "name" to it.name,
                                 "id" to it.id,
                                 "change24Hr" to it.change24Hr,
@@ -121,27 +128,29 @@ class InfoCryptoFragment : Fragment() {
                                 "symbol" to it.symbol,
                                 "volume24Hr" to it.volume24Hr,
                                 "vwap24Hr" to it.vwap24Hr,
-                                "tag" to "Buy")
+                                "tag" to "Buy"
+                            )
                             findNavController().navigate(R.id.Buy_and_sell_fragment, buyAsset)
                         }
                     }
                 }
             })
         }
-        favoriteBT.setOnClickListener(){
+        favoriteBT.setOnClickListener() {
             //TODO: her skal crypto-værdien gemt som en favorite
         }
-        sellCryptoBT.setOnClickListener(){
+        sellCryptoBT.setOnClickListener() {
             if (bundle != null) {
                 id = bundle.getString("id").toString()
             }
-            viewModel.refreshAsset(id)
+            infoCryptoViewModel.refreshAsset(id)
 
-            viewModel.asset.observe(viewLifecycleOwner, { asset ->
+            infoCryptoViewModel.asset.observe(viewLifecycleOwner, { asset ->
                 if (asset.isSuccessful) {
                     asset.body().let {
                         if (it != null) {
-                            val sellAsset = bundleOf("price" to it.price,
+                            val sellAsset = bundleOf(
+                                "price" to it.price,
                                 "name" to it.name,
                                 "id" to it.id,
                                 "change24Hr" to it.change24Hr,
@@ -151,7 +160,8 @@ class InfoCryptoFragment : Fragment() {
                                 "symbol" to it.symbol,
                                 "volume24Hr" to it.volume24Hr,
                                 "vwap24Hr" to it.vwap24Hr,
-                                "tag" to "Sell")
+                                "tag" to "Sell"
+                            )
                             findNavController().navigate(R.id.Buy_and_sell_fragment, sellAsset)
                         }
                     }
@@ -159,8 +169,8 @@ class InfoCryptoFragment : Fragment() {
             })
         }
 
-        viewModel.assetHistory.observe(viewLifecycleOwner, { asset ->
-            if (asset.isSuccessful){
+        infoCryptoViewModel.assetHistory.observe(viewLifecycleOwner, { asset ->
+            if (asset.isSuccessful) {
                 asset.body().let {
                     if (it != null) {
                         println("Det her er kroppen " + it.map { it.priceUsd })
@@ -173,8 +183,8 @@ class InfoCryptoFragment : Fragment() {
                         val assetTimeStr = mutableListOf<String>()
                         println("Det her er formateret tid " + it.map { Date(it.time.toLong()) })
                         //it.forEach(entries.add(Entry(assetUsd,assetTime)))
-                        for (asset in it.indices){
-                            entries.add(Entry(assetTime[asset],assetUsd[asset]))
+                        for (asset in it.indices) {
+                            entries.add(Entry(assetTime[asset], assetUsd[asset]))
 
                             /*
                             Nedestående er forsøg på at ændre x label med en liste af strings
@@ -186,7 +196,7 @@ class InfoCryptoFragment : Fragment() {
 
                     }
                 }
-            }else{
+            } else {
                 println("IT IS NULL!!!!")
             }
         })
@@ -216,21 +226,28 @@ class InfoCryptoFragment : Fragment() {
         lineDataSet.lineWidth = 3f
 
 
+        var gradientColor : Int
+        var lineColor: Int
 
-        if(linecharChangecolor.contains("-")){
-            val drawable = context?.let { ContextCompat.getDrawable(it,R.drawable.linechart_fill_color_negative) }
-            val color = context?.let { ContextCompat.getColor(it, R.color.Red) }
-            lineDataSet.fillDrawable = drawable
-            if (color != null) {
-                lineDataSet.color = color
-            }
-                        } else {
-            val drawable = context?.let { ContextCompat.getDrawable(it, R.drawable.linechart_fill_color_positiv) }
-            val color = context?.let { ContextCompat.getColor(it, R.color.green) }
-            if (color != null) {
-                lineDataSet.color = color
-            }
+        if (linecharChangecolor.contains("-")) {
+            gradientColor = R.drawable.linechart_fill_color_negative
+            lineColor = R.color.Red
+        } else {
+            gradientColor = R.drawable.linechart_fill_color_positiv
+            lineColor = R.color.green
         }
+        val drawable = context?.let {
+            ContextCompat.getDrawable(
+                it,
+                gradientColor
+            )
+        }
+        val color = context?.let { ContextCompat.getColor(it, lineColor) }
+        lineDataSet.fillDrawable = drawable
+        if (color != null) {
+            lineDataSet.color = color
+        }
+
 
 
         lineDataSet.setDrawCircles(false)

@@ -17,18 +17,22 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_auth.*
 import javax.inject.Inject
 
+/*
+    Inspiration til login & signup på én side er draget fra:
+    https://camposha.info/android-examples/android-login-signup/#gsc.tab=0
+ */
+
+//AndroidEntrypPoint tells Hilt that this class should be setup for injection
 @AndroidEntryPoint
 class AuthActivity : AppCompatActivity() {
+    //Binding to UI
     private lateinit var binding: ActivityAuthBinding
+
+    //Get ViewModel instance
     private val viewModel: AuthViewModel by viewModels()
 
     @Inject
     lateinit var auth: FirebaseAuth
-
-//    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?{
-//        binding = ActivityAuthBinding.inflate(layoutInflater)
-//        return binding.root
-//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,8 +41,8 @@ class AuthActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         signin_signup_btn.setOnClickListener {
-                logIn(it)
-            }
+            logIn(it)
+        }
 
         binding.signin.setOnClickListener {
             signup.setTextColor(Color.parseColor("#FFFFFF"))
@@ -73,7 +77,7 @@ class AuthActivity : AppCompatActivity() {
         }
     }
 
-    fun register(view: View) {
+    private fun register(view: View) {
         val email = emailAddressEditText.text.toString()
         val password = password.text.toString()
         val username = usernameEditText.text.toString()
@@ -91,46 +95,45 @@ class AuthActivity : AppCompatActivity() {
                             it1.uid
                         )
                     }
-                    view.showsnackBar("Account registered")
+                    view.showSnackBar("Account registered")
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                     finish()
                 }
                 Status.ERROR -> {
-                    view.showsnackBar(it.message!!)
+                    view.showSnackBar(it.message!!)
                 }
                 Status.LOADING -> {
-                    view.showsnackBar("...")
+                    view.showSnackBar("...")
                 }
             }
         })
     }
 
-    fun logIn(view: View) {
+    private fun logIn(view: View) {
         val email = emailAddressEditText.text.toString().trim()
         val password = password.text.toString().trim()
-
 
         viewModel.signIn(email, password).observe(this) {
             when (it.status) {
                 Status.LOADING -> {
-                    view.showsnackBar("...")
+                    view.showSnackBar("...")
                 }
                 Status.SUCCESS -> {
-                    view.showsnackBar("Login successfull")
+                    view.showSnackBar("Login successfull")
                     val intent = Intent(this, MainActivity::class.java)
                     println("USER LOGGED IN : " + it.data?.userId.toString())
                     startActivity(intent)
                     finish()
                 }
                 Status.ERROR -> {
-                    view.showsnackBar(it.message!!)
+                    view.showSnackBar(it.message!!)
                 }
             }
         }
     }
 }
 
-fun View.showsnackBar(message: String) {
+fun View.showSnackBar(message: String) {
     Snackbar.make(this, message, Snackbar.LENGTH_LONG).show()
 }
